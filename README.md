@@ -18,24 +18,7 @@ Show the results in responsive Google maps, traffic- and bicycling layer include
 
 [Introduction](https://github.com/joachimruhs/mymap/blob/master/Documentation/Introduction/Index.rst "Introduction")
 
-For installation see the administrator manual
+For configuration and installation in detail, see the administrator manual
 
 [Administrator Manual](https://github.com/joachimruhs/mymap/blob/master/Documentation/AdministratorManual/Index.rst "Administrator Manual")
 
-
-
-Markiert Text als `Inline-Quelltext`
-
-Ein normaler Absatz
-
-    Ein Code-Block
-    durch Einrückung
-    mit vier Leerzeichen
-	
-	
-* Ein Punkt in einer ungeordneten Liste
-* Ein weiterer Punkt in einer ungeordneten Liste
-    * Ein Unterpunkt, um vier Leerzeichen eingerückt
-* Statt * funktionieren auch + oder -
-
-So oder so kann es gehen.
