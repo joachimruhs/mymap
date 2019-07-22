@@ -1,0 +1,124 @@
+
+<f:layout name="Default" />
+
+This template displays a EDIT form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Edit.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+<h1>Searchform Autocompleter Locations</h1>
+
+<f:flashMessages renderMode="div" />
+
+<f:render partial="FormErrors" arguments="{object:Locations}" />
+
+
+<div id="searchformContainer">
+	<f:if condition="{settings.googleBrowserApiKey} > ''">
+		<f:then>
+			<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+		</f:then>
+		<f:else>
+			<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+			<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+		</f:else>
+	</f:if>
+
+
+	<form method="get" action="<f:uri.action pageUid="{settings.resultPageId}" />" id="searchform">
+		<table>
+			<tr>
+			<!--
+			<td>
+			<f:translate key="city" />:</td>
+			-->
+			<td>
+				<div class="searchAddress">
+					<input id="address" name="tx_mymap_search[address]" type="text" style="width: 300px;" value=""/>
+					<input type="hidden" name="tx_mymap_search[autocompleter]" value="1"/>
+					<select id="radius" name="tx_mymap_search[radius]">
+					<option value="3"> 3 km</option>
+					<option value="5"> 5 km</option>
+					<option value="50"> 50 km</option>
+					<option value="100"> 100 km</option>
+					<option value="200"> 200 km</option>
+					<option value="500"> 500 km</option>
+					<option value="1000"> 1000 km</option>
+					</select>
+					<button onclick="geocodeByClient();return false;">Suchen</button>
+				</div>
+			</td>
+
+			</tr>
+		</table>
+		
+		<div>
+			<f:for each="{categories}" as="category" iteration="iter">
+				<span><input type="checkbox" name="tx_mymap_search[categories][]" value="{category.uid}"/>{category.name}</span>
+			</f:for>
+		</div>
+<!--
+		<div id="finden"><input type="submit" name="submit" src="<f:translate key="searchbuttonpath" />" value="<f:translate key="search" />" alt="<f:translate key="search" />" /></div>
+-->
+		<f:form.hidden name="id" value="{settings.resultPageId}" />
+		<f:form.hidden name="L" value="{Lvar}" />
+		<f:form.hidden name="tx_mymap_search[action]" value="search" />
+
+		<input type="hidden" id="lat" name="tx_mymap_search[lat]"/>
+		<input type="hidden" id="lon" name="tx_mymap_search[lon]"/>
+
+
+		<div class="clearer"></div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+// client side geocoding -->
+  function geocodeByClient() {
+
+	// this function is not used anymore because
+	// geocoding by google should be secured with api key and ip restriction.
+/*
+    var address = encodeURIComponent($('#address').val());
+    $.ajax({
+      type: "POST",
+      url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ''
+    }).done(function(msg) {
+      var lat = msg.results[0].geometry.location.lat;
+      var lon = msg.results[0].geometry.location.lng;
+
+	  //alert(msg.status)            
+      $('#lat').val(lat);
+      $('#lon').val(lon);
+    });
+
+*/
+
+	$("#searchform").submit();	
+  }
+// client side geocoding <-- 
+
+  // google autocomplete  
+	var input = document.getElementById('address');
+	var options = {
+	    types: ['(regions)']
+	  //  componentRestrictions: {country: 'de'}
+	};
+	
+	autocomplete = new google.maps.places.Autocomplete(input, options);  
+  
+</script>
+
+
+
+</f:section>
+
+

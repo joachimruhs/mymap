@@ -1,0 +1,101 @@
+
+plugin.tx_mymap {
+	
+	view {
+		templateRootPaths {
+			0 = EXT:mymap/Resources/Private/Templates/
+			1 = {$plugin.tx_mymap.view.templateRootPath}
+		}
+
+		partialRootPaths {
+			0 = EXT:mymap/Resources/Private/Partials/
+			1 = {$plugin.tx_mymap.view.partialRootPath}
+		}
+
+		layoutRootPaths {
+			0 = EXT:mymap/Resources/Private/Layouts/
+			1 = {$plugin.tx_mymap.view.layoutRootPath}
+		}
+
+	}
+	
+	
+	
+	persistence {
+		storagePid = {$plugin.tx_mymap.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+		
+		requireCHashArgumentForActionArguments = 0		
+	}
+	
+	settings {
+		googleBrowserApiKey = {$plugin.tx_mymap.settings.googleBrowserApiKey}
+		googleServerApiKey = {$plugin.tx_mymap.settings.googleServerApiKey}
+		enableTrafficLayer = {$plugin.tx_mymap.settings.enableTrafficLayer}
+		enableBicyclingLayer = {$plugin.tx_mymap.settings.enableBicyclingLayer}
+		enableStreetViewLayer = {$plugin.tx_mymap.settings.enableStreetViewLayer}
+	
+		resultPageId = {$plugin.tx_mymap.settings.resultPageId}
+		detailsPageId = {$plugin.tx_mymap.settings.detailsPageId}
+		routePageId = {$plugin.tx_mymap.settings.routePageId}
+		singleViewUid = {$plugin.tx_mymap.settings.singleViewUid}
+
+		resultLimit = {$plugin.tx_mymap.settings.resultLimit}
+		enableSearchCircle = {$plugin.tx_mymap.settings.enableSearchCircle}
+		enableMarkerClusterer = {$plugin.tx_mymap.settings.enableMarkerClusterer}
+		enableMarkerAnimation = {$plugin.tx_mymap.settings.enableMarkerAnimation}
+		initialMapCoordinates = {$plugin.tx_mymap.settings.initialMapCoordinates}
+	}
+}
+
+plugin.tx_mymap._CSS_DEFAULT_STYLE (
+	textarea.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	input.f3-form-error {
+		background-color:#FF9F9F;
+		border: 1px #FF0000 solid;
+	}
+
+	.tx-mymap table {
+		border-collapse:separate;
+		border-spacing:10px;
+	}
+
+	.tx-mymap table th {
+		font-weight:bold;
+	}
+
+	.tx-mymap table td {
+		vertical-align:top;
+	}
+
+	.typo3-messages .message-error {
+		color:red;
+	}
+
+	.typo3-messages .message-ok {
+		color:green;
+	}
+
+)
+
+page.includeCSS.tx_mymap = {$plugin.tx_mymap.view.cssFile}
+
+
+page.includeJS {
+  mymap10.forceOnTop = 1
+  mymap10.if.isTrue = {$plugin.tx_mymap.view.includejQueryCore}
+  mymap10 = {$plugin.tx_mymap.view.jQueryFile}
+  mymap10.insertData = 1
+}
+
+page.includeJSFooterlibs.mymap_js1 = {$plugin.tx_mymap.view.javascriptFile}
+
+
+

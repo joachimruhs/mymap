@@ -1,0 +1,188 @@
+
+
+<table class="tx-mymap" >
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.name" />
+		</td>
+		<td>
+		{location.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.additionalname" />
+		</td>
+		<td>
+		{location.additionalname}
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.categories" />
+		</td>
+		<td>
+		{categories}
+		</td>
+	</tr>
+
+
+
+	<tr>
+		<td>
+			<f:translate key="kWp" />
+		</td>
+		<td>
+		{location.kwp}
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.address" />
+		</td>
+		<td>
+		{location.address}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.additionaladdress" />
+		</td>
+		<td>
+		{location.additionaladdress}
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.zipcode" />
+		</td>
+		<td>
+		{location.zipcode}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.city" />
+		</td>
+		<td>
+		{location.city}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.country" />
+		</td>
+		<td>
+		{location.country}
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.additionalcontact" />
+		</td>
+		<td>
+		{location.additionalcontact}
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.phone" />
+		</td>
+		<td>
+		{location.phone}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.fax" />
+		</td>
+		<td>
+		{location.fax}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.mobile" />
+		</td>
+		<td>
+		{location.mobile}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.email" />
+		</td>
+		<td>
+		{location.email}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.www" />
+		</td>
+		<td>
+		{location.www}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.description" />
+		</td>
+		<td>
+		<f:format.html>{location.description}</f:format.html>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.lat" />
+		</td>
+		<td>
+		{location.lat}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.lon" />
+		</td>
+		<td>
+		{location.lon}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.geocode" />
+		</td>
+		<td>
+		{location.geocode}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.image" />
+		</td>
+		<td>
+
+		<f:for each="{location.image}" as="image">
+			<f:image src="{image.originalResource.uid}" treatIdAsReference="1" />
+		</f:for>
+
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_mymap_domain_model_location.media" />
+		</td>
+		<td>
+		<f:for each="{location.media}" as="media">
+			<f:image src="{media.originalResource.uid}" treatIdAsReference="1" />
+		</f:for>
+		</td>
+	</tr>
+</table>

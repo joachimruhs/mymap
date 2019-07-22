@@ -1,0 +1,192 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Mymap/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+
+<f:section name="main">
+
+<f:if condition="{settings.googleBrowserApiKey} > ''">
+	<f:then>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+	</f:else>
+</f:if>
+
+<f:if condition="{settings.enableMarkerClusterer}" >
+<script type="text/javascript" src="/typo3conf/ext/mymap/Resources/Public/JavaScript/markerclusterer.js"></script>
+</f:if>
+
+
+
+<h1>MapAll</h1>
+
+<div id="flashMessages">
+	<f:flashMessages />
+</div>
+
+<f:render partial="FormErrors" arguments="{object:location}" />
+
+
+<f:comment>
+{Lvar} sys_language_uid for use with language
+</f:comment>
+
+
+
+<div class="searchResultContainer">
+	<f:for each="{locations}" as="location" iteration="iter">
+		<f:if condition="{iter.isOdd}">
+			<f:then>
+				<ul class="searchResult">
+			</f:then>
+			<f:else>
+				<ul class="searchResult odd">
+			</f:else>
+		</f:if>
+
+		<li>
+		</li>
+
+		<f:if condition="{location.theImage}">
+			<f:then>
+				<li>
+					<f:for each="{location.theImage}" as="image">
+						<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
+					        <f:then>
+					            <img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>
+							</f:then>
+						</v:media.exists>
+					</f:for>
+				</li>
+			</f:then>
+		</f:if>
+	
+		<li>{location.name}</li>
+		<li>{location.address}</li>
+		<li>{location.zipcode}</li>
+		<li>{location.city}</li>
+		<li>{location.phone}</li>
+		<li>{location.email}</li>
+		<li><f:format.html>{location.description}</f:format.html></li>
+		<li>{location.fax}</li>
+		<li>{location.mobile}</li>
+	</ul>
+	<div class="clearer"></div>
+
+	</f:for>
+</div>
+
+
+	<!-- get the map javascript -->
+	<f:format.raw>
+		<map:mapJS locations="{locations}" city="{location.storename}" settings="{settings}"/>
+	</f:format.raw>
+
+	<div id="mapContainer" style="width:100%; height: 100%;">
+		<div id="map">MAP</div>
+	</div>	
+
+
+	<script type="text/javascript">
+		load();
+	</script>
+
+
+
+<!-- Google infoWindow -->
+<script type="text/javascript">
+
+	<f:for each="{locations}" as="location" iteration="iter">
+
+		var info = "<div class='infoWindow'>";
+	
+		
+		<f:if condition="{location.theImage}">
+			<f:then>
+
+				<f:for each="{location.theImage}" as="image">
+			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
+		        <f:then>
+	                info += '<img src="{image.originalResource.originalFile.publicUrl}" width="100" alt=""/>';
+//					info += '<f:image src="{image.originalResource.uid}" treatIdAsReference="1"  width="100" alt=""/><br />';
+		        </f:then>
+			</v:media.exists>
+				</f:for>
+
+			</f:then>
+			<f:else>
+	
+			</f:else>
+		</f:if>
+		info += "<div class='storename'>{location.name}</div>";
+
+		info += '{location.categories}';
+
+		info += "<div>{location.address}</div>";
+		info += "<div>{location.zipcode} {location.city} </div>";
+		info += "</div>";
+	
+		infoWindow[{iter.index}] = new google.maps.InfoWindow({
+	      content: info
+		});
+	
+		google.maps.event.addListener(marker[{iter.index}], 'click', function() {
+		    infoWindow[{iter.index}].open(map,marker[{iter.index}]);
+		});
+	
+	</f:for>
+
+
+</script>	
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('#flashMessages').fadeIn(2000);
+//	load();
+		if (marker.length > 0) map.fitBounds(mapBounds);
+
+<f:if condition="{settings.enableMarkerClusterer}" >
+		var markerCluster = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/mymap/Resources/Public/Icons/Clusterer/m'});
+</f:if>
+
+
+
+	});
+
+<!-- responsive map -->
+	function resizeMap() {
+	    var mapContainerWidth = $('#mapContainer').width();
+	    var mapContainerHeight = $('#mapContainer').height();
+	    $('#map').width(mapContainerWidth - 30);
+	    $('#map').height(mapContainerWidth/4*3);
+	    google.maps.event.trigger($('#map'), 'resize');
+	    //console.log(mapContainerWidth);
+		if (marker.length > 0) map.fitBounds(mapBounds);
+
+	}
+	
+	
+	$(window).resize(resizeMap);
+	resizeMap();
+
+</script>
+
+
+
+
+
+</f:section>
+</html>

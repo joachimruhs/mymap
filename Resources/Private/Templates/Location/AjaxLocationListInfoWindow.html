@@ -1,0 +1,62 @@
+
+
+
+<f:comment>Template for the infoWindow in AjaxSearch</f:comment>
+
+info = 'AjaxLocationListInfoWindow<br />';
+
+info += '<form action="<f:uri.page pageUid="{settings.routePageId}" />" name="mymapForm{iter.index}" method="post">';
+//info += '<input type="hidden" name="id" value="{settings.routePageId}" />';
+info += '<input type="hidden" name="L" value="{Lvar}" />';
+info += '<input type="hidden" name="tx_mymap_search[action]" value="route" />';
+info += '<input type="hidden" name="tx_mymap_search[startingPointLat]" value="{startingPoint.lat}" />';
+info += '<input type="hidden" name="tx_mymap_search[startingPointLon]" value="{startingPoint.lon}" />';
+info += '<input type="hidden" name="tx_mymap_search[destinationLat]" value="{location.lat}" />';
+info += '<input type="hidden" name="tx_mymap_search[destinationLon]" value="{location.lon}" />';
+info += '<button id="mymapRouteButton" onclick="submit()">Route</button>';
+info += '</form>';
+
+
+// FAL
+<f:if condition="{location.image}">
+		<f:for each="{location.theImage}" as="image">
+			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
+		        <f:then>
+	                info += '<img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
+		        </f:then>
+				<f:else>
+	                info += '<img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/>';
+				</f:else>
+			</v:media.exists>
+		</f:for>
+</f:if>
+
+	if ("{location.additionalname}".length > 0) {
+		info += "<strong>{location.name}<br />{location.additionalname}</strong>";
+	} else {
+		info += "<strong>{location.name}</strong>";
+	}
+
+	
+	info += "<br />{location.categories}";
+
+	info += "<br />{location.www}";
+	info += "<br />{location.address}";
+	if ("{location.additionaladdress}".length > 0) {
+		info += "<br />{location.additionaladdress}";
+	}
+
+	info += "<br />{location.zipcode} {location.city}";
+	info += "<br />{location.phone}";
+
+	infoWindow[{i}] = new google.maps.InfoWindow({
+	  content: info
+	});
+
+	google.maps.event.addListener(marker[{i}], "click", function() {
+		infoWindow[{i}].open(map,marker[{i}]);
+});
+
+
+
+

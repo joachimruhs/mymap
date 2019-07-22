@@ -1,0 +1,81 @@
+
+plugin.tx_mymap {
+	view {
+		# cat=plugin.tx_mymap/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:mymap/Resources/Private/Templates/
+		# cat=plugin.tx_mymap/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:mymap/Resources/Private/Partials/
+		# cat=plugin.tx_mymap/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:mymap/Resources/Private/Layouts/
+
+
+		# customsubcategory=javascript=Javascript
+		# cat=plugin.tx_mymap/javascript; type=boolean; label=Include jQuery core: Add jQuery core script. Turn it off (0), if jQuery is already added.
+		includejQueryCore = 1
+		
+		# customsubcategory=css=CSS
+		# cat=plugin.tx_mymap/css; type=string; label=CSS file
+		cssFile = EXT:mymap/Resources/Public/CSS/mymap.css
+
+
+		# cat=plugin.tx_mymap/javascript; type=string; label=jQuery library
+		jQueryFile = EXT:mymap/Resources/Public/JavaScript/jquery-3.3.1.min.js
+
+		# cat=plugin.tx_mymap/javascript; type=string; label=Javascript file
+		javascriptFile = EXT:mymap/Resources/Public/JavaScript/mymap.js
+
+
+
+	}
+	persistence {
+		# cat=plugin.tx_mymap//a; type=string; label=Default storage PID
+		storagePid =
+	}
+	
+	settings {
+		# customsubcategory=googlemaps=Google maps
+		# cat=plugin.tx_mymap/googlemaps; type=string; label=Google browser API key: Insert a Google browser API key, get one at https://console.developers.google.com
+		googleBrowserApiKey = 
+
+		# cat=plugin.tx_mymap/googlemaps; type=string; label=Google server API key: Insert a Google server API key, get one at https://console.developers.google.com
+		googleServerApiKey = 
+
+		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable traffic layer: Add traffic layer to the maps
+		enableTrafficLayer = 0
+
+		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable bicycling layer: Add bicycling layer to the maps
+		enableBicyclingLayer = 0
+
+		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable streetview layer: Add streetview layer to the maps
+		enableStreetViewLayer= 0
+
+		# cat=plugin.tx_mymap/googlemaps; type=int; label=Result page ID: Result page ID
+		resultPageId = 
+
+		# cat=plugin.tx_mymap/googlemaps; type=int; label=Details page ID: Details page ID
+		detailsPageId = 
+
+		# cat=plugin.tx_mymap/googlemaps; type=int; label=Route page ID: Route page ID
+		routePageId = 
+
+		# cat=plugin.tx_mymap/googlemaps; type=int; label=Single view uid: Uid for the singleView plugin
+		singleViewUid = 1
+
+		# cat=plugin.tx_mymap/googlemaps; type=int; label=Result limit: Limit of results
+		resultLimit = 300
+
+		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable search circle: Show search circle in ajax search
+		enableSearchCircle = 1
+
+		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable marker clusterer: Show clustered POI's on the map
+		enableMarkerClusterer = 0
+
+		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable marker animation: Show animated markers
+		enableMarkerAnimation = 0
+
+		# cat=plugin.tx_mymap/googlemaps; type=string; label=Initial map coordinates: Initial map coordinates
+		initialMapCoordinates = 48,8
+	}
+
+	
+}

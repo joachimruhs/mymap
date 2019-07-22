@@ -1,0 +1,73 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Mymap/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+
+<f:section name="main">
+<h1>Mymap Route to Locations</h1>
+
+<f:flashMessages />
+
+
+
+<f:if condition="{settings.googleBrowserApiKey} > ''">
+	<f:then>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+	</f:else>
+</f:if>
+
+<f:comment>
+{Lvar} sys_language_uid for use with language
+</f:comment>
+
+
+
+
+
+
+
+<!-- get the route javascript -->
+<f:format.raw>
+	<map:routeJS startingPoint="{startingPoint}" destination="{destination}" />
+</f:format.raw>
+
+
+<!-- here comes the google map -->
+<div id="mapContainer" sytle="width: 100%; height: 100%;">
+	<div id="map" style="width: 700px; height: 400px;"></div>
+<div id="routePanel"></div>
+</div>
+<script type="text/javascript">
+load();
+</script>
+<div id="route">
+<div id="routePanel"></div>
+</div>
+
+
+<!-- responsive map -->
+<script type="text/javascript">
+	function resizeMap() {
+	    var mapContainerWidth = $('#mapContainer').width();
+	    var mapContainerHeight = $('#mapContainer').height();
+	    $('#map').width(mapContainerWidth - 30);
+	    $('#map').height(mapContainerWidth/4*3);
+	    google.maps.event.trigger($('#map'), 'resize');
+	    console.log(mapContainerWidth);
+	    
+	    $('#routePanel').html('');
+		load();
+	}
+	
+	$(window).resize(resizeMap);
+	resizeMap();
+</script>
+
+</f:section>
+</html>

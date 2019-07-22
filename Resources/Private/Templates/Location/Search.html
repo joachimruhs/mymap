@@ -1,0 +1,256 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Mymap/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+This template displays a EDIT form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Edit.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+
+
+
+<f:if condition="{settings.googleBrowserApiKey} > ''">
+	<f:then>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+	</f:else>
+</f:if>
+
+
+
+
+<f:if condition="{settings.enableMarkerClusterer}" >
+<script type="text/javascript" src="/typo3conf/ext/mymap/Resources/Public/JavaScript/markerclusterer.js"></script>
+</f:if>
+
+<h1>Search</h1>
+
+<div id="flashMessages">
+	<f:flashMessages />
+</div>
+
+<f:render partial="FormErrors" arguments="{object:location}" />
+
+<f:comment>
+<f:debug>{_all}</f:debug>
+</f:comment>
+
+<div class="searchResultContainer">
+	<f:for each="{locations}" as="location" iteration="iter">
+		<f:if condition="{iter.isOdd}">
+			<f:then>
+				<ul class="searchResult">
+			</f:then>
+			<f:else>
+				<ul class="searchResult odd">
+			</f:else>
+		</f:if>
+
+		<li>
+		<form action="<f:uri.page pageUid="{settings.routePageId}" />" name="{iter.index}" method="post">
+		<input type="hidden" name="L" value="{Lvar}" />
+		<input type="hidden" name="tx_mymap_search[action]" value="route" />
+		<input type="hidden" name="tx_mymap_search[startingPointLat]" value="{startingPoint.lat}" />
+		<input type="hidden" name="tx_mymap_search[startingPointLon]" value="{startingPoint.lon}" />
+		<input type="hidden" name="tx_mymap_search[destinationLat]" value="{location.lat}" />
+		<input type="hidden" name="tx_mymap_search[destinationLon]" value="{location.lon}" />
+		<button onclick="submit()"><f:translate key="route" /></button>
+		</form>
+		</li>
+
+
+
+		<f:for each="{location.theImages}" as="image">
+			<li><f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></li>			
+<f:comment>
+			<f:debug>{image.originalResource.title}</f:debug>
+			<f:debug>{image.originalResource.originalFile.identifier}</f:debug>
+			<f:debug>{image.originalResource.description}</f:debug>
+</f:comment>
+		</f:for>
+		
+		<f:for each="{location.theFiles}" as="file" iteration="i">
+			<li><a href="fileadmin/{file.originalResource.originalFile.identifier}">File{i.index}</a></li>			
+		</f:for>
+
+
+
+
+		<f:if condition="{location.image}">
+			<f:then>
+				<f:for each="{location.theImage}" as="image">
+					<li><f:image src="{image.originalResource.originalFile.publicUrl}"  width="50" alt=""/></li>
+				</f:for>
+
+
+
+			</f:then>
+		</f:if>
+
+		<li><f:link.action action="singleView" arguments="{locationUid : location.uid, pageUid: settings.resultPageId}"> {location.name} {location.additionalname}</f:link.action></li>
+
+		<li>{location.categories}</li>
+	
+		<li>{location.address}</li>
+		<li><f:if condition="{location.additionaladdress} > ''">{location.additionaladdress}</f:if></li>
+		<li>{location.zipcode}</li>
+		<li>{location.city}</li>
+		<li>{location.phone}</li>
+		<li>{location.email}</li>
+		<li><f:format.html>{location.comment}</f:format.html></li>
+		<li>{location.fax}</li>
+		<li>{location.mobile}</li>
+		<li>{location.media}</li>
+		<li><f:format.number decimals="2">{location.distance}</f:format.number> km</li>
+		<!--
+		<td><f:link.action action="route" arguments="{startingPointLat: startingPoint.lat,	startingPointLon: startingPoint.lon, destinationLat: location.lat, destinationLon: location.lon}">Route</f:link.action></td>
+		<td><f:link.action action="edit" arguments="{uid : location.uid}">Edit</f:link.action></td>
+		<td><f:link.action action="delete" arguments="{locations : locations}">Delete</f:link.action></td>
+		-->
+</ul>
+<div class="clearer"></div>
+
+	</f:for>
+</div>
+
+
+
+<!-- map is shown only if city or zipcode given -->
+<f:if condition="{showMap}">
+
+	<!-- get the map javascript -->
+<f:format.raw>
+	<map:mapJS locations="{locations}" city="{location.storename}" settings="{settings}"/>
+</f:format.raw>
+
+	<div id="mapContainer" style="width:100%; height: 100%;">
+		<div id="map">MAP</div>
+	</div>	
+
+
+	<script type="text/javascript">
+		load();
+	</script>
+</f:if>
+
+
+
+
+<!-- Google infoWindow -->
+<script type="text/javascript">
+
+
+
+
+	<f:for each="{locations}" as="location" iteration="iter">
+		var info = "<div class='infoWindow'>";
+		<f:if condition="{location.image}">
+			<f:then>
+				// FAL image
+				<f:for each="{location.theImage}" as="image">
+					info += '<f:image src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
+				</f:for>
+			</f:then>
+			<f:else>
+	
+			</f:else>
+		</f:if>
+	
+
+info += '<form action="<f:uri.page pageUid="{settings.routePageId}" />" name="mymapForm{iter.index}" method="post">';
+info += '<input type="hidden" name="L" value="{Lvar}" />';
+info += '<input type="hidden" name="tx_mymap_search[action]" value="route" />';
+info += '<input type="hidden" name="tx_mymap_search[startingPointLat]" value="{startingPoint.lat}" />';
+info += '<input type="hidden" name="tx_mymap_search[startingPointLon]" value="{startingPoint.lon}" />';
+info += '<input type="hidden" name="tx_mymap_search[destinationLat]" value="{location.lat}" />';
+info += '<input type="hidden" name="tx_mymap_search[destinationLon]" value="{location.lon}" />';
+info += '<button id="mymapRouteButton" onclick="submit()"><f:translate key="route" /></button>';
+info += '</form>';
+
+
+		if ("{location.additionalname}".length > 0) {
+			info += "<div class='storename'>{location.name}<br />{location.additionalname}</div>";
+		} else {
+			info += "<br /><div class='storename'>{location.name}</div>";
+			
+		}
+		
+		info += "{location.categories}";
+		
+		info += "<br />{location.address}";
+		if ("{location.additionaladdress}".length > 0) {
+			info += "<br />{location.additionaladdress}";
+		}
+		info += "<br />" + "{location.zipcode}" + " " + "{location.city}";
+		info += "</div>";
+	
+		infoWindow[{iter.index}] = new google.maps.InfoWindow({
+	      content: info
+		});
+	
+		google.maps.event.addListener(marker[{iter.index}], 'click', function() {
+		    infoWindow[{iter.index}].open(map,marker[{iter.index}]);
+		});
+	
+	</f:for>
+
+</script>	
+
+
+
+
+<!-- the startingpoint marker -->
+<f:render partial="Location/Startingpoint" arguments="{startingPoint:startingPoint}" />
+
+
+
+
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('#flashMessages').fadeIn(2000);
+		
+<f:if condition="{settings.enableMarkerClusterer}" >
+		var markerCluster = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/mymap/Resources/Public/Icons/Clusterer/m'});
+</f:if>
+
+//	load();
+
+	});
+
+<!-- responsive map -->
+	function resizeMap() {
+	    var mapContainerWidth = $('#mapContainer').width();
+	    var mapContainerHeight = $('#mapContainer').height();
+	    $('#map').width(mapContainerWidth - 30);
+	    $('#map').height(mapContainerWidth/4*3);
+	    google.maps.event.trigger($('#map'), 'resize');
+	    //console.log(mapContainerWidth);
+		//map.fitBounds(mapBounds);
+	}
+	
+	$(window).resize(resizeMap);
+	resizeMap();
+
+</script>
+
+
+
+
+
+</f:section>
+</html>

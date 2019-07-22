@@ -1,0 +1,73 @@
+
+<script type="text/javascript">
+	maxPage = Math.ceil({locationsCount}/{settings.resultLimit});
+</script>
+
+
+
+<div class="locationsList">
+	<f:for each="{locations}" as="location" iteration="iter">
+		<f:if condition="{iter.isOdd}">
+			<f:then>
+				<ul class="searchResult country-{location.country}" onclick="openInfoWindow({iter.index});">
+			</f:then>
+			<f:else>
+				<ul class="searchResult odd country-{location.country}" onclick="openInfoWindow({iter.index});">
+			</f:else>
+		</f:if>
+
+
+		<f:for each="{location.theImage}" as="image">
+			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
+		        <f:then>
+	                <li><img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/></li>
+		        </f:then>
+				<f:else>
+	                <li><img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/></li>
+				</f:else>
+			</v:media.exists>
+		</f:for>
+
+<!--
+		<f:for each="{location.theMedia}" as="media">
+			<li>{media.originalResource.originalFile.publicUrl}</li>
+		</f:for>
+-->
+		<f:for each="{location.theImages}" as="image">
+			<li><f:image src="{image.originalResource.originalFile.publicUrl}"  width="50" alt=""/></li>			
+		</f:for>
+
+
+		<li><f:link.action action="singleView" extensionName="mymap" pluginName="singleView" controller="Location" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}"> {location.name}</f:link.action></li>
+		<f:if condition="{location.additionalname} > '' ">
+			<li>{location.additionalname}</li>
+		</f:if>
+	
+<f:comment>
+		<li><f:format.date format="d.m.Y">{location.startup}</f:format.date></li>
+</f:comment>
+		<li style="display:none;" class="index-{location.country}">{iter.index}</li>
+
+		<li>{location.categories}</li>
+		<li>{location.address}</li>
+		<f:if condition="{location.additionaladdress} > '' ">
+			<li>{location.additionaladdress}</li>
+		</f:if>
+
+		<li>{location.country} {location.zipcode} {location.city}</li>
+		<li>{location.phone}</li>
+		<li><a href="mailto:{location.email}">{location.email}</a></li>
+		<li><f:format.html>{location.description}</f:format.html></li>
+		<li>{location.kwp} kWp</li>
+		<li>{location.fax}</li>
+		<li>{location.mobile}</li>
+		<li><f:format.number decimals="2">{location.distance}</f:format.number> km</li>
+		<!--
+		<td><f:link.action action="route" arguments="{startingPointLat: startingPoint.lat,	startingPointLon: startingPoint.lon, destinationLat: location.lat, destinationLon: location.lon}">Route</f:link.action></td>
+		-->
+		</ul>
+	</f:for>
+
+</div>
+
+

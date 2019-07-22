@@ -1,0 +1,70 @@
+
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+<h1>Listing for Location</h1>
+
+<f:flashMessages />
+
+
+
+
+<table  class="tx_mymap" >
+	<tr>
+		<th><f:translate key="tx_mymap_domain_model_location.name" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.address" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.zipcode" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.city" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.country" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.phone" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.fax" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.mobile" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.email" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.description" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.lat" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.lon" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.geocode" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.icon" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.image" /></th>
+		<th><f:translate key="tx_mymap_domain_model_location.media" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{locations}" as="location">
+		<tr>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.name}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.address}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.zipcode}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.city}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.country}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.phone}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.fax}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.mobile}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.email}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.description}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.lat}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.lon}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.geocode}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.icon}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.image}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{location : location}"> {location.media}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{location : location}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{location : location}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+</table>
+
+<f:link.action action="new">New Location</f:link.action>
+</f:section>

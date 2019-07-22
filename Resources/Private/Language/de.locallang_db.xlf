@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap">
+		<header/>
+		<body>
+			<trans-unit id="tx_mymap_domain_model_location">
+				<source>Location</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.additionalname">
+				<target>Zusätzlicher Name</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.address">
+				<target>Adresse</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.additionaladdress">
+				<target>Zusätzliche Adresse</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.zipcode">
+				<target>PLZ</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.city">
+				<target>Stadt</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.country">
+				<target>Land</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.additionalcontact">
+				<target>Zusätzlicher Kontakt</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.phone">
+				<target>Telefon</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.fax">
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.mobile">
+				<target>Mobil</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.www">
+				<source>www</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.description">
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.kwp">
+				<target>Kilowatt Peak</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.startup">
+				<target>Inbetriebnahme</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.lat">
+				<target>Breitengrad</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.lon">
+				<target>Längengrad</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.geocode">
+				<source>Geocode</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.icon">
+				<source>Icon</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.image">
+				<target>Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.category">
+				<target>Kategorie</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category">
+				<target>Kategorie</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category.description">
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category.parent">
+				<source>Elternkategorie</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

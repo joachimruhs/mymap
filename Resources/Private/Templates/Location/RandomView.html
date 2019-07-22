@@ -1,0 +1,113 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:map="http://typo3.org/ns/WSR/Mymap/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+This Template is responsible for displaying a single view for a domain object
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Show.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+<h1>Random View for Locations</h1>
+
+<f:flashMessages />
+
+
+
+<f:comment>
+{Lvar} sys_language_uid for use with language
+</f:comment>
+
+
+
+<f:render partial="Location/Properties" arguments="{location:location}" />
+
+<div onclick="window.history.back();">Zurück</div>
+
+
+
+
+
+<!-- get the map javascript -->
+<f:if condition="{settings.googleBrowserApiKey} > ''">
+	<f:then>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+	</f:then>
+	<f:else>
+		<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places"></script>
+	</f:else>
+</f:if>
+
+
+<f:format.raw>
+	<map:mapShowJS location="{location}" city="{location.storename}" />
+</f:format.raw>
+
+
+
+
+<!-- here comes the google map -->
+<div id="mapContainer" style="width: 100%; height: 100%;">
+	<div id="map" style="width: 400px; height: 300px;"></div>
+</div>
+<script type="text/javascript">
+load();
+</script>
+
+<!-- Google infoWindow -->
+<script type="text/javascript">
+
+	var info = '<div class="infoWindow">';
+	<f:if condition="{location.image}">
+		<f:then>
+			info += '<f:image src="uploads/tx_mymap/images/{location.image}"  width="100" alt=""/><br />';			
+		</f:then>
+		<f:else>
+
+		</f:else>
+	</f:if>
+	
+	info += "<div class='storename'>{location.name}</div>";
+	info += "{location.address}";
+	info += "<br />" + "{location.zipcode}" + " " + "{location.city}";
+	info += "</div>";
+
+	infoWindow[0] = new google.maps.InfoWindow({
+      content: info
+	});
+	google.maps.event.addListener(marker[0], 'click', function() {
+	    infoWindow[0].open(map,marker[0]);
+	});
+
+
+</script>	
+
+
+<!-- responsive map -->
+<script type="text/javascript">
+	function resizeMap() {
+	    var mapContainerWidth = $('#mapContainer').width();
+	    var mapContainerHeight = $('#mapContainer').height();
+	    $('#map').width(mapContainerWidth - 30);
+	    $('#map').height(mapContainerWidth/4*3);
+	    google.maps.event.trigger($('#map'), 'resize');
+	    console.log(mapContainerWidth);
+	
+	}
+	$(window).resize(resizeMap);
+	
+	resizeMap();
+</script>
+
+
+</f:section>
+</html>

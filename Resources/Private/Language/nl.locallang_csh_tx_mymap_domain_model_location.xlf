@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="address.description" approved="yes">
+			<source>address</source>
+			<target>adres</target>
+		</trans-unit>
+		<trans-unit id="categories.description" approved="yes">
+			<source>categories</source>
+			<target>categorieën</target>
+		</trans-unit>
+		<trans-unit id="city.description" approved="yes">
+			<source>city</source>
+			<target>plaats</target>
+		</trans-unit>
+		<trans-unit id="country.description" approved="yes">
+			<source>country</source>
+			<target>land</target>
+		</trans-unit>
+		<trans-unit id="description.description" approved="yes">
+			<source>description</source>
+			<target>omschrijving</target>
+		</trans-unit>
+		<trans-unit id="email.description" approved="yes">
+			<source>email</source>
+			<target>email</target>
+		</trans-unit>
+		<trans-unit id="fax.description" approved="yes">
+			<source>fax</source>
+			<target>fax</target>
+		</trans-unit>
+		<trans-unit id="geocode.description" approved="yes">
+			<source>geocode</source>
+			<target>geocode</target>
+		</trans-unit>
+		<trans-unit id="icon.description" approved="yes">
+			<source>icon</source>
+			<target>icoon</target>
+		</trans-unit>
+		<trans-unit id="image.description" approved="yes">
+			<source>image</source>
+			<target>afbeelding</target>
+		</trans-unit>
+		<trans-unit id="lat.description" approved="yes">
+			<source>lat</source>
+			<target>lengte</target>
+		</trans-unit>
+		<trans-unit id="lon.description" approved="yes">
+			<source>lon</source>
+			<target>breedte</target>
+		</trans-unit>
+		<trans-unit id="media.description" approved="yes">
+			<source>media</source>
+			<target>media</target>
+		</trans-unit>
+		<trans-unit id="mobile.description" approved="yes">
+			<source>mobile</source>
+			<target>mobiel</target>
+		</trans-unit>
+		<trans-unit id="name.description" approved="yes">
+			<source>name</source>
+			<target>naam</target>
+		</trans-unit>
+		<trans-unit id="phone.description" approved="yes">
+			<source>phone</source>
+			<target>telefoon</target>
+		</trans-unit>
+		<trans-unit id="zipcode.description" approved="yes">
+			<source>zipcode</source>
+			<target>postcode</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>

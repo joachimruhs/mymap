@@ -1,0 +1,116 @@
+﻿
+.tx-mymap .searchResult {
+
+}
+
+
+
+.tx-mymap #flashMessages, .tx-mymap .typo3-messages {
+	font-size: 1.1em;
+	display: none;
+	/*
+	position: absolute;
+	*/
+	z-index: 1000;
+}
+
+.tx-mymap .typo3-message, .tx-mymap .typo3-messages, .tx-mymap .alert  {
+	padding: 10px;
+	color: white;
+	border-radius: 10px;
+}
+.tx-mymap .message-error, .tx-mymap .alert {
+	background-color: #000;
+}
+.tx-mymap .message-warning {
+	background-color: #080;
+}
+.tx-mymap .message-information, .tx-mymap .alert-info  {
+	background-color: #33b;
+}
+
+.tx-mymap #flashMessages ul {
+	list-style: none;
+}
+
+.tx-mymap .ajaxMessage {
+	padding: 10px;
+	color: white;
+	background-color: #080;
+	border-radius: 10px;
+	display: none;
+}
+
+
+.tx-mymap .infoWindow .storename {
+	font-weight: bold;
+}
+
+.tx-mymap table.tx_mymap {
+	border-collapse: collapse;
+}
+.tx-mymap table.tx_mymap td {
+	padding-left: 5px;
+}
+
+.tx-mymap table.tx_mymap tr.odd td {
+	background-color: #f0f0f0;
+}	
+
+
+.tx-mymap div.searchResultContainer {
+
+}
+.tx-mymap .searchResultContainer ul {
+	margin: 0;
+	padding: 0;
+
+}
+.tx-mymap .searchResultContainer ul li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	padding-right: 5px;
+	float: left;
+}
+.tx-mymap ul.odd li {
+	background-color: #f0f0f0;
+
+}
+.tx-mymap .clearer {
+	clear: both;
+}
+
+.tx-mymap #mymapRouteButton {
+	border: none;
+}
+
+.tx-mymap .ajaxSearch input {
+}
+
+.tx-mymap #ajaxSearchButton {
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.tx-mymap .locationsList ul li {
+	list-style: none;
+}
+
+.tx-mymap .locationsList .name {
+	font-weight: bold;
+}	
+
+/* used in ajaxSearch */
+.tx-mymap .hidden {
+	display: none;
+}	
+
+
+.tx-mymap .searchResult {
+	float: left;
+/*	
+	min-width: 400px;
+*/
+}
+

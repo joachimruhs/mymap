@@ -1,0 +1,131 @@
+
+<f:layout name="Default" />
+
+This template displays a EDIT form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Edit.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="main">
+	<h1>SearchForm</h1>
+	
+	<f:flashMessages />
+	
+	<div id="searchform">
+		<f:if condition="{settings.resultPageId}">
+			<f:then>
+			<form method="post" action="<f:uri.action pageUid="{settings.resultPageId}" />" name="searchform">
+			</f:then>
+			<f:else>
+			<form method="post" action="<f:uri.action />" name="searchform">
+			</f:else>
+		</f:if>	
+		<table><tr>
+			<td class="address"><f:translate key="address" />:</td><td><input name="tx_mymap_search[address]" value ="{_GP.address}"/></td>
+			</tr><tr>
+			<td class="zipcode"><f:translate key="zipcode" />:</td><td><input name="tx_mymap_search[zipcode]" value ="{_GP.zipcode}" /></td>
+			</tr><tr>
+			<td class="city"><f:translate key="city" />:</td><td><input name="tx_mymap_search[city]" value ="{_GP.city}" /></td>
+			</tr><tr>
+			<td class="country">
+			<f:translate key="country" />:</td>
+			<td>
+
+				<select name="tx_mymap_search[country]">
+					<f:if condition="{_GP.country} == 'DE'">
+					<f:then>
+						<option value="DE" selected="selected">Deutschland</option>
+					</f:then>
+					<f:else>
+						<option value="DE">Deutschland</option>
+					</f:else>
+					</f:if>
+					
+					<f:if condition="{_GP.country} == 'AT'">
+					<f:then>
+						<option value="AT" selected="selected">Österreich</option>
+					</f:then>
+					<f:else>
+						<option value="AT">Österreich</option>
+					</f:else>
+					</f:if>
+					
+					<f:if condition="{_GP.country} == 'FR'">
+					<f:then>
+						<option value="FR" selected="selected">Frankreich</option>
+					</f:then>
+					<f:else>
+						<option value="FR">Frankreich</option>
+					</f:else>
+					</f:if>
+		
+					<f:if condition="{_GP.country} == 'CH'">
+					<f:then>
+						<option value="CH" selected="selected">Schweiz</option>
+					</f:then>
+					<f:else>
+						<option value="CH">Schweiz</option>
+					</f:else>
+					</f:if>
+				</select>
+
+			</td>
+			</tr><tr>
+			<td>Kategorien</td><td>			
+
+			<f:render section="categoryList" arguments="{categories: categories}" />
+			<f:section name="categoryList">
+				<ul>
+					<f:for each="{categories}" as="category">
+						<li>
+							<input type="checkbox" id="{category.name}" name="tx_mymap_search[categories][]"  value="{category.uid}"/>
+							<label for="{category.name}">{category.name}</label>
+							<f:if condition="{category.children}">
+								<f:render section="categoryList" arguments="{categories: category.children}" />
+							</f:if>
+						</li>
+					</f:for>
+				</ul>
+			</f:section>
+			</td>
+
+
+			</tr><tr>
+			<td>Radius:</td>
+			<td>
+				<select name="tx_mymap_search[radius]">
+				<option value="2">2 km</option>
+				<option value="5">5 km </option>
+				<option value="20">20 km </option>
+				<option value="200">200 km</option>
+				<option value="500">500 km</option>
+				</select>		
+				
+			</td>
+			</tr>
+			</table>
+		<div>
+		
+		<div id="search"><input type="submit" name="submit" src="<f:translate key="searchbuttonpath" />" value="<f:translate key="search" />" alt="<f:translate key="search" />" /></div>
+		<f:form.hidden name="id1" value="{settings.searchResultPage}" />
+		<f:form.hidden name="L" value="{Lvar}" />
+		<f:form.hidden name="tx_mymap_search[action]" value="search" />
+		<div class="clearer"></div>
+
+
+
+
+
+	</form>
+</div>
+
+
+</f:section>
+
+

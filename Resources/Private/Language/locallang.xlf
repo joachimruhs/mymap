@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap">
+		<header/>
+		<body>
+			<trans-unit id="tx_mymap_domain_model_location">
+				<source>Location</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.additionalname">
+				<source>Additional name</source>
+			</trans-unit>
+
+
+			<trans-unit id="tx_mymap_domain_model_location.address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.additionaladdress">
+				<source>Additional address</source>
+			</trans-unit>
+
+
+			<trans-unit id="tx_mymap_domain_model_location.zipcode">
+				<source>Zipcode</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.country">
+				<source>Country</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.additionalcontact">
+				<source>Additional contact</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.phone">
+				<source>Phone</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.fax">
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.mobile">
+				<source>Mobile</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.kwp">
+				<source>kWp</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.lat">
+				<source>Lat</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.lon">
+				<source>Lon</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.geocode">
+				<source>Geocode</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.icon">
+				<source>Icon</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.media">
+				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_location.categories">
+				<source>Categories</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_mymap_domain_model_category.description">
+				<source>Description</source>
+			</trans-unit>
+
+			<trans-unit id="address">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="zipcode">
+				<source>Zipcode</source>
+			</trans-unit>
+			<trans-unit id="city">
+				<source>City</source>
+			</trans-unit>
+			<trans-unit id="country">
+				<source>Country</source>
+			</trans-unit>
+			<trans-unit id="search">
+				<source>Search</source>
+			</trans-unit>
+			<trans-unit id="route">
+				<source>Route</source>
+			</trans-unit>
+			
+<!-- messages -->
+			<trans-unit id="noStartingPointCoordinatesFound">
+				<source>No starting point coordinates found!</source>
+			</trans-unit>
+			<trans-unit id="noLocationsFound">
+				<source>No locations found!</source>
+			</trans-unit>
+			<trans-unit id="errorInCategories">
+				<source>Error in categories!</source>
+			</trans-unit>
+
+			<trans-unit id="kWp">
+				<source>kWp</source>
+			</trans-unit>
+			<trans-unit id="showMore">
+				<source>Show more</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>
