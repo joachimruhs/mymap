@@ -18,7 +18,5 @@ Show the results in responsive Google maps, traffic- and bicycling layer include
 
 For details see [Introduction](https://github.com/joachimruhs/mymap/blob/master/Documentation/Introduction/Index.rst "Introduction")
 
-For configuration and installation in detail, see the administrator manual
-
-[Administrator Manual](https://github.com/joachimruhs/mymap/blob/master/Documentation/AdministratorManual/Index.rst "Administrator Manual")
+For configuration and installation in detail, see the [Administrator Manual](https://github.com/joachimruhs/mymap/blob/master/Documentation/AdministratorManual/Index.rst "Administrator Manual")
 
