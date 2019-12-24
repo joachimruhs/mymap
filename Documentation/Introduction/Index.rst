@@ -18,17 +18,7 @@ in the constant editor of TYPO3. Google's streetview, traffic layer and bicyclin
 What's new?
 ^^^^^^^^^^^
 
-Enabled for https protocol (Google API calls made with https). Namespaces implemented in MapJSViewhelpers (templates changed, output formatted raw). Three new fields (additionalname, additionaladdress and additionalcontact) implemented.
-Hierachical categories implemented. The extension works now with two Google API keys, a Google Browser API key and a Google Server API key. The Server API key
-is used for geocoding of locations, especially for searching coordinates in the AjaxSearch plugin and for geocoding data records 
-which have no coordinates. MarkerClusterer implemented, you can activate this option via constant editor.
-The ajaxSearch shows n=resultLimit locations in the map when the page is loaded. Other 
-locations are loaded by lazy loading and a show more button at the end of the page. The ajaxSearch works with the Google autocompleter.
-Location categories implemented to limit the searches.
-Plugin ajaxSearch implemented, new configuration option enableSearchCircle for ajaxSearch.
-The POIs (Points of Interest) are animated when they are shown in the map. 
-The configuration of the extension is done with the constant editor or with typoscript.
-
+Ajax call implemented with Middleware PSR-15.
 
 Screenshots
 ___________

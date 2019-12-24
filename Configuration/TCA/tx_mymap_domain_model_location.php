@@ -216,9 +216,6 @@ return array (
 					],
 				],
 			),
-	       'defaultExtras' => 'richtext[*]'
-		
-
 		),
 
 		'kwp' => array(
@@ -317,8 +314,7 @@ return array (
                         'collapseAll' => true,
                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                     ],
-					
-					'foreign_types' => [
+					['overrideChildTca']['types'] => [					
 						'0' => [
 							'showitem' => '
 							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
@@ -370,7 +366,7 @@ return array (
                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                     ],
 
-					'foreign_types' => [
+					['overrideChildTca']['types'] => [					
 						'0' => [
 							'showitem' => '
 							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,

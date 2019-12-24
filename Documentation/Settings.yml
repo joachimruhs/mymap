@@ -7,7 +7,7 @@ conf.py:
   copyright: 2019
   project: Mymap
   version: 0.7
-  release: 0.7.2
+  release: 0.7.4
   latex_documents:
   - - Index
     - mymap.tex
