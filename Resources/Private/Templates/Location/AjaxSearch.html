@@ -184,11 +184,11 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		if (circle)
 			circle.setMap(null);
 
-		var ajaxRequestUrl = "index.php?eID=mymap&id=" + id,
+		var ajaxRequestUrl = "index.php?eIDx=mymap&id=" + id,
 			requestParameter = {
 				tx_mymap_ajax : {
 					controller : 'Ajax',
-					action : 'ajaxEid',
+					action : 'ajaxPsr',
 					address: address,
 					country: country,
 					b : location.href

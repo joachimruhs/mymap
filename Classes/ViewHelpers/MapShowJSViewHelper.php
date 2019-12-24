@@ -2,12 +2,14 @@
 namespace WSR\Mymap\ViewHelpers;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018-2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *  
  *  All rights reserved
  *
@@ -28,7 +30,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MapShowJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
@@ -41,11 +43,14 @@ class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
      /**
 	 * Returns the map javascript
 	 *
+	 * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
 	 * @return string
 	 */
-	 public function render() {
-		$location = $this->arguments['location'];
-		$city = $this->arguments['city'];
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
+		$location = $arguments['location'];
+		$city = $arguments['city'];
 
 
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
@@ -55,7 +60,7 @@ class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 		}
 
 		
-		$out = $this->getMapJavascript($location);
+		$out = self::getMapJavascript($location);
 		$out .= '<script type="text/javascript">function getMarkers() {';
 			$lat = $location->getLat();
 			$lon = $location->getLon();
@@ -105,7 +110,7 @@ class MapShowJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 		return $out;
 	 }
 	 
-	 function getMapJavascript($location) {
+	 public static function getMapJavascript($location) {
 		$out = '<script type="text/javascript">
 		var myOptions;
 		var marker = [];

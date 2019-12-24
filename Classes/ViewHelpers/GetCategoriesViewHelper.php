@@ -1,10 +1,14 @@
 <?php
 namespace WSR\Mymap\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015-2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2015-2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *  
  *  All rights reserved
  *
@@ -34,7 +38,8 @@ namespace WSR\Mymap\ViewHelpers;
  */
 
 
-class GetCategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+//class GetCategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class GetCategoriesViewHelper extends AbstractViewHelper {
 
 	/**
 	* Arguments Initialization
@@ -46,13 +51,14 @@ class GetCategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
 
     /**
 	* Returns categories comma separated
-	*
+	* @param array $arguments
+    * @param \Closure $renderChildrenClosure
+    * @param RenderingContextInterface $renderingContext
 	* @return string categories comma separated
 	*/
-	public function render() {
-//		$categories = $this->arguments['categories'];
-		$index = $this->arguments['index'];
-		return $this->arguments['categories'][$index];
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
+		$index = $arguments['index'];
+		return $arguments['categories'][$index];
 	}
 }
 ?>

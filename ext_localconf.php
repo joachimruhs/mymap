@@ -142,5 +142,7 @@ if (!defined('TYPO3_MODE')) {
 
 /**
  * Register eID for ajax action-call
+ *
+ * not used anymore - uses now PSR-15
  */
-$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['mymap'] = 'EXT:mymap/Classes/Eid/AjaxBootstrap.php';
+//$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['mymap'] = 'EXT:mymap/Classes/Eid/AjaxBootstrap.php';

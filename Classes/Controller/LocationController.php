@@ -130,7 +130,6 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * action new
 	 * 
 	 * @param \WSR\Mymap\Domain\Model\Location $newLocation
-	 * @ignorevalidation $newLocation
 	 * @return void
 	 */
 	public function newAction(\WSR\Mymap\Domain\Model\Location $newLocation = NULL) {
@@ -154,7 +153,6 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * action edit
 	 * 
 	 * @param \WSR\Mymap\Domain\Model\Location $location
-	 * @ignorevalidation $location
 	 * @return void
 	 */
 	public function editAction(\WSR\Mymap\Domain\Model\Location $location) {

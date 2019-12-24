@@ -2,6 +2,12 @@
 
 namespace WSR\Mymap\Controller;
 
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -91,7 +97,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \stdclass $latLon
 	 */
 	public function ajaxEidGeocodeAction() {
-		$requestArguments = $this->request->getArguments();
+		$requestArguments = $this->request->getParsedBody()['tx_mymap_ajax'];
 
 		$address = urlencode($requestArguments['address']);
 		$country = urlencode($requestArguments['country']);
@@ -139,8 +145,121 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 
 
+	/**
+	 * @param \Psr\Http\Message\ServerRequestInterface $request
+	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 */
+	public function indexAction(ServerRequestInterface $request)
+	{
+		switch ($request->getMethod()) {
+			case 'GET':
+				$this->processGetRequest($request, $response);
+				break;
+			case 'POST':
+				$this->processPostRequest($request);
+				break;
+			default:
+				$response->withStatus(405, 'Method not allowed');
+		}
+	
+		return $response;
+	}
 
 
+
+	/**
+	 * @param \Psr\Http\Message\ServerRequestInterface $request
+	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 */
+	protected function processGetRequest(ServerRequestInterface $request, ResponseInterface $response) {
+		$view = $this->getView();
+	
+		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
+		$response->getBody()->write($view->render());
+	}
+
+	/**
+	 * @param \Psr\Http\Message\ServerRequestInterface $request
+	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 */
+	protected function processPostRequest(ServerRequestInterface $request)
+	{
+	
+		$queryParams = $request->getQueryParams();
+	
+	//	$queryParameters = $request->getParsedBody();
+	//	$pid = (int)$queryParameters['pid'];
+	//	$queryParams = $queryParameters;
+		$frontend = $GLOBALS['TSFE'];
+	
+		/** @var TypoScriptService $typoScriptService */
+		$typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+		$this->configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($frontend->tmpl->setup['plugin.']['tx_mymap.']);
+		$this->settings = $this->configuration['settings'];
+		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
+	
+		$this->request = $request;
+		$out = $this->ajaxEidAction();
+	
+		echo $out;
+	
+		//    $response->getBody()->write(json_encode($queryParams));
+		//    $response->getBody()->write($out);
+		
+		/** @var Response $response */
+		//		$response = GeneralUtility::makeInstance(Response::class);
+		//		$response->getBody()->write($out);
+		
+		
+		return $response;
+	
+		
+		
+		
+		$view = $this->getView();
+		$hasErrors = false;
+		// ... some logic
+	
+		if ($hasErrors) {
+			$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
+			$response->getBody()->write($view->render());
+		} else {
+			$response->withHeader('Content-type', ['application/json; charset=UTF-8']);
+			$response->getBody()->write(json_encode(['success' => true]));
+		}
+	}
+
+
+	/**
+	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
+	 */
+	protected function getView() {
+	//    $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+		$templateService = GeneralUtility::makeInstance(TemplateService::class);
+		// get the rootline
+	//    $rootLine = $pageRepository->getRootLine($pageRepository->getDomainStartPage(GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY')));
+		$rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, 0);
+	
+		$rootLine = $rootlineUtility->get();
+	
+		// initialize template service and generate typoscript configuration
+		$templateService->init();
+		$templateService->runThroughTemplates($rootLine);
+		$templateService->generateConfig();
+	
+	
+	//print_r($templateService->setup);
+	//exit;
+	
+		$fluidView = new StandaloneView();
+		$fluidView->setLayoutRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['layoutRootPaths.']);
+		$fluidView->setTemplateRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['templateRootPaths.']);
+		$fluidView->setPartialRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['partialRootPaths.']);
+		$fluidView->getRequest()->setControllerExtensionName('YourExt');
+		$fluidView->setTemplate('index');
+	
+		return $fluidView;
+	}
 
 
 	/**
@@ -148,12 +267,14 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \string html
 	 */
 	public function ajaxEidAction() {
+/*
       	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$this->configuration = $configuration;
 		$this->conf['storagePid'] = $configuration['persistence']['storagePid'];
-
+*/
 		
-		$requestArguments = $this->request->getArguments();
+//		$requestArguments = $this->request->getArguments();
+		$requestArguments = $this->request->getParsedBody()['tx_mymap_ajax'];
 
 		if ($requestArguments['categories'])
 		$this->_GP['categories'] = @implode(',', $requestArguments['categories']);

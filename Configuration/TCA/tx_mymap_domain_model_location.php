@@ -217,6 +217,8 @@ return array (
 				],
 			),
 	       'defaultExtras' => 'richtext[*]'
+		
+
 		),
 
 		'kwp' => array(

@@ -1,10 +1,13 @@
 <?php
 namespace WSR\Mymap\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018-2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *  
  *  All rights reserved
  *
@@ -25,7 +28,7 @@ namespace WSR\Mymap\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class RouteJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RouteJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
@@ -38,25 +41,20 @@ class RouteJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      /**
 	 * Returns the map javascript
 	 *
+	 * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
 	 * @return string
 	 */
-	 public function render() {
-
-
-		$out = $this->getMapJavascript($this->arguments['startingPoint'], $this->arguments['destination']);
-
-
+	public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
+		$out = self::getMapJavascript($arguments['startingPoint'], $arguments['destination']);
 		$out .= '<script type="text/javascript">function getMarkers() {';
-
 		$out .= '}</script>';
 		return $out;
 	 }
 	 
-	 function getMapJavascript($startingPoint, $destination) {
-
+	 public static function getMapJavascript($startingPoint, $destination) {
 		$out .= '<script type="text/javascript">
-
-
 
 
 var map;

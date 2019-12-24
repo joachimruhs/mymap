@@ -2,11 +2,13 @@
 namespace WSR\Mymap\ViewHelpers;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2015-2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2015-2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *  
  *  All rights reserved
  *
@@ -28,7 +30,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  ***************************************************************/
 
 
-class MapJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MapJSViewHelper extends AbstractViewHelper {
 
 	/**
 	* Arguments Initialization
@@ -42,20 +44,24 @@ class MapJSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
 
     /**
     * Returns the map javascript
-    *
+    * 
+    * @param array $arguments 
+    * @param \Closure $renderChildrenClosure
+    * @param RenderingContextInterface $renderingContext
     * @return string
     */
-    public function render() {
-		$locations = $this->arguments['locations'];
-		$city = $this->arguments['city'];
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+		$locations = $arguments['locations'];
+		$city = $arguments['city'];
 
-		if ($settings['enableMarkerAnimation']) 
+		if ($arguments['settings']['enableMarkerAnimation']) 
 			$animation = 'animation: google.maps.Animation.DROP,';
 		else $animation = '';
 
-		$out = $this->getMapJavascript($locations, $this->arguments['settings']);
+		$out = self::getMapJavascript($locations, $arguments['settings']);
 		
-$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
+		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
 
 		$out .= '<script type="text/javascript">
             function getMarkers() {';
@@ -110,7 +116,7 @@ $fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepo
 		return $out;
 	 }
 	 
-	 function getMapJavascript($locations, $settings) {
+	 public static function getMapJavascript($locations, $settings) {
         $out = '<script type="text/javascript">
         var myOptions;
         var marker = [];
