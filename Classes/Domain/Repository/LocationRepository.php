@@ -1,12 +1,14 @@
 <?php
 namespace WSR\Mymap\Domain\Repository;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 
 /***************************************************************
  *
  *  Copyright notice
  *
- *  (c) 2016 - 2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2016 - 2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  *  All rights reserved
  *
@@ -64,7 +66,6 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @return Tx_Extbase_Persistence_QueryResultInterface The locations
 	 */
 	public function findLocationsInRadius($latLon, $radius, $categories, $storagePid, $limit, $page) {
-		$radius = intval($radius);
 		$pi = M_PI;
 		$lat = $latLon->lat;
 		$lon =  $latLon->lon;
@@ -73,7 +74,7 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 
 		if ($categories)
-			$categories = explode(',', $categories);
+			$categories = GeneralUtility::intExplode(',', $categories, true);		
 			
 		if (is_array($categories)) {
 			for ($i = 0; $i < count($categories); $i++) {
@@ -111,7 +112,8 @@ if ($page) {
 			 
 	
 			FROM tx_mymap_domain_model_location a, tx_mymap_domain_model_category c 
-				WHERE a.name LIKE '%' " . $categorySelect . " AND a.hidden = 0 AND a.deleted = 0 AND a.pid in (" . $storagePid . ") having distance <= $radius order by distance limit " . $limit )->execute(TRUE);
+				WHERE a.name LIKE '%' " . $categorySelect . " AND a.hidden = 0 AND a.deleted = 0 AND a.pid in (" . $storagePid . ")
+				having distance <= " . intval($radius) . " order by distance limit " . $limit )->execute(TRUE);
 
 	} else {
 		$result = $query->statement("SELECT distinct a.*, (((acos(sin(($lat*$pi/180)) * sin((lat*$pi/180)) + cos(($lat*$pi/180)) *  cos((lat*$pi/180)) * cos((($lon - lon)*$pi/180)))))*6370) as distance 
@@ -120,7 +122,8 @@ if ($page) {
 			where find_in_set(c.uid, a.category)) as categories 
 	
 			FROM tx_mymap_domain_model_location a  
-				WHERE a.name LIKE '%' AND a.hidden = 0 AND a.deleted = 0 AND a.pid in (" . $storagePid . ") having distance <= $radius order by distance limit " . $limit )->execute(TRUE);
+				WHERE a.name LIKE '%' AND a.hidden = 0 AND a.deleted = 0 AND a.pid in (" . $storagePid . ")
+				having distance <= " . intval($radius) . " order by distance limit " . $limit )->execute(TRUE);
 		
 	}		
 
@@ -163,9 +166,9 @@ if ($page) {
 			for ($i = 0; $i < count($categories); $i++) {
 				if ($categories[$i]) {
 					if ($i == 0) {
-					$categorySelect .= ' AND ((find_in_set(' . $categories[$i] . ', a.category))';
+					$categorySelect .= ' AND ((find_in_set(' . intval($categories[$i]) . ', a.category))';
 					} else {
-					$categorySelect .= ' OR (find_in_set(' . $categories[$i] . ', a.category))';
+					$categorySelect .= ' OR (find_in_set(' . intval($categories[$i]) . ', a.category))';
 					}
 				}
 			}	
@@ -208,7 +211,7 @@ if ($page) {
 	public function getImages1($uid) {
 		$query = $this->createQuery();
 		$result = $query->statement("SELECT * from sys_file_reference a, sys_file b where tablenames = 'tx_mymap_domain_model_location'
-									AND a.fieldname='images' AND a.uid_local = b.uid AND a.deleted = 0 AND a.uid_foreign = " . $uid ." order by b.identifier" )-> execute(true);
+									AND a.fieldname='images' AND a.uid_local = b.uid AND a.deleted = 0 AND a.uid_foreign = " . intval($uid) ." order by b.identifier" )-> execute(true);
 		return $result;
 	}
 
@@ -220,7 +223,7 @@ if ($page) {
 	public function getFiles1($uid) {
 		$query = $this->createQuery();
 		$result = $query->statement("SELECT * from sys_file_reference a, sys_file b where tablenames = 'tx_mymap_domain_model_location'
-									AND a.fieldname='files' AND a.uid_local = b.uid AND a.deleted = 0 AND a.uid_foreign = " . $uid ." order by b.identifier" )-> execute(true);
+									AND a.fieldname='files' AND a.uid_local = b.uid AND a.deleted = 0 AND a.uid_foreign = " . intval($uid) ." order by b.identifier" )-> execute(true);
 		return $result;
 	}
 
