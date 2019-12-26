@@ -135,6 +135,23 @@ layoutRootPath
          EXT:mymap/Resources/Private/Layouts/
 
      
+includejQueryCore
+"""""""""""""""""
+
+.. container:: table-row
+
+   Property
+        includejQueryCore
+
+   Data type
+         int
+
+   Description
+         include the jQuery library shipped with mymap
+
+   Default
+        0
+
 
 
 
@@ -385,6 +402,11 @@ initialMapCoordinates
 
 Known problems
 ^^^^^^^^^^^^^^
+
+*No map loaded - ReferenceError: $ is not defined*
+
+Make sure, you have loaded the jQuery on top of the page. This can be done with the constant editor of TYPO3 and the mymap
+category (plugin.tx_mymap.view.includejQueryCore).
 
 Do not use double quotes in fields, which are shown in the infoWindows, because this will break the javascript.
 
