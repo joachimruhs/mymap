@@ -50,7 +50,7 @@ the correct "Default storage PID" of the locations.
 
 Inserting data
 ^^^^^^^^^^^^^^
-In TYPO3 list module select page Data. First insert some location categories.
+In TYPO3 list module select page Data. First insert some location  categories.
 Then you can insert some locations. You have not to insert the coordinates. The plugin
 fetches the coordinates automatically from Google. To get this working, it is important that you insert
 correct location data (city and country at least). If you don't insert some icon, the extension uses a default icon for the 
