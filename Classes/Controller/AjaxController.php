@@ -193,7 +193,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$frontend = $GLOBALS['TSFE'];
 	
 		/** @var TypoScriptService $typoScriptService */
-		$typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+		$typoScriptService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TypoScriptService');
 		$this->configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($frontend->tmpl->setup['plugin.']['tx_mymap.']);
 		$this->settings = $this->configuration['settings'];
 		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
