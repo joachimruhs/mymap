@@ -100,7 +100,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			</f:then>
 		</f:if>
 
-		<li><f:link.action action="singleView" arguments="{locationUid : location.uid, pageUid: settings.resultPageId}"> {location.name} {location.additionalname}</f:link.action></li>
+		<li><f:link.action action="singleView" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}"> {location.name} {location.additionalname}</f:link.action></li>
 
 		<li>{location.categories}</li>
 	

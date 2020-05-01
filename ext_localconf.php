@@ -3,6 +3,7 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
+$_EXTKEY = 'Mymap';
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'WSR.' . $_EXTKEY,
@@ -13,7 +14,7 @@ if (!defined('TYPO3_MODE')) {
 	),
 	// non-cacheable actions
 	array(
-		'Location' => 'searchForm, update, delete',
+		'Location' => 'searchForm',
 		'Category' => '',
 		
 	)
@@ -40,15 +41,12 @@ if (!defined('TYPO3_MODE')) {
 	'WSR.' . $_EXTKEY,
 	'Search',
 	array(
-		'Location' => 'search, route, singleView',
+		'Location' => 'search, route',
 		
 	),
 	// non-cacheable actions
 	array(
-//		'Location' => 'search, route, singleView, create, update, delete, ',
-		'Location' => 'search, route, create, update, delete, ',
-		'Category' => '',
-		
+		'Location' => 'search, route',
 	)
 );
 
@@ -71,12 +69,12 @@ if (!defined('TYPO3_MODE')) {
 	'WSR.' . $_EXTKEY,
 	'Ajaxsearch',
 	array(
-		'Location' => 'ajaxSearch, route',
+		'Location' => 'ajaxSearch',
 		
 	),
 	// non-cacheable actions
 	array(
-		'Location' => 'route',
+		'Location' => '',
 		'Category' => '',
 		
 	)
@@ -141,9 +139,3 @@ if (!defined('TYPO3_MODE')) {
 
 
 
-/**
- * Register eID for ajax action-call
- *
- * not used anymore - uses now PSR-15
- */
-//$GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['mymap'] = 'EXT:mymap/Classes/Eid/AjaxBootstrap.php';

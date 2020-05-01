@@ -38,7 +38,9 @@
 		</f:for>
 
 
-		<li><f:link.action action="singleView" extensionName="mymap" pluginName="singleView" controller="Location" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}"> {location.name}</f:link.action></li>
+
+		<li><f:link.action action="singleView" extensionName="Mymap" pluginName="singleView" controller="Location" action="singleView" pageUid="{settings.detailsPageId}" arguments="{locationUid : location.uid}"> {location.name}</f:link.action></li>
+
 		<f:if condition="{location.additionalname} > '' ">
 			<li>{location.additionalname}</li>
 		</f:if>
@@ -62,9 +64,9 @@
 		<li>{location.fax}</li>
 		<li>{location.mobile}</li>
 		<li><f:format.number decimals="2">{location.distance}</f:format.number> km</li>
-		<!--
-		<td><f:link.action action="route" arguments="{startingPointLat: startingPoint.lat,	startingPointLon: startingPoint.lon, destinationLat: location.lat, destinationLon: location.lon}">Route</f:link.action></td>
-		-->
+
+
+
 		</ul>
 	</f:for>
 

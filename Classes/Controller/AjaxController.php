@@ -9,11 +9,12 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Core\Environment;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) Joachim Ruhs 2016 - 2019
+ *  (c) Joachim Ruhs 2016 - 2020
  *  
  *  All rights reserved
  *
@@ -195,6 +196,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		/** @var TypoScriptService $typoScriptService */
 		$typoScriptService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TypoScriptService');
 		$this->configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($frontend->tmpl->setup['plugin.']['tx_mymap.']);
+
 		$this->settings = $this->configuration['settings'];
 		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
 	

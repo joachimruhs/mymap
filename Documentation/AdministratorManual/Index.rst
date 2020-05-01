@@ -50,7 +50,7 @@ the correct "Default storage PID" of the locations.
 
 Inserting data
 ^^^^^^^^^^^^^^
-In TYPO3 list module select page Data. First insert some location  categories.
+In TYPO3 list module select page Data. First insert some location categories.
 Then you can insert some locations. You have not to insert the coordinates. The plugin
 fetches the coordinates automatically from Google. To get this working, it is important that you insert
 correct location data (city and country at least). If you don't insert some icon, the extension uses a default icon for the 
@@ -408,7 +408,7 @@ Known problems
 Make sure, you have loaded the jQuery on top of the page. This can be done with the constant editor of TYPO3 and the mymap
 category (plugin.tx_mymap.view.includejQueryCore).
 
-Do not use double quotes in fields, which are shown in the infoWindows, because this will break the javascript!
+Do not use double quotes in fields, which are shown in the infoWindows, because this will break the javascript.
 
 The extension uses heavily the $('....')-function of jQuery. So, make sure the
 $-function is available and you do not use the noConflict-mode.

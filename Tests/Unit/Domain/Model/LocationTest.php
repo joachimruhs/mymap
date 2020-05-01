@@ -353,7 +353,7 @@ class LocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIconReturnsInitialValueForInteger() {
 		$this->assertSame(
 			0,
-			$this->subject->getIcon()
+			GeneralUtility::makeInstance(IconFactory::class)->getIconForResource($this->subject)
 		);
 	}
 

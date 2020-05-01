@@ -77,8 +77,7 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		/**
 		* Returns the images
 		*
-		* @return
-		\TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+		* @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
 		*/
 		public function getImages() {
 		   return $this->images;
@@ -87,8 +86,6 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		/**
 		* Sets the images
 		*
-		* @param
-		\TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
 		* @return void
 		*/
 		public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images) {
@@ -111,7 +108,6 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
         /**
          * Sets the files
          *
-         * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
          * @return void
          */
         public function setFiles($files) {
@@ -661,7 +657,7 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the icon
 	 * 
-     * @param ObjectStorage<FileReference> $icon
+	 * @param FileReference $icon
 	 * @return void
 	 */
 	public function setIcon($icon) {
@@ -680,7 +676,7 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the image
 	 * 
-     * @param ObjectStorage<FileReference> $image
+	 * @param FileReference $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -699,8 +695,8 @@ class Location extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the media
 	 * 
-     * @param ObjectStorage<FileReference> $media
-	 * @return void
+	 * @param FileReference $media
+ 	 * @return void
 	 */
 	public function setMedia($media) {
 		$this->media = $media;
