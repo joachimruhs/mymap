@@ -61,7 +61,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function findAllOverwrite() {
 		$query = $this->createQuery();
 		return $query->execute(TRUE);
-		
+
 	}
 
 

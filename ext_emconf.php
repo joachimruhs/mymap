@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "mymap".
  *
- * Auto generated 12-01-2020 14:37
+ * Auto generated 27-05-2020 18:41
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -35,5 +35,6 @@ $EM_CONF[$_EXTKEY] = array (
     array (
     ),
   ),
+  'createDirs' => NULL,
 );
 

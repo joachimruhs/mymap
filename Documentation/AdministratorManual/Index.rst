@@ -25,7 +25,7 @@ Create some pages as shown below.
 	:width: 200px
 	:alt: Pages for mymap
 
-On the pages Single,  Searchform, Autocompleter, Result and Route insert the suitable plugin of the extension. On page Single insert the plugin "search".
+On the pages Single, Searchform, Autocompleter, Result and Route insert the suitable plugin of the extension. On page Single insert the plugin "search".
 On page Result insert the plugin Search.
 
 On page Mymap or on your root page insert Typoscript Include static (from extension) mymap.
