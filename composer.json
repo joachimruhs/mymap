@@ -1,5 +1,5 @@
 {
-  "name": "WSR/mymap",
+  "name": "wsr/mymap",
   "description": "Google maps with radial search and hierarchic categories. Show the results in responsive Google maps, traffic- and bicycling layer included and can be activated via constant editor.",
   "keywords": ["TYPO3", "Google maps", "extension", "radial search"],
   "homepage": "https://www.web-services-ruhs.de",
