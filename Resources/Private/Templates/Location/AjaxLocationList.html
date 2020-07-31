@@ -20,7 +20,7 @@
 		<f:for each="{location.theImage}" as="image">
 			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
 		        <f:then>
-	                <li><img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/></li>
+	                <li><img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/></li>
 		        </f:then>
 				<f:else>
 	                <li><img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/></li>

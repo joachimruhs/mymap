@@ -458,7 +458,7 @@ if ($requestArguments['page'] == -1) {
 									title: "' . $locations[$i]['name'] .'",
 									' . $animation . '
 //									animation: google.maps.Animation.DROP,
-									icon: "' . $locationIcon .'"
+									icon: "/' . $locationIcon .'"
 									});
 									mapBounds.extend(myLatLng);
 

@@ -22,7 +22,7 @@ info += '</form>';
 		<f:for each="{location.theImage}" as="image">
 			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
 		        <f:then>
-	                info += '<img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
+	                info += '<img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
 		        </f:then>
 				<f:else>
 	                info += '<img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/>';
