@@ -16,7 +16,7 @@
     "typo3/cms-frontend": "^9.5.20 || ^10.4.6"
   },
   "replace": {
-    "mymap": "self.version",
+    "wsr/mymap": "self.version",
     "typo3-ter/mymap": "self.version"
   },
   "autoload": {
