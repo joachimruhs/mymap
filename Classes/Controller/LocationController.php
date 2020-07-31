@@ -1,6 +1,7 @@
 <?php
 namespace WSR\Mymap\Controller;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *
@@ -616,8 +617,10 @@ if ($result->hasErrors()) {
 		$this->view->assign('locationsCount', count($locations));
 		$this->view->assign('categories', $categories);
 
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
-
+		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
+		
 	}
 
 
