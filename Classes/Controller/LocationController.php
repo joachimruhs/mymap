@@ -607,9 +607,6 @@ if ($result->hasErrors()) {
 
 		$categories = $this->categoryRepository->buildTree($arr);
 
-
-//debug($categories);
-	
 		$locations = $this->locationRepository->findAll();
 		
 		$this->view->assign('settings', $this->settings);
@@ -617,10 +614,9 @@ if ($result->hasErrors()) {
 		$this->view->assign('locationsCount', count($locations));
 		$this->view->assign('categories', $categories);
 
-		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
-		$sys_language_uid = $languageAspect->getId();
+		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
 		$this->view->assign('Lvar', $sys_language_uid);
-		
 	}
 
 
