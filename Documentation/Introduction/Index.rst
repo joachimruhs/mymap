@@ -18,7 +18,7 @@ in the constant editor of TYPO3. Google's streetview, traffic layer and bicyclin
 What's new?
 ^^^^^^^^^^^
 
-Ajax call implemented with Middleware PSR-15.
+TYPO3 9.x compatibility dropped. Signals removed and events PSR-14 implemented. Gesture handling implemented.
 
 Screenshots
 ___________

@@ -16,8 +16,6 @@ return array (
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
 		),
 		'searchFields' => 'name,address,zipcode,city,country,phone,fax,mobile,email,description,lat,lon,geocode,icon,image,media,categories,',
 		'iconfile' => 'EXT:mymap/Resources/Public/Icons/tx_mymap_domain_model_location.gif'

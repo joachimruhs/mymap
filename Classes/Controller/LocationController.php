@@ -2,37 +2,23 @@
 namespace WSR\Mymap\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
-/***************************************************************
+/***
  *
- *  Copyright notice
+ * This file is part of the "Mymap" Extension for TYPO3 CMS.
  *
- *  (c) 2015 - 2018 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  All rights reserved
+ *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ ***/
 
 /**
  * LocationController
  */
 class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
@@ -197,43 +183,27 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$this->_GP = $this->request->getArguments();
 
 		if ($this->_GP['locationUid']) {// called from list link
-			$location = $this->locationRepository->findByUid(intval($this->_GP['locationUid']));
+			$location = $this->locationRepository->findLocationUidOverride(intval($this->_GP['locationUid']));
 			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->_GP['locationUid'])));
 		}
 		else {
-			$location = $this->locationRepository->findByUid(intval($this->settings['singleViewUid']));
+//			$location = $this->locationRepository->findByUid(intval($this->settings['singleViewUid']));
 			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->settings['singleViewUid'])));
 		}
 
-		// signal
-		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-		$ret =$signalSlotDispatcher->dispatch(__CLASS__, 'beforeSingleRenderView', array(&$location, &$this));
+		$image = $this->locationRepository->findByUid($location[0]['uid']) -> getImage();
+		$location[0]['theImage'] =	$image;				
+
+
+		// event dispatch
+		$event = GeneralUtility::makeInstance('WSR\Mymap\Event\SingleViewEvent');
+		$event->setLocation($location);
+		$this->eventDispatcher = GeneralUtility::getContainer()->get(EventDispatcherInterface::class);		
+		$this->eventDispatcher->dispatch($event);
+
 
 		$this->view->assign('location', $location);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
-
-
-		
-/*
-		in localconf of your extension add something like this
-
-		$signalSlotDispatcher = 
-		 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-
-		$signalSlotDispatcher->connect(  
-			 'WSR\Mymap\Controller\LocationsController', 'beforeSingleRenderView', 'WSR\Yourext\Slots\RoomSlot', 'beforeSingleRenderView', FALSE  
-		); 
- 
-		and in the slot class of your extension
-		class RoomSlot extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-			public function beforeSearchRenderView(&$data, &$object) {     
-				echo "Yes, beforeSearchRenderView was called";
-				// here you can do your own stuff with $object
-			}
-		...
-		}		
- */
-		
 	}
 
 
@@ -249,10 +219,11 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$uid = rand(1, $counts);
 		$location = $this->locationRepository->findByUid($uid);
 		
+/*
 		// signal
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 		$ret =$signalSlotDispatcher->dispatch(__CLASS__, 'beforeRandomRenderView', array(&$location, &$this));
-
+*/
 		$this->view->assign('location', $location);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
 
@@ -293,7 +264,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	    $this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
 	    $this->view->assign('_GP', $this->_GP['tx_mymap_search']);
 
-		$categories = $this->categoryRepository->findAllOverwrite();
+		$categories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		for($i = 0; $i < count($categories); $i++) {
 			$arr[$i]['uid']= $categories[$i]['uid'];	
 			$arr[$i]['parent'] = $categories[$i]['parent'];	
@@ -343,7 +314,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			return;
 		}
 		$this->updateLatLon();
-		$locations = $this->locationRepository->findAllOverwrite();
+		$locations = $this->locationRepository->findAllOverwrite($this->conf['storagePid']);
 		for ($i = 0; $i < count($locations); $i++) {
 			$category[$i] = $this->categoryRepository->findCategoriesByLocation($locations[$i]['uid']);
 			// this is used by TYPO3 9.x instead of viewHelper for categories
@@ -438,7 +409,7 @@ if ($result->hasErrors()) {
 
 		// find all categories of all children
 		// may be this can be commented
-		$allCategories = $this->categoryRepository->findAllOverwrite();
+		$allCategories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		
 		// sanitizing categories						 
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
@@ -512,11 +483,21 @@ if ($result->hasErrors()) {
 			$categories[$i] = $category[$i][0]['categories'];
 		}
 
+/*
 		// signal
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 		$ret =$signalSlotDispatcher->dispatch(__CLASS__, 'beforeSearchRenderView', array(&$locations, &$this));
+*/		
+		// event dispatch
+		$event = GeneralUtility::makeInstance('WSR\Mymap\Event\SearchViewEvent');
+		$event->setLocations($locations);
+		$this->eventDispatcher = GeneralUtility::getContainer()->get(EventDispatcherInterface::class);		
+		$this->eventDispatcher->dispatch($event);
+		$locations = $event->getLocations();
 		
-		
+//Krexx($locations);
+
+
 		$this->view->assign('settings', $this->settings);
 		
 		$this->view->assign('startingPoint', $latLon);
@@ -580,9 +561,7 @@ if ($result->hasErrors()) {
 		$categories = $this->categoryRepository->findAll();
 
 
-		$categories = $this->categoryRepository->findAllOverwrite();
-
-
+		$categories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 
 	/* used for number of locations shown after category name like Internet(8)
 	*/
@@ -640,11 +619,12 @@ if ($result->hasErrors()) {
 			
 		);
 
+/*
 		// signal
 //		$signalSlotDispatcher = \t3lib_div::makeInstance('Tx_Extbase_SignalSlot_Dispatcher');
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
 		$ret =$signalSlotDispatcher->dispatch(__CLASS__, 'beforeRouteRenderView', array(&$this->_GP, &$this));
-
+*/
 
 		$this->view->assign('destination', $destination);
 
@@ -672,31 +652,23 @@ if ($result->hasErrors()) {
 
 
 	protected function updateLatLon() {
-		$locations = $this->locationRepository->updateLatLon();
+		$locations = $this->locationRepository->updateLatLon($this->conf['storagePid']);
 
 		foreach ($locations as $location) {
-//			echo $location->getName();
 			$theAddress = array (
-				'address' => $location->getAddress(),		
-				'zipcode' => $location->getZipcode(),		
-				'city' => $location->getCity(),		
-				'country' => $location->getCountry(),		
+				'address' => $location['address'],		
+				'zipcode' => $location['zipcode'],		
+				'city' => $location['city'],		
+				'country' => $location['country']		
 			);
-
-
-
 			sleep(rand(1, 3)); // makes Google happy
 
 			$latLon = $this->geocode($theAddress);
-//			debug($latLon->status);
 			if ($latLon->status == 'OK') {
-				$location->setLat($latLon->lat);
-				$location->setLon($latLon->lon);
-				$this->locationRepository->update($location);
+				$this->locationRepository->setLatLon($location['uid'], $latLon->lat, $latLon->lon);
 			}
 			else {
-				$this->flashMessage('Mymap geocoder', 'could not geocode ' . $location->getName() . ' ' . $theAddress['address'] . ' ' . $latLon->status);
-//			debug('could not geocode ' . $location->getName());
+				$this->flashMessage('Mymap geocoder', 'could not geocode ' . $location['name']. ' ' . $theAddress['address'] . ' ' . $latLon->status);
 			}
 				
 		}
@@ -740,7 +712,8 @@ if ($result->hasErrors()) {
 			$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$zipcode+$city,+$country&sensor=false" . $key;
 			$addressData = $this->get_webpage($apiURL);
 
-//debug($apiURL);
+//krexx($apiURL);
+//krexx($addressData);
 
 			$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
 			$coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;

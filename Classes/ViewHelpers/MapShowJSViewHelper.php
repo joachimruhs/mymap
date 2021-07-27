@@ -6,29 +6,16 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 
-/***************************************************************
- *  Copyright notice
+/***
  *
- *  (c) 2018-2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
- *  
- *  All rights reserved
+ * This file is part of the "Mymap" Extension for TYPO3 CMS.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
+ *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ ***/
 
 class MapShowJSViewHelper extends AbstractViewHelper {
 	/**
@@ -52,9 +39,8 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		$location = $arguments['location'];
 		$city = $arguments['city'];
 
-
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
-		$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $location->getUid());
+		$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $location[0]['uid']);
 		if ($fileObjects) {
 			$locationIcon = $fileObjects[0]->getOriginalFile()->getPublicUrl();
 		}
@@ -62,8 +48,8 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		
 		$out = self::getMapJavascript($location);
 		$out .= '<script type="text/javascript">function getMarkers() {';
-			$lat = $location->getLat();
-			$lon = $location->getLon();
+			$lat = $location[0]['lat'];
+			$lon = $location[0]['lon'];
 			
 			$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
 			$out .= 'var shadow = new google.maps.MarkerImage("typo3conf/ext/mymap/Resources/Public/Icons/shadow.png",
@@ -78,7 +64,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
  			$out .= 'marker[0] = new google.maps.Marker({
 					                position: myLatLng,
 					                map: map,
-					                title: "' . $location->getName() .'",
+					                title: "' . $location[0]['name'] .'",
 					                icon: "/' . $locationIcon .'"
 					                });
 									//mapBounds.extend(myLatLng);
@@ -127,17 +113,18 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 
 			var zoom1 = 16;
 
-		    var latlng = new google.maps.LatLng(' . $location->getLat() . ',' . $location->getLon() . ');
+		    var latlng = new google.maps.LatLng(' . $location[0]['lat'] . ',' . $location[0]['lon'] . ');
 		     myOptions = {
 		      zoom: zoom1,
 		      center: latlng,
 		      mapTypeId: google.maps.MapTypeId.ROADMAP,
 		      scaleControl: 1,
 			  zoomControl: 1,
+			  gestureHandling: "cooperative",
 
 		//	  panControl: false,
 		      disableDoubleClickZoom: 1,
-			  scrollwheel: true,
+//			  scrollwheel: true,
 		 	  streetViewControl: 1
 		    };
 		    map = new google.maps.Map(document.getElementById("map"), myOptions);

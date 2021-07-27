@@ -397,7 +397,14 @@ initialMapCoordinates
         48,8
 
 
+Events
+^^^^^^
 
+Existing events in LocationController.php to modify location(s) by third party extension.
+
+> WSR\Mymap\Event\SingleViewEvent
+>
+> WSR\Mymap\Event\SearchViewEvent
 
 
 Known problems

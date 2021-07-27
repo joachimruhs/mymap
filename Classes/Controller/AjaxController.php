@@ -10,30 +10,18 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Http\Response;
 
-/***************************************************************
- *  Copyright notice
+/***
  *
- *  (c) Joachim Ruhs 2016 - 2020
- *  
- *  All rights reserved
+ * This file is part of the "Mymap" Extension for TYPO3 CMS.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
+ *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ ***/
 
 /**
  *
@@ -148,16 +136,16 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 	/**
 	 * @param \Psr\Http\Message\ServerRequestInterface $request
-	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 * @param TYPO3\CMS\Core\Http\Response      $response
 	 */
-	public function indexAction(ServerRequestInterface $request)
+	public function indexAction(ServerRequestInterface $request, Response $response)
 	{
 		switch ($request->getMethod()) {
 			case 'GET':
-				$this->processGetRequest($request, $response);
+				$response = $this->processGetRequest($request, $response);
 				break;
 			case 'POST':
-				$this->processPostRequest($request);
+				$response = $this->processPostRequest($request, $response);
 				break;
 			default:
 				$response->withStatus(405, 'Method not allowed');
@@ -172,7 +160,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param \Psr\Http\Message\ServerRequestInterface $request
 	 * @param \Psr\Http\Message\ResponseInterface      $response
 	 */
-	protected function processGetRequest(ServerRequestInterface $request, ResponseInterface $response) {
+	protected function processGetRequest(ServerRequestInterface $request, Response $response) {
 		$view = $this->getView();
 	
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
@@ -181,9 +169,9 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 	/**
 	 * @param \Psr\Http\Message\ServerRequestInterface $request
-	 * @param \Psr\Http\Message\ResponseInterface      $response
+	 * @param TYPO3\CMS\Core\Http\Response      $response
 	 */
-	protected function processPostRequest(ServerRequestInterface $request)
+	protected function processPostRequest(ServerRequestInterface $request, Response $response)
 	{
 	
 		$queryParams = $request->getQueryParams();
@@ -202,8 +190,10 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	
 		$this->request = $request;
 		$out = $this->ajaxEidAction();
-	
-		echo $out;
+	    $response->getBody()->write($out);
+		return;	
+
+//		echo $out;
 	
 		//    $response->getBody()->write(json_encode($queryParams));
 		//    $response->getBody()->write($out);
@@ -212,7 +202,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		//		$response = GeneralUtility::makeInstance(Response::class);
 		//		$response->getBody()->write($out);
 		
-		
+/*		
 		return $response;
 	
 		
@@ -229,6 +219,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$response->withHeader('Content-type', ['application/json; charset=UTF-8']);
 			$response->getBody()->write(json_encode(['success' => true]));
 		}
+*/
+
 	}
 
 
@@ -245,7 +237,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$rootLine = $rootlineUtility->get();
 	
 		// initialize template service and generate typoscript configuration
-		$templateService->init();
+//		$templateService->init();
 		$templateService->runThroughTemplates($rootLine);
 		$templateService->generateConfig();
 	
@@ -333,7 +325,7 @@ if ($requestArguments['page'] == -1) {
 
 		// find all categories of all children
 		// may be this can be commented
-		$allCategories = $this->categoryRepository->findAllOverwrite();
+		$allCategories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		
 		$cats = array();
 		if ($this->_GP['categories']) $cats = explode(',', $this->_GP['categories']);

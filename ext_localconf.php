@@ -6,134 +6,118 @@ if (!defined('TYPO3_MODE')) {
 $_EXTKEY = 'Mymap';
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'Searchform',
-	array(
-		'Location' => 'searchForm',
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'searchForm',
 		
-	),
+	],
 	// non-cacheable actions
-	array(
-		'Location' => 'searchForm',
-		'Category' => '',
-		
-	)
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'searchForm',
+	]
 );
 
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'Autocompleterform',
-	array(
-		'Location' => 'autocompleterForm',
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'autocompleterForm',
 		
-	),
+	],
 	// non-cacheable actions
-	array(
-		'Location' => 'autocompleterForm',
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'autocompleterForm',
 		'Category' => '',
 		
-	)
+	]
 );
 
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'Search',
-	array(
-		'Location' => 'search, route',
-		
-	),
+	[
+				\WSR\Mymap\Controller\LocationController::class => 'search, route',
+	],
 	// non-cacheable actions
-	array(
-		'Location' => 'search, route',
-	)
+	[
+				\WSR\Mymap\Controller\LocationController::class => 'search, route',
+	]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'MapAll',
-	array(
-		'Location' => 'mapAll',
-		
-	),
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'mapAll',
+	],
 	// non-cacheable actions
-	array(
-		'Location' => 'mapAll',
-		'Category' => '',
-		
-	)
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'mapAll',
+	]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'Ajaxsearch',
-	array(
-		'Location' => 'ajaxSearch',
-		
-	),
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'ajaxSearch',
+	],
 	// non-cacheable actions
-	array(
-		'Location' => '',
-		'Category' => '',
-		
-	)
+	[
+
+	]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'SingleView',
-	array(
-		'Location' => 'singleView',
-		
-	),
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'singleView',
+	],
 	// non-cacheable actions
-	array(
-//		'Location' => 'singleView',
+	[
 		
-	)
+	]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'RandomView',
-	array(
-		'Location' => 'randomView',
-		
-	),
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'randomView',
+	],
 	// non-cacheable actions
-	array(
-		'Location' => 'randomView',
-		
-	)
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'randomView',
+	]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'WSR.' . $_EXTKEY,
+	$_EXTKEY,
 	'AjaxSearch',
-	array(
-		'Location' => 'ajaxSearch',
-		
-	),
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'ajaxSearch',
+	],
 	// non-cacheable actions
-	array(
-		'Location' => 'ajaxSearch',
-		'Category' => '',
-		
-	)
+	[
+		\WSR\Mymap\Controller\LocationController::class => 'ajaxSearch',
+	]
 );
 
 // Plugin for AJAX-calls
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-		'WSR.' . $_EXTKEY,
+		$_EXTKEY,
 		'Ajax',
-		array(
-				'Ajax' => 'ajaxEid'
-		),
+		[
+			\WSR\Mymap\Controller\AjaxController::class => 'ajaxEid'
+		],
 		// non-cacheable actions
-		array(
-				'Ajax' => 'ajaxEid'
-		)
+		[
+			\WSR\Mymap\Controller\AjaxController::class => 'ajaxEid'
+		]
 );
 
 

@@ -23,7 +23,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <h1>Single View for Locations</h1>
 
-
 <f:flashMessages />
 
 
@@ -58,11 +57,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 {Lvar} sys_language_uid for use with language
 </f:comment>
 
-
-
 <f:render partial="Location/Properties" arguments="{location:location, categories: category.0.categories}" />
-
-
 
 <f:comment>
 <!-- this is experimental -->
@@ -137,35 +132,34 @@ load();
 <!-- Google infoWindow -->
 <script type="text/javascript">
 	var info = '<div class="infoWindow">';
-	<f:if condition="{location.image}">
-		<f:then>
-			<f:for each="{location.image}" as="image">
+	<f:if condition="{location.0.image}">
+		<f:for each="{location.0.theImage}" as="image">
 			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
 		        <f:then>
-					info += '<f:image src="{image.originalResource.uid}" treatIdAsReference="1"  width="100" alt=""/><br />';
+	                info += '<img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
 		        </f:then>
-			</v:media.exists>				
-			</f:for>
-		</f:then>
-		<f:else>
-
-		</f:else>
+				<f:else>
+	                info += '<img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/>';
+				</f:else>
+			</v:media.exists>
+		</f:for>
 	</f:if>
+
 	
 	if ("{location.additionalname}".length > 0) {
-		info += "<div class='storename'>{location.name}<br />{location.additionalname}</div>";
+		info += "<div class='storename'>{location.0.name}<br />{location.0.additionalname}</div>";
 	} else {
-		info += "<br /><div class='storename'>{location.name}</div>";
+		info += "<br /><div class='storename'>{location.0.name}</div>";
 	}
 
 	info += "<div class='category'>{category.0.categories}</div>";
 		
 	info += "{location.address}";
 	if ("{location.additionaladdress}".length > 0) {
-		info += "<br />{location.additionaladdress}";
+		info += "<br />{location.0.additionaladdress}";
 	}
 
-	info += "<br />" + "{location.zipcode}" + " " + "{location.city}";
+	info += "<br />" + "{location.0.zipcode}" + " " + "{location.0.city}";
 	info += "</div>";
 
 	infoWindow[0] = new google.maps.InfoWindow({

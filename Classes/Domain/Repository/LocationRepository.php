@@ -2,32 +2,19 @@
 namespace WSR\Mymap\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
 
-
-/***************************************************************
+/***
  *
- *  Copyright notice
+ * This file is part of the "Mymap" Extension for TYPO3 CMS.
  *
- *  (c) 2016 - 2019 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  All rights reserved
+ *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ ***/
 
 /**
  * The repository for Locations
@@ -35,27 +22,89 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
-	 * Updates lat lon 
+	 * Fetches the locations for geocoding
+	 *
+	 * @return array
+	 */
+	public function updateLatLon($pid) {
+		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
+			->getQueryBuilderForTable('tx_mymap_domain_model_location');
+
+		$queryBuilder
+		->getRestrictions()
+		->removeAll()
+		->add(GeneralUtility::makeInstance(DeletedRestriction::class))
+		->add(GeneralUtility::makeInstance(HiddenRestriction::class));
+		
+		$queryBuilder->select('*')
+		->from('tx_mymap_domain_model_location')
+		->where(
+			$queryBuilder->expr()->eq(
+				'pid',
+				$queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
+			)
+		)			
+		->andWhere($queryBuilder->expr()->andX(
+				$queryBuilder->expr()->andX(
+					$queryBuilder->expr()->eq('lat', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
+				),
+				$queryBuilder->expr()->andX(
+					$queryBuilder->expr()->gte('lon', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
+				)
+			)
+		);
+		$result = $queryBuilder->execute()->fetchAll();
+		return $result;		
+	}
+
+	/**
+	 * Sets lat lon 
 	 *
 	 * @return void
 	 */
-	public function updateLatLon() {
-		$query = $this->createQuery();
-		$query->setLimit(25);
-		return $query->matching(
-								$query->logicalAnd(
-												   $query->equals('lat', ''),
-												   $query->equals('lon', ''),
-												   $query->equals('geocode', 1)
-												   )
-								)
-			->execute();
-		
+	public function setLatLon($uid, $lat, $lon) {
+		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
+			->getQueryBuilderForTable('tx_mymap_domain_model_location');
+		$queryBuilder->update('tx_mymap_domain_model_location')
+	   ->where(
+		$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+		)
+		->set('lat', $lat)
+		->set('lon', $lon)
+		->execute();		
 	}
-
 	
 	/**
-	 * Find locaztions within radius
+	 * Get location with uid
+	 *
+	 * @return array
+	 */
+	public function findLocationUidOverride($uid) {
+		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)
+			->getQueryBuilderForTable('tx_mymap_domain_model_location');
+
+		$queryBuilder
+		->getRestrictions()
+		->removeAll()
+		->add(GeneralUtility::makeInstance(DeletedRestriction::class))
+		->add(GeneralUtility::makeInstance(HiddenRestriction::class));
+
+
+		$queryBuilder->select('*')
+		->from('tx_mymap_domain_model_location')
+	   ->where(
+			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+		);
+		$result = $queryBuilder->execute()->fetchAll();
+		return $result;		
+
+	}
+
+
+
+
+	/**
+	 * Find locations within radius
 	 *
 	 * @param stdClass  $latLon
 	 * @param int  $radius

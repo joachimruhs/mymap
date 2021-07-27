@@ -16,8 +16,6 @@ return array (
 		'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
-			'starttime' => 'starttime',
-			'endtime' => 'endtime',
 		),
 		'searchFields' => 'name,description,',
 		'iconfile' => 'EXT:mymap/Resources/Public/Icons/tx_mymap_domain_model_category.gif'
