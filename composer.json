@@ -13,7 +13,8 @@
   "type": "typo3-cms-extension",
   "require": {
 	"typo3/cms-core": ">=10.4.18 || >=11.3",
-	"typo3/cms-frontend": "^10.4.18 || >=11.3"
+	"typo3/cms-frontend": "^10.4.18 || >=11.3",
+	"fluidtypo3/vhs": ">= 6.0.0"  
   },
   "replace": {
     "wsr/mymap": "self.version",
