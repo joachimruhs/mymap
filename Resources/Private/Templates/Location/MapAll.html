@@ -58,7 +58,7 @@
 					<f:for each="{location.theImage}" as="image">
 						<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
 					        <f:then>
-					            <img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>
+					            <img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>
 							</f:then>
 						</v:media.exists>
 					</f:for>
@@ -112,7 +112,7 @@
 				<f:for each="{location.theImage}" as="image">
 			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
 		        <f:then>
-	                info += '<img src="{image.originalResource.originalFile.publicUrl}" width="100" alt=""/>';
+	                info += '<img src="/{image.originalResource.originalFile.publicUrl}" width="100" alt=""/>';
 //					info += '<f:image src="{image.originalResource.uid}" treatIdAsReference="1"  width="100" alt=""/><br />';
 		        </f:then>
 			</v:media.exists>
