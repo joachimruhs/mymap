@@ -74,7 +74,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 
 		<f:for each="{location.theImages}" as="image">
-			<li><f:image src="fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></li>			
+			<li><f:image src="/fileadmin/{image.originalResource.originalFile.identifier}"  width="50" alt=""/></li>			
 <f:comment>
 			<f:debug>{image.originalResource.title}</f:debug>
 			<f:debug>{image.originalResource.originalFile.identifier}</f:debug>

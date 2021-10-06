@@ -65,7 +65,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 					                position: myLatLng,
 					                map: map,
 					                title: "' . $location[0]['name'] .'",
-					                icon: "/' . $locationIcon .'"
+					                icon: "' . $locationIcon .'"
 					                });
 									//mapBounds.extend(myLatLng);
 

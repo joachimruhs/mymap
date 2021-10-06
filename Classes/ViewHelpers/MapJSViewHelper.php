@@ -16,6 +16,8 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  *
  ***/
 
+use \TYPO3\CMS\Core\Core\Environment;
+
 
 class MapJSViewHelper extends AbstractViewHelper {
 
@@ -63,17 +65,15 @@ class MapJSViewHelper extends AbstractViewHelper {
 					$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $locations[$i]['uid']);
 					$locationIcon = '';
 					if ($fileObjects) {
-						$locationIcon = $fileObjects[0]->getOriginalFile()->getPublicUrl();
+						$locationIcon = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $fileObjects[0]->getOriginalFile()->getPublicUrl();
 					}
-
-				
 					
 					if ($locationIcon) {
 						$out .= 'marker[' . $i . '] = new google.maps.Marker({
 											position: myLatLng,
 											map: map,
 											title: "' . $locations[$i]['name'] .'",
-											icon: "/' . $locationIcon .'",
+											icon: "' . $locationIcon .'",
 											' . $animation . '
 											map: map
 											});
