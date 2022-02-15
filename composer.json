@@ -17,7 +17,6 @@
 	"fluidtypo3/vhs": ">= 6.0.0"  
   },
   "replace": {
-    "wsr/mymap": "self.version",
     "typo3-ter/mymap": "self.version"
   },
   "autoload": {
