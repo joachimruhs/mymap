@@ -35,13 +35,13 @@ class MapUtilities implements MiddlewareInterface {
 		$normalizedParams = $request->getAttribute('normalizedParams');
 		$typo3SiteUrl = $normalizedParams->getSiteUrl(); // Same as GeneralUtility::getIndpEnv('TYPO3_SITE_URL')
 
-		$requestArguments = $request->getParsedBody()['tx_mymap_ajax'];
+		$requestArguments = $request->getParsedBody()['tx_mymap_ajax'] ?? [];
 
 		// Remove any output produced until now
 		ob_clean();
 
 		// continue only if action is ajaxPsr of extension mymap
-		if ($requestArguments['action'] != 'ajaxPsr') return $handler->handle($request);
+		if (!isset($requestArguments['action']) || $requestArguments['action'] != 'ajaxPsr') return $handler->handle($request);
 
 		//print_r ($normalizedParams);
 //		print_r($requestArguments);
