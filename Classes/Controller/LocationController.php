@@ -203,7 +203,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
 		$this->view->assign('location', $location);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
 	}
 
 
@@ -262,7 +262,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
 	    $this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
-	    $this->view->assign('_GP', $this->_GP['tx_mymap_search']);
+	    $this->view->assign('_GP', $this->_GP['tx_mymap_search'] ?? '');
 
 		$categories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		for($i = 0; $i < count($categories); $i++) {
@@ -411,7 +411,8 @@ if ($result->hasErrors()) {
 		// may be this can be commented
 		$allCategories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		
-		// sanitizing categories						 
+		// sanitizing categories
+        $this->_GP['categories'] = $this->_GP['categories'] ?? '';
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
 			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'mymap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
@@ -420,6 +421,7 @@ if ($result->hasErrors()) {
 
 		$cats = $this->_GP['categories'];
 //		$cats = array();
+        $children = '';
 //		if ($this->_GP['categories']) $cats = explode(',', $this->_GP['categories']);
 		if (is_array($cats)) {
 			for ($i = 0; $i < count($cats); $i++) {
@@ -504,7 +506,7 @@ if ($result->hasErrors()) {
 		$this->view->assign('categories', $categories);
 		$this->view->assign('locations', $locations);
 
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
 		
 		
         $this->view->assign('_GP', $this->_GP);
@@ -629,21 +631,21 @@ if ($result->hasErrors()) {
 		$this->view->assign('destination', $destination);
 
 		$start = array (
-			'address' => $this->_GP['startAddress'],
-			'zipcode' => $this->_GP['startZipcode'],
-			'city' => $this->_GP['startCity'],
+			'address' => $this->_GP['startAddress'] ?? '',
+			'zipcode' => $this->_GP['startZipcode'] ?? '',
+			'city' => $this->_GP['startCity'] ?? '',
 		);
 		$this->view->assign('startingAddress', $start);
 
 
 		$this->view->assign('startingPoint', $startingPoint);
 		$target = array (
-			'address' => $this->_GP['targetAddress'],
-			'zipcode' => $this->_GP['targetZipcode'],
-			'city' => $this->_GP['targetCity'],
+			'address' => $this->_GP['targetAddress'] ?? '',
+			'zipcode' => $this->_GP['targetZipcode'] ?? '',
+			'city' => $this->_GP['targetCity'] ?? '',
 		);
 		$this->view->assign('target', $target);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
 		
 	}
 
@@ -702,7 +704,7 @@ if ($result->hasErrors()) {
 
 
 		######################################Main Geocoders#####################################
-		if (!$lat_lon->lat && !$lat_lon->lon) {
+
 
 			// for geocoding we need a server API key not a browser key
 			if ($this->settings['googleServerApiKey']) {
@@ -718,12 +720,12 @@ if ($result->hasErrors()) {
 			$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
 			$coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
 
-			$latLon = new \stdClass();
+    		$latLon = new \stdClass();
 			$latLon->lat = $coordinates[1];
 			$latLon->lon = $coordinates[0];
 			$latLon->status = json_decode($addressData)->status;
 
-		}
+		
 
 		return $latLon;
 	}

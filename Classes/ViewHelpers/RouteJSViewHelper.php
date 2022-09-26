@@ -41,7 +41,7 @@ class RouteJSViewHelper extends AbstractViewHelper {
 	 }
 	 
 	 public static function getMapJavascript($startingPoint, $destination) {
-		$out .= '<script type="text/javascript">
+		$outJS = '<script type="text/javascript">
 
 
 var map;
@@ -297,7 +297,7 @@ function endInfoWindowMap() {
 }
 		</script>';
 
-		return $out;
+		return $outJS;
 	 }
 	 
 	 
