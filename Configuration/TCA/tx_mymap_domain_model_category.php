@@ -26,7 +26,7 @@ return array (
 		'showRecordFieldList' => 'hidden, name, parent, description',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'hidden, name, parent, description, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'hidden, name, parent, description, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -40,6 +40,7 @@ return array (
 				'type' => 'check',
 			),
 		),
+/*
 		'starttime' => array(
 			'exclude' => 1,
 //			'l10n_mode' => 'mergeIfNotBlank',
@@ -80,7 +81,7 @@ return array (
 
 			),
 		),
-
+*/
 		'name' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mymap/Resources/Private/Language/locallang_db.xlf:tx_mymap_domain_model_category.name',

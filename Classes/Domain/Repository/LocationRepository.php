@@ -124,7 +124,8 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		if ($categories)
 			$categories = GeneralUtility::intExplode(',', $categories, true);		
-			
+
+        $categorySelect	= '';
 		if (is_array($categories)) {
 			for ($i = 0; $i < count($categories); $i++) {
 				if ($categories[$i]) {
@@ -211,6 +212,7 @@ if ($page) {
 	}
 
 	public function findAllByCategory($latLon, $radius, $categories, $storagePid, $limit, $page) {
+        $categorySelect	= '';
 		if (is_array($categories)) {
 			for ($i = 0; $i < count($categories); $i++) {
 				if ($categories[$i]) {

@@ -572,7 +572,7 @@ if ($result->hasErrors()) {
 
 
 	
-		$this->view->assign('categoriesCount', $categoriesCount);
+		$this->view->assign('categoriesCount', $categoriesCount ?? 0);
 
 
 

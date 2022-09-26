@@ -95,7 +95,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$key = '&key=' . $this->settings['googleServerApiKey'];
 		}				
 
-		$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$zipcode+$city,+$country&sensor=false" . $key;
+		$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$country&sensor=false" . $key;
 		$addressData = $this->get_webpage($apiURL);
 
 		$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
@@ -261,6 +261,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \string html
 	 */
 	public function ajaxEidAction() {
+        $out = '';
 /*
       	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 		$this->configuration = $configuration;
@@ -328,6 +329,7 @@ if ($requestArguments['page'] == -1) {
 		$allCategories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		
 		$cats = array();
+        $children = '';
 		if ($this->_GP['categories']) $cats = explode(',', $this->_GP['categories']);
 		for ($i = 0; $i < count($cats); $i++) {
 			if ($i == 0)
@@ -378,12 +380,12 @@ if ($requestArguments['page'] == -1) {
 			return $out;
 		}
 			
-		$out .= $this->getMarkerJS($locations, $categories, $latLon, $this->_GP['radius']);
+		$out .= $this->getMarkerJS($locations, $categories ?? '', $latLon, $this->_GP['radius']);
 		
 		// get  the loctions list
 		
 		if ($requestArguments['page'] != -1)  // do not show the list for page loading 
-			$out .= $this->getLocationsList($locations, $categories, $allLocations);
+			$out .= $this->getLocationsList($locations, $categories ?? '', $allLocations);
 		
 		return $out;
 	}
@@ -511,9 +513,8 @@ if ($requestArguments['page'] == -1) {
 	}
 	
 	function getLocationsList($locations, $categories, $allLocations) {
-//		$out .= $this->renderFluidTemplate('AjaxLocationList.html', array('locations' => $locations, 'categories' => $categories));
-		$out .= $this->renderFluidTemplate('AjaxLocationList.html', array('locations' => $locations, 'categories' => $categories,
-																		  'settings' => $this->settings, 'locationsCount' => count($allLocations)));
+		$out = $this->renderFluidTemplate('AjaxLocationList.html', array('locations' => $locations, 'categories' => $categories,
+										  'settings' => $this->settings, 'locationsCount' => count($allLocations)));
 		return $out;
 	}
 	

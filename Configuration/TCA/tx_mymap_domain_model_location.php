@@ -312,7 +312,8 @@ return array (
                         'collapseAll' => true,
                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                     ],
-					['overrideChildTca']['types'] => [					
+/*                    
+					['overrideChildTca']['types'] => [
 						'0' => [
 							'showitem' => '
 							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
@@ -344,7 +345,7 @@ return array (
 							--palette--;;filePalette'
 						]
 					],					
-					
+*/					
 					
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
@@ -363,7 +364,7 @@ return array (
                         'collapseAll' => true,
                         'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                     ],
-
+/*
 					['overrideChildTca']['types'] => [					
 						'0' => [
 							'showitem' => '
@@ -395,7 +396,8 @@ return array (
 							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
 							--palette--;;filePalette'
 						]
-					],					
+					],
+*/                    
 
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext']
