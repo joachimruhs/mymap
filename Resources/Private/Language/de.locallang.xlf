@@ -1,146 +1,153 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-11-16T16:57:13Z" product-name="mymap">
-		<header/>
-		<body>
-			<trans-unit id="tx_mymap_domain_model_location">
-				<source>location</source>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.additionalname">
-				<target>Zusätzlicher Name</target>
-			</trans-unit>
-
-			<trans-unit id="tx_mymap_domain_model_location.address">
-				<target>Adresse</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.additionaladdress">
-				<target>Zusätzliche Adresse</target>
-			</trans-unit>
-
-			<trans-unit id="tx_mymap_domain_model_location.zipcode">
-				<source>Zipcode</source>
-				<target>PLZ</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.city">
-				<source>City</source>
-				<target>Stadt</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.country">
-				<source>Country</source>
-				<target>Land</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.additionalcontact">
-				<target>Zusätzlicher Kontakt</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.phone">
-				<source>Phone</source>
-				<target>Telefon</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.email">
-				<source>Email</source>
-				<target>Email</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.www">
-				<source>www</source>
-				<target>www</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.description">
-				<source>Description</source>
-				<target>Beschreibung</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.kwp">
-				<source>kWp</source>
-				<target>kWp</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.fax">
-				<source>Fax</source>
-				<target>Fax</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.mobile">
-				<source>Mobile</source>
-				<target>Mobil</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.lat">
-				<source>Lat</source>
-				<target>Breitengrad</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.lon">
-				<source>Lon</source>
-				<target>Längengrad</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.geocode">
-				<source>Geocode</source>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.icon">
-				<source>Icon</source>
-				<target>Icon</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.image">
-				<source>Image</source>
-				<target>Bild</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.media">
-				<source>Media</source>
-				<target>Media</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_location.categories">
-				<source>Categories</source>
-				<target>Kategorien</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_categories">
-				<source>Categories</source>
-				<target>Kategorien</target>
-			</trans-unit>
-			<trans-unit id="tx_mymap_domain_model_categories.name">
-				<source>Name</source>
-				<target>Name</target>
-			</trans-unit>
-
-			<trans-unit id="address">
-				<source>Address</source>
-				<target>Adresse</target>
-			</trans-unit>
-			<trans-unit id="zipcode">
-				<source>Zipcode</source>
-				<target>PLZ</target>
-			</trans-unit>
-			<trans-unit id="city">
-				<source>City</source>
-				<target>Stadt</target>
-			</trans-unit>
-			<trans-unit id="country">
-				<source>Country</source>
-				<target>Land</target>
-			</trans-unit>
-			<trans-unit id="search">
-				<source>Search</source>
-				<target>Suchen</target>
-			</trans-unit>
-			<trans-unit id="route">
-				<target>Anfahrtsweg</target>
-			</trans-unit>
-
-<!-- messages -->
-			<trans-unit id="noStartingPointCoordinatesFound">
-				<target>Konnte die Ausgangspunktkoordinaten nicht ermitteln! Bitte überprüfen Sie Ihre Eingaben für PLZ, Stadt und Land.</target>
-			</trans-unit>
-
-			<trans-unit id="noLocationsFound">
-				<target>Es wurden keine Lokationen gefunden!</target>
-			</trans-unit>
-			<trans-unit id="errorInCategories">
-				<target>Kategorieeingabefehler!</target>
-			</trans-unit>
-			
-			<trans-unit id="kWp">
-				<target>Kilowatt Peak</target>
-			</trans-unit>
-			<trans-unit id="showMore">
-				<target>Mehr anzeigen...</target>
-			</trans-unit>
-		</body>
-	</file>
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="tx_mymap_domain_model_location" approved="yes">
+        <source>Location</source>
+        <target state="final">Lokation</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionalname" approved="yes">
+        <source>Additional name</source>
+        <target state="final">Zusätzlicher Name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.address" approved="yes">
+        <source>Address</source>
+        <target state="final">Adresse</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionaladdress" approved="yes">
+        <source>Additional address</source>
+        <target state="final">Zusätzliche Adresse</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.zipcode" approved="yes">
+        <source>Zipcode</source>
+        <target state="final">PLZ</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.city" approved="yes">
+        <source>City</source>
+        <target state="final">Stadt</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.country" approved="yes">
+        <source>Country</source>
+        <target state="final">Land</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionalcontact" approved="yes">
+        <source>Additional contact</source>
+        <target state="final">Zusäzlicher Kontakt</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">Telefon</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.mobile" approved="yes">
+        <source>Mobile</source>
+        <target state="final">Mobil</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.email" approved="yes">
+        <source>Email</source>
+        <target state="final">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.description" approved="yes">
+        <source>Description</source>
+        <target state="final">Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.kwp" approved="yes">
+        <source>kWp</source>
+        <target state="final">kWp</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.lat" approved="yes">
+        <source>Lat</source>
+        <target state="final">Breitengrad</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.lon" approved="yes">
+        <source>Lon</source>
+        <target state="final">Längengrad</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.geocode" approved="yes">
+        <source>Geocode</source>
+        <target state="final">Geocode</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.icon" approved="yes">
+        <source>Icon</source>
+        <target state="final">Icon</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.image" approved="yes">
+        <source>Image</source>
+        <target state="final">Bild</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.media" approved="yes">
+        <source>Media</source>
+        <target state="final">Media</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.categories" approved="yes">
+        <source>Categories</source>
+        <target state="final">Kategorien</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category" approved="yes">
+        <source>Category</source>
+        <target state="final">Kategorie</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.description" approved="yes">
+        <source>Description</source>
+        <target state="final">Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="address" approved="yes">
+        <source>Address</source>
+        <target state="final">Adresse</target>
+      </trans-unit>
+      <trans-unit id="zipcode" approved="yes">
+        <source>Zipcode</source>
+        <target state="final">PLZ</target>
+      </trans-unit>
+      <trans-unit id="city" approved="yes">
+        <source>City</source>
+        <target state="final">Stadt</target>
+      </trans-unit>
+      <trans-unit id="country" approved="yes">
+        <source>Country</source>
+        <target state="final">Land</target>
+      </trans-unit>
+      <trans-unit id="search" approved="yes">
+        <source>Search</source>
+        <target state="final">Suchen</target>
+      </trans-unit>
+      <trans-unit id="route" approved="yes">
+        <source>Route</source>
+        <target state="final">Route</target>
+      </trans-unit>
+      <!-- messages -->
+      <trans-unit id="noStartingPointCoordinatesFound" approved="yes">
+        <source>No starting point coordinates found!</source>
+        <target state="final">Keine Ausgangspunkt Koordinaten gefunden!</target>
+      </trans-unit>
+      <trans-unit id="noLocationsFound" approved="yes">
+        <source>No locations found!</source>
+        <target state="final">Keine Lokationen gefunden!</target>
+      </trans-unit>
+      <trans-unit id="errorInCategories" approved="yes">
+        <source>Error in categories!</source>
+        <target state="final">Kategoriefehler!</target>
+      </trans-unit>
+      <trans-unit id="kWp" approved="yes">
+        <source>kWp</source>
+        <target state="final">kWp</target>
+      </trans-unit>
+      <trans-unit id="showMore" approved="yes">
+        <source>Show more</source>
+        <target state="final">Mehr anzeigen</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>
