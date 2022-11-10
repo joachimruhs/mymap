@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z">
+    <header>
+      <generator>LFEditor</generator>
+    </header>
+    <body>
+      <trans-unit id="address.description">
+        <source>address</source>
+        <target state="needs-translation">address</target>
+      </trans-unit>
+      <trans-unit id="categories.description">
+        <source>categories</source>
+        <target state="needs-translation">categories</target>
+      </trans-unit>
+      <trans-unit id="city.description">
+        <source>city</source>
+        <target state="needs-translation">city</target>
+      </trans-unit>
+      <trans-unit id="country.description">
+        <source>country</source>
+        <target state="needs-translation">country</target>
+      </trans-unit>
+      <trans-unit id="description.description">
+        <source>description</source>
+        <target state="needs-translation">description</target>
+      </trans-unit>
+      <trans-unit id="email.description">
+        <source>email</source>
+        <target state="needs-translation">email</target>
+      </trans-unit>
+      <trans-unit id="fax.description">
+        <source>fax</source>
+        <target state="needs-translation">fax</target>
+      </trans-unit>
+      <trans-unit id="geocode.description">
+        <source>geocode</source>
+        <target state="needs-translation">geocode</target>
+      </trans-unit>
+      <trans-unit id="icon.description">
+        <source>icon</source>
+        <target state="needs-translation">icon</target>
+      </trans-unit>
+      <trans-unit id="image.description">
+        <source>image</source>
+        <target state="needs-translation">image</target>
+      </trans-unit>
+      <trans-unit id="lat.description">
+        <source>lat</source>
+        <target state="needs-translation">lat</target>
+      </trans-unit>
+      <trans-unit id="lon.description">
+        <source>lon</source>
+        <target state="needs-translation">lon</target>
+      </trans-unit>
+      <trans-unit id="media.description">
+        <source>media</source>
+        <target state="needs-translation">media</target>
+      </trans-unit>
+      <trans-unit id="mobile.description">
+        <source>mobile</source>
+        <target state="needs-translation">mobile</target>
+      </trans-unit>
+      <trans-unit id="name.description">
+        <source>name</source>
+        <target state="needs-translation">name</target>
+      </trans-unit>
+      <trans-unit id="phone.description">
+        <source>phone</source>
+        <target state="needs-translation">phone</target>
+      </trans-unit>
+      <trans-unit id="zipcode.description">
+        <source>zipcode</source>
+        <target state="needs-translation">zipcode</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
