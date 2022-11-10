@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "mymap".
  *
- * Auto generated 27-05-2020 18:41
+ * Auto generated 05-10-2022 12:49
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array (
   'title' => 'MyMap',
   'description' => 'Google maps with radial search and hierarchic categories (category tree). Show the results in responsive Google maps, traffic- and bicycling layer included and can be activated via constant editor.',
   'category' => 'plugin',
-  'version' => '1.3.7',
+  'version' => '1.5.5',
   'state' => 'beta',
   'uploadfolder' => true,
   'clearcacheonload' => false,
@@ -25,8 +25,8 @@ $EM_CONF[$_EXTKEY] = array (
   array (
     'depends' => 
     array (
-      'typo3' => '10.4.18-11.5.99',
-      'vhs' => '6.0.0',
+      'typo3' => '11.5-12.5.99',
+#      'vhs' => '6.0.0',
     ),
     'conflicts' => 
     array (
@@ -35,6 +35,5 @@ $EM_CONF[$_EXTKEY] = array (
     array (
     ),
   ),
-  'createDirs' => NULL,
 );
 

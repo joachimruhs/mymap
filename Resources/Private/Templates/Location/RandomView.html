@@ -53,8 +53,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 </f:format.raw>
 
 
-
-
 <!-- here comes the google map -->
 <div id="mapContainer" style="width: 100%; height: 100%;">
 	<div id="map" style="width: 400px; height: 300px;"></div>
@@ -63,22 +61,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 load();
 </script>
 
+
 <!-- Google infoWindow -->
 <script type="text/javascript">
 
 	var info = '<div class="infoWindow">';
-	<f:if condition="{location.image}">
-		<f:then>
-			info += '<f:image src="uploads/tx_mymap/images/{location.image}"  width="100" alt=""/><br />';			
-		</f:then>
-		<f:else>
-
-		</f:else>
+	<f:if condition="{location.0.image}">
+		<f:for each="{location.0.image}" as="image">
+			info += '<f:image src="{image.originalResource.originalFile.publicUrl}"  width="50" alt=""/><br />';			
+        </f:for>
 	</f:if>
 	
-	info += "<div class='storename'>{location.name}</div>";
-	info += "{location.address}";
-	info += "<br />" + "{location.zipcode}" + " " + "{location.city}";
+	info += "<div class='storename'>{location.0.name}</div>";
+	info += "{location.0.address}";
+	info += "<br />" + "{location.0.zipcode}" + " " + "{location.0.city}";
 	info += "</div>";
 
 	infoWindow[0] = new google.maps.InfoWindow({

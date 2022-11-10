@@ -20,10 +20,10 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<div id="searchform">
 		<f:if condition="{settings.resultPageId}">
 			<f:then>
-			<form method="post" action='<f:uri.action pageUid="{settings.resultPageId}" controller="Location" action="search"/>' name="searchform">
+			<form method="post" action='/?id={settings.resultPageId}' name="searchform">
 			</f:then>
 			<f:else>
-			<form method="post" action="<f:uri.action controller="Location" action="search"/>" name="searchform">
+			<form method="post" action="search"  name="searchform">
 			</f:else>
 		</f:if>	
 		<table><tr>

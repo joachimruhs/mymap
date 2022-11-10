@@ -5,7 +5,7 @@
 
 info = 'AjaxLocationListInfoWindow<br />';
 
-info += '<form action="<f:uri.page pageUid="{settings.routePageId}"/>" name="mymapForm{iter.index}" method="post">';
+info += '<form action="?id={settings.routePageId}" name="mymapForm{iter.index}" method="post">';
 //info += '<input type="hidden" name="id" value="{settings.routePageId}" />';
 info += '<input type="hidden" name="L" value="{Lvar}" />';
 info += '<input type="hidden" name="tx_mymap_search[action]" value="route" />';
@@ -20,21 +20,15 @@ info += '</form>';
 // FAL
 <f:if condition="{location.image}">
 		<f:for each="{location.theImage}" as="image">
-			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
-		        <f:then>
-	                info += '<img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
-		        </f:then>
-				<f:else>
-	                info += '<img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/>';
-				</f:else>
-			</v:media.exists>
+            info += '<img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
 		</f:for>
 </f:if>
 
 	if ("{location.additionalname}".length > 0) {
-		info += "<strong>{location.name}<br />{location.additionalname}</strong>";
+		info += '<a href="?id={settings.detailsPageId}&tx_mymap_singleview[action]=singleView&tx_mymap_singleview[locationUid]={location.uid}"><strong>{location.name}</a><br />{location.additionalname}</strong>';
 	} else {
-		info += "<strong>{location.name}</strong>";
+		info += '<a href="?id={settings.detailsPageId}&tx_mymap_singleview[action]=singleView&tx_mymap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>';
+
 	}
 
 	

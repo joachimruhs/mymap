@@ -1,7 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
-}
+defined('TYPO3') or die();
 
 $_EXTKEY = 'Mymap';
 
@@ -79,7 +77,7 @@ $_EXTKEY = 'Mymap';
 	],
 	// non-cacheable actions
 	[
-		
+		\WSR\Mymap\Controller\LocationController::class => 'singleView',
 	]
 );
 

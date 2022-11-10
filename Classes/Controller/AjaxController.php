@@ -77,7 +77,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	public function ajaxPageAction() {
 		// not used yet 
-		$requestArguments = $this->request->getArguments();
+		$requestArguments = $this->request1->getArguments();
 		return json_encode($requestArguments);
 	}
 	
@@ -86,7 +86,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \stdclass $latLon
 	 */
 	public function ajaxEidGeocodeAction() {
-		$requestArguments = $this->request->getParsedBody()['tx_mymap_ajax'];
+		$requestArguments = $this->request1->getParsedBody()['tx_mymap_ajax'];
 
 		$address = urlencode($requestArguments['address']);
 		$country = urlencode($requestArguments['country']);
@@ -135,7 +135,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 
 	/**
-	 * @param \Psr\Http\Message\ServerRequestInterface $request
+	 * @param TYPO3\CMS\Core\Http\ServerRequestInterface $request
 	 * @param TYPO3\CMS\Core\Http\Response      $response
 	 */
 	public function indexAction(ServerRequestInterface $request, Response $response)
@@ -173,7 +173,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function processPostRequest(ServerRequestInterface $request, Response $response)
 	{
-	
 		$queryParams = $request->getQueryParams();
 	
 	//	$queryParameters = $request->getParsedBody();
@@ -187,8 +186,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 		$this->settings = $this->configuration['settings'];
 		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
-	
-		$this->request = $request;
+
+		$this->request1 = $request;
 		$out = $this->ajaxEidAction();
 	    $response->getBody()->write($out);
 		return;	
@@ -267,13 +266,14 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$this->configuration = $configuration;
 		$this->conf['storagePid'] = $configuration['persistence']['storagePid'];
 */
-		
-//		$requestArguments = $this->request->getArguments();
-		$requestArguments = $this->request->getParsedBody()['tx_mymap_ajax'];
 
-		if ($requestArguments['categories'])
+	
+        $requestArguments = $this->request1->getParsedBody()['tx_mymap_ajax'];
+
+		if ($requestArguments['categories'] = $requestArguments['categories'] ?? [])
 		$this->_GP['categories'] = @implode(',', $requestArguments['categories']);
-		// sanitizing categories						 
+		// sanitizing categories
+        $this->_GP['categories'] = $this->_GP['categories'] ?? '';
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', $this->_GP['categories']) != 1) {
 			$this->_GP['categories'] = '';
 		}		

@@ -10,7 +10,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \TYPO3\CMS\Extbase\Service\TypoScriptService;
 use \TYPO3\CMS\Core\Http\Response;
-
 /***
  *
  * This file is part of the "Mymap" Extension for TYPO3 CMS.
@@ -18,7 +17,7 @@ use \TYPO3\CMS\Core\Http\Response;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2021 - 2022 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -47,8 +46,7 @@ class MapUtilities implements MiddlewareInterface {
 //		print_r($requestArguments);
 //		print_r($GLOBALS['TSFE']);
 
-		$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');		
-		$ajaxController = $objectManager->get('WSR\Mymap\Controller\AjaxController');
+		$ajaxController = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('WSR\Mymap\Controller\AjaxController');
 
 		$response = GeneralUtility::makeInstance(Response::class);
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);

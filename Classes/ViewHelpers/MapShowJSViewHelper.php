@@ -38,7 +38,6 @@ class MapShowJSViewHelper extends AbstractViewHelper {
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
 		$location = $arguments['location'];
 		$city = $arguments['city'];
-
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
 		$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $location[0]['uid']);
 		if ($fileObjects) {

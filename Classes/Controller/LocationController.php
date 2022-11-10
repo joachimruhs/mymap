@@ -4,6 +4,14 @@ namespace WSR\Mymap\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
+
 /***
  *
  * This file is part of the "Mymap" Extension for TYPO3 CMS.
@@ -11,7 +19,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2021 - 2022 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -19,21 +27,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  * LocationController
  */
 class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-
-	/**
-	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
-	 */
-	protected $feUserRepository;
- 
-    /**
-     * Inject a frontendUserRepository to enable DI
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository
-     * @return void
-     */
-    public function injectFrontendUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $feUserRepository) {
-        $this->feUserRepository = $feUserRepository;
-    }
 
 
 	/**
@@ -181,13 +174,12 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function singleViewAction() {
 		$this->_GP = $this->request->getArguments();
-
 		if ($this->_GP['locationUid']) {// called from list link
 			$location = $this->locationRepository->findLocationUidOverride(intval($this->_GP['locationUid']));
 			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->_GP['locationUid'])));
 		}
 		else {
-//			$location = $this->locationRepository->findByUid(intval($this->settings['singleViewUid']));
+			$location = $this->locationRepository->findByUid(intval($this->settings['singleViewUid']));
 			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->settings['singleViewUid'])));
 		}
 
@@ -204,6 +196,11 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 		$this->view->assign('location', $location);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
+
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+
 	}
 
 
@@ -217,8 +214,11 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 //		$locations = $this->locationRepository->findAllOverwrite();
 		$counts = count($locations);
 		$uid = rand(1, $counts);
-		$location = $this->locationRepository->findByUid($uid);
+		$location = $this->locationRepository->findLocationUidOverride($uid);
 		
+		$image = $this->locationRepository->findByUid($location[0]['uid'])->getImage();
+        $location[0]['image'] = $image;
+
 /*
 		// signal
 		$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
@@ -226,6 +226,11 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 */
 		$this->view->assign('location', $location);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+
 
 /*
 		in localconf of your extensionr add something like this
@@ -256,8 +261,9 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * 
 	 * @return void
 	 */
-	public function searchFormAction() {
-		$this->_GP = $this->request->getArguments('tx_mymap_search');
+	public function searchFormAction() : ResponseInterface
+        {
+//		$this->_GP = $request->getParsedBody()['tx_mymap_search'] ?? [];
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
@@ -279,7 +285,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		}
 
 		$this->view->assign('categories', $categories);
-		
+         return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+
 	}
 
 
@@ -306,12 +315,12 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * 
 	 * @return void
 	 */
-	public function mapAllAction() {
+	public function mapAllAction() : ResponseInterface {
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: mymap', 'No storage pid defined! Please define some in the constant
 								editor for the plugin.',
 								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			return;
+//			return;
 		}
 		$this->updateLatLon();
 		$locations = $this->locationRepository->findAllOverwrite($this->conf['storagePid']);
@@ -338,8 +347,9 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 		$this->view->assign('categories', $categories);
 		$this->view->assign('locations', $locations);
-		
-
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
 	}
 
 
@@ -349,7 +359,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * 
 	 * @return void
 	 */
-	public function searchAction() {
+	public function searchAction() : ResponseInterface {
 		$this->updateLatLon();
 		
 		$this->_GP = $this->request->getArguments();
@@ -378,22 +388,17 @@ if ($result->hasErrors()) {
 }
 */
 
-
 		if ($latLon->status == 'ZERO_RESULTS') {
 			$this->flashMessage('Extension: mymap',
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noStartingPointCoordinatesFound', 'mymap'),
 				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
-
-			//forward  ($actionName, $controllerName = null, $extensionName = null, array  $arguments = null)  
-
+          return (new ForwardResponse('searchForm'));
 		}
 
 		if ($latLon->status != 'OK') {
 			$this->flashMessage('Extension: mymap',
-				$latLon->status,
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
+				$latLon->status, \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+            return (new ForwardResponse('searchForm'));
 		}
 
 
@@ -403,7 +408,7 @@ if ($result->hasErrors()) {
 			$this->flashMessage('Extension: mymap', 'No storage pid defined! Please define some in the constant
 								editor or in the tab behavior (Record Storage Page)	of the plugin.',
 								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			return;
+//			return;
 		}
 
 
@@ -415,7 +420,7 @@ if ($result->hasErrors()) {
         $this->_GP['categories'] = $this->_GP['categories'] ?? '';
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
 			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'mymap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
+            return (new ForwardResponse('searchForm'));
 		}						
 
 
@@ -474,7 +479,7 @@ if ($result->hasErrors()) {
 						
 		if (count($locations) == 0) {
 			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noLocationsFound', 'mymap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
-			$this->forward("searchForm", NULL, NULL, $this->request->getArguments());
+           return (new ForwardResponse('searchForm'));
 		}
 
 		for ($i = 0; $i < count($locations); $i++) {
@@ -513,6 +518,11 @@ if ($result->hasErrors()) {
 //        if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['lat'] && $this->_GP['lon'] )) // from autocompleter ($this->_GP['lat'] && $this->_GP['lon'] )
         if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['autocompleter'] )) // from autocompleter ($this->_GP['autocomplter'])
             $this->view->assign('showMap', 1);
+
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+
 	}
 
 
@@ -540,23 +550,13 @@ if ($result->hasErrors()) {
 	 * 
 	 * @return void
 	 */
-	public function ajaxSearchAction() {
-
-
-		
+	public function ajaxSearchAction() : ResponseInterface {
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: mymap', 'No storage pid defined! Please define some in the constant
 								editor for the plugin.',
 								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-			return;
+//			return;
 		}
-
-
-
-		/* for findAll set the storagePid correct
-		$users = $this->feUserRepository->findAll();		
-		$this->view->assign('users', $users);
-		*/
 		
 		$this->updateLatLon();
 		$this->view->assign('id', $GLOBALS['TSFE']->id);
@@ -598,6 +598,11 @@ if ($result->hasErrors()) {
 		$context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
 		$sys_language_uid = $context->getPropertyFromAspect('language', 'id'); 
 		$this->view->assign('Lvar', $sys_language_uid);
+
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+
 	}
 
 
@@ -647,6 +652,10 @@ if ($result->hasErrors()) {
 		$this->view->assign('target', $target);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
 		
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
+
 	}
 
 
@@ -694,17 +703,13 @@ if ($result->hasErrors()) {
 		foreach ($vars as $k => $v) {
 			$theAddress[$v] = urlencode($theAddress[$v]);
 		}
-		
-		
 
 		$address = $theAddress['address'];
 		$city = $theAddress['city'];
 		$country = $theAddress['country'];
 		$zipcode = $theAddress['zipcode'];
 
-
 		######################################Main Geocoders#####################################
-
 
 			// for geocoding we need a server API key not a browser key
 			if ($this->settings['googleServerApiKey']) {
@@ -724,9 +729,6 @@ if ($result->hasErrors()) {
 			$latLon->lat = $coordinates[1];
 			$latLon->lon = $coordinates[0];
 			$latLon->status = json_decode($addressData)->status;
-
-		
-
 		return $latLon;
 	}
 
@@ -745,7 +747,6 @@ if ($result->hasErrors()) {
 			$data = curl_exec($sessions);
 			curl_close($sessions);
 		} else {
-//			$data = t3lib_div::getUrl($url);
 			$data = \TYPO3\CMS\Core\Utility\GeneralUtility::getURL($url); 
 		}
 		return $data;

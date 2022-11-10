@@ -26,20 +26,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:flashMessages />
 
 
-<f:comment>
-<!-- ordering of images -->	
-
-<f:for each="{location.images->v:iterator.sort(order: 'DESC', sortBy: 'originalResource.originalFile.identifier')}" as="im">
-{im.originalResource.originalFile.identifier}
-</f:for>
-
-<v:iterator.sort as="im1" subject="{location.images}" sortBy="originalResource.originalFile.identifier" order="DESC" sortFlags="SORT_REGULAR">
-	<!-- tag content - may be ignored! -->
-<f:debug>{im1}</f:debug>	
-</v:iterator.sort>
-</f:comment>
-
-
 
 <f:for each="{location.images}" as="image">
 	<f:image src="fileadmin/{image.originalResource.originalFile.identifier}"
@@ -58,40 +44,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 </f:comment>
 
 <f:render partial="Location/Properties" arguments="{location:location, categories: category.0.categories}" />
-
-<f:comment>
-<!-- this is experimental -->
-
- <v:variable.set name="isFirstItem" value="1"/>
-<v:variable.set name="raw" value="1"/>
-
- <f:if condition="{separator} == ''">
-  <v:variable.set name="separator" value=", "/>
- </f:if>
-
-
-<f:for each="{location.categories}" as="value">
-  <f:if condition="{value}">
-   <f:if condition="{isFirstItem}">
-    <f:then>
-     <v:variable.set name="isFirstItem" value="0"/>
-
-    </f:then>
-    <f:else>
-     <f:format.raw>{separator}</f:format.raw>
-    </f:else>
-   </f:if>
-   <f:if condition="{raw}">
-    <f:then>
-     <f:format.raw>{value.name}</f:format.raw>
-    </f:then>
-    <f:else>
-     vvv{value.name}
-    </f:else>
-   </f:if>
-  </f:if>
- </f:for>
-</f:comment>
 
 
 
@@ -115,7 +67,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 </f:if>
 
 
-
 <f:format.raw>
 	<map:mapShowJS location="{location}" city="{location.storename}" />
 </f:format.raw>
@@ -129,19 +80,13 @@ Otherwise your changes will be overwritten the next time you save the extension 
 load();
 </script>
 
+
 <!-- Google infoWindow -->
 <script type="text/javascript">
 	var info = '<div class="infoWindow">';
-	<f:if condition="{location.0.image}">
+	<f:if condition="{location.0.theImage}">
 		<f:for each="{location.0.theImage}" as="image">
-			<v:media.exists file="{image.originalResource.originalFile.publicUrl}">
-		        <f:then>
-	                info += '<img src="/{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
-		        </f:then>
-				<f:else>
-	                info += '<img src="/typo3conf/ext/mymap/Resources/Public/Icons/missing.png" width="20" alt="missing image"/>';
-				</f:else>
-			</v:media.exists>
+            info += '<img src="{image.originalResource.originalFile.publicUrl}" width="70" alt=""/>';
 		</f:for>
 	</f:if>
 
