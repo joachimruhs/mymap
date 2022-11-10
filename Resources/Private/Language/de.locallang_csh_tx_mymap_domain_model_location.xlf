@@ -3,73 +3,73 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="de">
     <header/>
     <body>
-      <trans-unit id="name.description">
+      <trans-unit id="name.description" approved="yes">
         <source>name</source>
-        <target state="needs-translation">name</target>
+        <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="address.description">
+      <trans-unit id="address.description" approved="yes">
         <source>address</source>
-        <target state="needs-translation">address</target>
+        <target state="final">Adresse</target>
       </trans-unit>
-      <trans-unit id="zipcode.description">
+      <trans-unit id="zipcode.description" approved="yes">
         <source>zipcode</source>
-        <target state="needs-translation">zipcode</target>
+        <target state="final">Plz</target>
       </trans-unit>
-      <trans-unit id="city.description">
+      <trans-unit id="city.description" approved="yes">
         <source>city</source>
-        <target state="needs-translation">city</target>
+        <target state="final">Stadt</target>
       </trans-unit>
-      <trans-unit id="country.description">
+      <trans-unit id="country.description" approved="yes">
         <source>country</source>
-        <target state="needs-translation">country</target>
+        <target state="final">Land</target>
       </trans-unit>
-      <trans-unit id="phone.description">
+      <trans-unit id="phone.description" approved="yes">
         <source>phone</source>
-        <target state="needs-translation">phone</target>
+        <target state="final">Telefon</target>
       </trans-unit>
-      <trans-unit id="fax.description">
+      <trans-unit id="fax.description" approved="yes">
         <source>fax</source>
-        <target state="needs-translation">fax</target>
+        <target state="final">Fax</target>
       </trans-unit>
-      <trans-unit id="mobile.description">
+      <trans-unit id="mobile.description" approved="yes">
         <source>mobile</source>
-        <target state="needs-translation">mobile</target>
+        <target state="final">Handy</target>
       </trans-unit>
-      <trans-unit id="email.description">
+      <trans-unit id="email.description" approved="yes">
         <source>email</source>
-        <target state="needs-translation">email</target>
+        <target state="final">Email</target>
       </trans-unit>
-      <trans-unit id="description.description">
+      <trans-unit id="description.description" approved="yes">
         <source>description</source>
-        <target state="needs-translation">description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="lat.description">
+      <trans-unit id="lat.description" approved="yes">
         <source>lat</source>
-        <target state="needs-translation">lat</target>
+        <target state="final">Breitengrad</target>
       </trans-unit>
-      <trans-unit id="lon.description">
+      <trans-unit id="lon.description" approved="yes">
         <source>lon</source>
-        <target state="needs-translation">lon</target>
+        <target state="final">Längengrad</target>
       </trans-unit>
-      <trans-unit id="geocode.description">
+      <trans-unit id="geocode.description" approved="yes">
         <source>geocode</source>
-        <target state="needs-translation">geocode</target>
+        <target state="final">Geocode</target>
       </trans-unit>
-      <trans-unit id="icon.description">
+      <trans-unit id="icon.description" approved="yes">
         <source>icon</source>
-        <target state="needs-translation">icon</target>
+        <target state="final">Icon</target>
       </trans-unit>
-      <trans-unit id="image.description">
+      <trans-unit id="image.description" approved="yes">
         <source>image</source>
-        <target state="needs-translation">image</target>
+        <target state="final">Bild</target>
       </trans-unit>
-      <trans-unit id="media.description">
+      <trans-unit id="media.description" approved="yes">
         <source>media</source>
-        <target state="needs-translation">media</target>
+        <target state="final">Media</target>
       </trans-unit>
-      <trans-unit id="categories.description">
+      <trans-unit id="categories.description" approved="yes">
         <source>categories</source>
-        <target state="needs-translation">categories</target>
+        <target state="final">Kategorien</target>
       </trans-unit>
     </body>
   </file>
