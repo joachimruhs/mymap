@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="nl">
+    <header/>
+    <body>
+      <trans-unit id="name.description" approved="yes">
+        <source>name</source>
+        <target state="final">naam</target>
+      </trans-unit>
+      <trans-unit id="description.description" approved="yes">
+        <source>description</source>
+        <target state="final">omschrijving</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
