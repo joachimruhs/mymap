@@ -3,117 +3,117 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="de">
     <header/>
     <body>
-      <trans-unit id="tx_mymap_domain_model_location">
+      <trans-unit id="tx_mymap_domain_model_location" approved="yes">
         <source>Location</source>
-        <target state="needs-translation">Location</target>
+        <target state="final">Lokation</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.name">
+      <trans-unit id="tx_mymap_domain_model_location.name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.additionalname">
+      <trans-unit id="tx_mymap_domain_model_location.additionalname" approved="yes">
         <source>Additional name</source>
-        <target state="needs-translation">Additional name</target>
+        <target state="final">Zusätzlicher Name</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.address">
+      <trans-unit id="tx_mymap_domain_model_location.address" approved="yes">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="final">Adresse</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.additionaladdress">
+      <trans-unit id="tx_mymap_domain_model_location.additionaladdress" approved="yes">
         <source>Additional address</source>
-        <target state="needs-translation">Additional address</target>
+        <target state="final">Zusätzliche Adresse</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.zipcode">
+      <trans-unit id="tx_mymap_domain_model_location.zipcode" approved="yes">
         <source>Zipcode</source>
-        <target state="needs-translation">Zipcode</target>
+        <target state="final">Plz</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.city">
+      <trans-unit id="tx_mymap_domain_model_location.city" approved="yes">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="final">Stadt</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.country">
+      <trans-unit id="tx_mymap_domain_model_location.country" approved="yes">
         <source>Country</source>
-        <target state="needs-translation">Country</target>
+        <target state="final">Land</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.additionalcontact">
+      <trans-unit id="tx_mymap_domain_model_location.additionalcontact" approved="yes">
         <source>Additional contact</source>
-        <target state="needs-translation">Additional contact</target>
+        <target state="final">Zusätzlicher Kontakt</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.phone">
+      <trans-unit id="tx_mymap_domain_model_location.phone" approved="yes">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="final">Telefon</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.fax">
+      <trans-unit id="tx_mymap_domain_model_location.fax" approved="yes">
         <source>Fax</source>
-        <target state="needs-translation">Fax</target>
+        <target state="final">Fax</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.mobile">
+      <trans-unit id="tx_mymap_domain_model_location.mobile" approved="yes">
         <source>Mobile</source>
-        <target state="needs-translation">Mobile</target>
+        <target state="final">Handy</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.email">
+      <trans-unit id="tx_mymap_domain_model_location.email" approved="yes">
         <source>Email</source>
-        <target state="needs-translation">Email</target>
+        <target state="final">Email</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.www">
+      <trans-unit id="tx_mymap_domain_model_location.www" approved="yes">
         <source>www</source>
-        <target state="needs-translation">www</target>
+        <target state="final">www</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.description">
+      <trans-unit id="tx_mymap_domain_model_location.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.kwp">
+      <trans-unit id="tx_mymap_domain_model_location.kwp" approved="yes">
         <source>kWp</source>
-        <target state="needs-translation">kWp</target>
+        <target state="final">kWp</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.startup">
+      <trans-unit id="tx_mymap_domain_model_location.startup" approved="yes">
         <source>Startup</source>
-        <target state="needs-translation">Startup</target>
+        <target state="final">Startup</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.lat">
+      <trans-unit id="tx_mymap_domain_model_location.lat" approved="yes">
         <source>Lat</source>
-        <target state="needs-translation">Lat</target>
+        <target state="final">Breitengrad</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.lon">
+      <trans-unit id="tx_mymap_domain_model_location.lon" approved="yes">
         <source>Lon</source>
-        <target state="needs-translation">Lon</target>
+        <target state="final">Längengrad</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.geocode">
+      <trans-unit id="tx_mymap_domain_model_location.geocode" approved="yes">
         <source>Geocode</source>
-        <target state="needs-translation">Geocode</target>
+        <target state="final">Geocode</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.icon">
+      <trans-unit id="tx_mymap_domain_model_location.icon" approved="yes">
         <source>Icon</source>
-        <target state="needs-translation">Icon</target>
+        <target state="final">Icon</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.image">
+      <trans-unit id="tx_mymap_domain_model_location.image" approved="yes">
         <source>Image</source>
-        <target state="needs-translation">Image</target>
+        <target state="final">Bild</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.media">
+      <trans-unit id="tx_mymap_domain_model_location.media" approved="yes">
         <source>Media</source>
-        <target state="needs-translation">Media</target>
+        <target state="final">Media</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_location.category">
+      <trans-unit id="tx_mymap_domain_model_location.category" approved="yes">
         <source>Category</source>
-        <target state="needs-translation">Category</target>
+        <target state="final">Kategorie</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_category">
+      <trans-unit id="tx_mymap_domain_model_category" approved="yes">
         <source>Category</source>
-        <target state="needs-translation">Category</target>
+        <target state="final">Kategorie</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_category.name">
+      <trans-unit id="tx_mymap_domain_model_category.name" approved="yes">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_category.description">
+      <trans-unit id="tx_mymap_domain_model_category.description" approved="yes">
         <source>Description</source>
-        <target state="needs-translation">Description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
-      <trans-unit id="tx_mymap_domain_model_category.parent">
+      <trans-unit id="tx_mymap_domain_model_category.parent" approved="yes">
         <source>Parent</source>
-        <target state="needs-translation">Parent</target>
+        <target state="final">Parent</target>
       </trans-unit>
     </body>
   </file>
