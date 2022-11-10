@@ -3,13 +3,13 @@
   <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="de">
     <header/>
     <body>
-      <trans-unit id="name.description">
+      <trans-unit id="name.description" approved="yes">
         <source>name</source>
-        <target state="needs-translation">name</target>
+        <target state="final">Name</target>
       </trans-unit>
-      <trans-unit id="description.description">
+      <trans-unit id="description.description" approved="yes">
         <source>description</source>
-        <target state="needs-translation">description</target>
+        <target state="final">Beschreibung</target>
       </trans-unit>
     </body>
   </file>
