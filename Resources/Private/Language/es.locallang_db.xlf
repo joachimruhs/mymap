@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="es-ES">
+    <header/>
+    <body>
+      <trans-unit id="tx_mymap_domain_model_location">
+        <source>Location</source>
+        <target state="needs-translation">Location</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionalname">
+        <source>Additional name</source>
+        <target state="needs-translation">Additional name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.address">
+        <source>Address</source>
+        <target state="needs-translation">Address</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionaladdress">
+        <source>Additional address</source>
+        <target state="needs-translation">Additional address</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.zipcode">
+        <source>Zipcode</source>
+        <target state="needs-translation">Zipcode</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.city">
+        <source>City</source>
+        <target state="needs-translation">City</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.country">
+        <source>Country</source>
+        <target state="needs-translation">Country</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionalcontact">
+        <source>Additional contact</source>
+        <target state="needs-translation">Additional contact</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.phone">
+        <source>Phone</source>
+        <target state="needs-translation">Phone</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.fax">
+        <source>Fax</source>
+        <target state="needs-translation">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.mobile">
+        <source>Mobile</source>
+        <target state="needs-translation">Mobile</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.www">
+        <source>www</source>
+        <target state="needs-translation">www</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.description">
+        <source>Description</source>
+        <target state="needs-translation">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.kwp">
+        <source>kWp</source>
+        <target state="needs-translation">kWp</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.startup">
+        <source>Startup</source>
+        <target state="needs-translation">Startup</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.lat">
+        <source>Lat</source>
+        <target state="needs-translation">Lat</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.lon">
+        <source>Lon</source>
+        <target state="needs-translation">Lon</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.geocode">
+        <source>Geocode</source>
+        <target state="needs-translation">Geocode</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.icon">
+        <source>Icon</source>
+        <target state="needs-translation">Icon</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.image">
+        <source>Image</source>
+        <target state="needs-translation">Image</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.media">
+        <source>Media</source>
+        <target state="needs-translation">Media</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.category">
+        <source>Category</source>
+        <target state="needs-translation">Category</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category">
+        <source>Category</source>
+        <target state="needs-translation">Category</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.description">
+        <source>Description</source>
+        <target state="needs-translation">Description</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.parent">
+        <source>Parent</source>
+        <target state="needs-translation">Parent</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
