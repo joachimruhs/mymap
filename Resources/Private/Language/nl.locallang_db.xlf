@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2015-11-19T21:44:34Z" product-name="mymap" target-language="nl">
+    <header/>
+    <body>
+      <trans-unit id="tx_mymap_domain_model_location" approved="yes">
+        <source>Location</source>
+        <target state="final">Locatie</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Naam</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionalname">
+        <source>Additional name</source>
+        <target state="needs-translation">Additional name</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.address" approved="yes">
+        <source>Address</source>
+        <target state="final">Adres</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionaladdress">
+        <source>Additional address</source>
+        <target state="needs-translation">Additional address</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.zipcode" approved="yes">
+        <source>Zipcode</source>
+        <target state="final">Postcode</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.city" approved="yes">
+        <source>City</source>
+        <target state="final">Plaats</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.country" approved="yes">
+        <source>Country</source>
+        <target state="final">Land</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.additionalcontact">
+        <source>Additional contact</source>
+        <target state="needs-translation">Additional contact</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.fax">
+        <source>Fax</source>
+        <target state="needs-translation">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.mobile" approved="yes">
+        <source>Mobile</source>
+        <target state="final">Mobiel</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.www">
+        <source>www</source>
+        <target state="needs-translation">www</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.description" approved="yes">
+        <source>Description</source>
+        <target state="final">Omschrijving</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.kwp">
+        <source>kWp</source>
+        <target state="needs-translation">kWp</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.startup" approved="yes">
+        <source>Startup</source>
+        <target state="final">Startpunt</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.lat" approved="yes">
+        <source>Lat</source>
+        <target state="final">Lengte</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.lon" approved="yes">
+        <source>Lon</source>
+        <target state="final">Breedte</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.geocode">
+        <source>Geocode</source>
+        <target state="needs-translation">Geocode</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.icon" approved="yes">
+        <source>Icon</source>
+        <target state="final">Icoon</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.image" approved="yes">
+        <source>Image</source>
+        <target state="final">Afbeelding</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.media">
+        <source>Media</source>
+        <target state="needs-translation">Media</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_location.category">
+        <source>Category</source>
+        <target state="needs-translation">Category</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category" approved="yes">
+        <source>Category</source>
+        <target state="final">Categorie</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Naam</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.description" approved="yes">
+        <source>Description</source>
+        <target state="final">Omschrijving</target>
+      </trans-unit>
+      <trans-unit id="tx_mymap_domain_model_category.parent">
+        <source>Parent</source>
+        <target state="needs-translation">Parent</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
