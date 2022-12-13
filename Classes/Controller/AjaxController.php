@@ -266,8 +266,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$this->configuration = $configuration;
 		$this->conf['storagePid'] = $configuration['persistence']['storagePid'];
 */
-
-	
+		
         $requestArguments = $this->request1->getParsedBody()['tx_mymap_ajax'];
 
 		if ($requestArguments['categories'] = $requestArguments['categories'] ?? [])

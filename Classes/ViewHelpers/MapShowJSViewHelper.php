@@ -40,6 +40,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		$city = $arguments['city'];
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
 		$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $location[0]['uid']);
+        $locationIcon = '';
 		if ($fileObjects) {
 			$locationIcon = $fileObjects[0]->getOriginalFile()->getPublicUrl();
 		}
@@ -76,7 +77,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
  			$out .= 'marker[0] = new google.maps.Marker({
 					                position: myLatLng,
 					                map: map,
-					                title: "' . $locations[$i]['name'] .'",
+					                title: "' . $location[0]['name'] .'",
 					                icon: "/typo3conf/ext/mymap/Resources/Public/Icons/pointerBlue.png",
 					                shadow: shadow
 					                });
