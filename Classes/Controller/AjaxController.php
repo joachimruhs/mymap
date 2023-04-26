@@ -189,8 +189,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 
 		$this->request1 = $request;
 		$out = $this->ajaxEidAction();
-	    $response->getBody()->write($out);
-		return;	
+		return $out;	
 
 //		echo $out;
 	
