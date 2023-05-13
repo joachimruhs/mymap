@@ -12,6 +12,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\Response;
 
+use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
+
 /***
  *
  * This file is part of the "Mymap" Extension for TYPO3 CMS.
@@ -19,7 +23,7 @@ use TYPO3\CMS\Core\Http\Response;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2021 - 2023 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -165,6 +169,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
 		$response->getBody()->write($view->render());
+        return $response;
 	}
 
 	/**
@@ -235,16 +240,11 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$rootLine = $rootlineUtility->get();
 	
 		// initialize template service and generate typoscript configuration
-//		$templateService->init();
 		$templateService->runThroughTemplates($rootLine);
 		$templateService->generateConfig();
 	
-	
-	//print_r($templateService->setup);
-	//exit;
-	
-		$fluidView = new StandaloneView();
-		$fluidView->setLayoutRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['layoutRootPaths.']);
+        $fluidView = GeneralUtility::makeInstance(StandaloneView::class);
+        $fluidView->setLayoutRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['layoutRootPaths.']);
 		$fluidView->setTemplateRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['templateRootPaths.']);
 		$fluidView->setPartialRootPaths($templateService->setup['plugin.']['tx_yourext.']['view.']['partialRootPaths.']);
 		$fluidView->getRequest()->setControllerExtensionName('YourExt');
@@ -437,7 +437,9 @@ if ($requestArguments['page'] == -1) {
 			
 			$imageObjects = '';
 			$imageObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'image', $locations[$i]['uid']);
-			if ($imageObjects) {
+
+            $locationImage = '';
+            if ($imageObjects) {
 				$locationImage = $imageObjects[0]->getOriginalFile()->getPublicUrl();
 			}
 
