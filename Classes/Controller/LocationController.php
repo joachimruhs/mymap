@@ -719,16 +719,15 @@ if ($result->hasErrors()) {
 			$apiURL = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$zipcode+$city,+$country&sensor=false" . $key;
 			$addressData = $this->get_webpage($apiURL);
 
-//krexx($apiURL);
-//krexx($addressData);
-
-			$coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
-			$coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
-
     		$latLon = new \stdClass();
-			$latLon->lat = $coordinates[1];
-			$latLon->lon = $coordinates[0];
 			$latLon->status = json_decode($addressData)->status;
+
+            if ($latLon->status != 'ZERO_RESULTS') {
+                $coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
+                $coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
+    			$latLon->lat = $coordinates[1];
+    			$latLon->lon = $coordinates[0];
+            }
 		return $latLon;
 	}
 
