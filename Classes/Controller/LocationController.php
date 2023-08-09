@@ -12,6 +12,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
+use TYPO3\CMS\Core\Core\Environment;
+use Symfony\Component\Filesystem\Filesystem;
+
 /***
  *
  * This file is part of the "Mymap" Extension for TYPO3 CMS.
@@ -19,7 +22,7 @@ use TYPO3\CMS\Extbase\Http\ForwardResponse;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 - 2022 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2021 - 2023 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -174,6 +177,9 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function singleViewAction() {
 		$this->_GP = $this->request->getArguments();
+
+        $this->_GP['locationUid'] = $this->_GP['locationUid'] ?? 0;
+
 		if ($this->_GP['locationUid']) {// called from list link
 			$location = $this->locationRepository->findLocationUidOverride(intval($this->_GP['locationUid']));
 			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->_GP['locationUid'])));
@@ -254,6 +260,25 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		
 	}
 
+	/**
+	 * populate map icon directory
+	 *
+	 * @return void
+	 */
+	public function populateMapIconDirectory() {
+		$iconPath = 'fileadmin/ext/mymap/Resources/Public/Icons/';
+   		if (!is_dir(Environment::getPublicPath() . '/' . $iconPath)) {
+            $fileSystem = new FileSystem();
+            if (Environment::getPublicPath() != Environment::getProjectPath()) {
+                //  we are in composerMode
+    			$sourceDir = Environment::getProjectPath() . '/vendor/wsr/mymap/Resources/Public/';
+            } else {
+                $sourceDir = Environment::getPublicPath() .'/typo3conf/ext/mymap/Resources/Public/';
+            }
+            $fileSystem->mirror($sourceDir, 'fileadmin/ext/mymap/Resources/Public/');
+			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+        }
+	}
 
 
 	/**
@@ -266,6 +291,8 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 //		$this->_GP = $request->getParsedBody()['tx_mymap_search'] ?? [];
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+
+		$this->populateMapIconDirectory();
 
 	    $this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
 	    $this->view->assign('_GP', $this->_GP['tx_mymap_search'] ?? '');
@@ -557,6 +584,7 @@ if ($result->hasErrors()) {
 								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 //			return;
 		}
+		$this->populateMapIconDirectory();
 		
 		$this->updateLatLon();
 		$this->view->assign('id', $GLOBALS['TSFE']->id);

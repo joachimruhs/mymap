@@ -24,12 +24,20 @@ info += '</form>';
 		</f:for>
 </f:if>
 
+<f:comment>
 	if ("{location.additionalname}".length > 0) {
 		info += '<a href="?id={settings.detailsPageId}&tx_mymap_singleview[action]=singleView&tx_mymap_singleview[locationUid]={location.uid}"><strong>{location.name}</a><br />{location.additionalname}</strong>';
 	} else {
 		info += '<a href="?id={settings.detailsPageId}&tx_mymap_singleview[action]=singleView&tx_mymap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>';
 
 	}
+</f:comment>
+
+   info += '<form  action="/?id={settings.detailsPageId}" method="POST">';
+    info += '<input class="hidden" name="tx_mymap_singleview[locationUid]" value="{location.uid}">';
+    info += '<button class="submitButton" type="submit">{location.name}</button>';
+    info += '<form>';
+
 
 	
 	info += "<br />{location.categories}";

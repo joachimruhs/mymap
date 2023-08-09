@@ -15,14 +15,14 @@ plugin.tx_mymap {
 		
 		# customsubcategory=css=CSS
 		# cat=plugin.tx_mymap/css; type=string; label=CSS file
-		cssFile = EXT:mymap/Resources/Public/CSS/mymap.css
+		cssFile = /fileadmin/ext/mymap/Resources/Public/CSS/mymap.css
 
 
 		# cat=plugin.tx_mymap/javascript; type=string; label=jQuery library
-		jQueryFile = EXT:mymap/Resources/Public/JavaScript/jquery-3.3.1.min.js
+		jQueryFile = fileadmin/ext/mymap/Resources/Public/JavaScript/jquery-3.3.1.min.js
 
 		# cat=plugin.tx_mymap/javascript; type=string; label=Javascript file
-		javascriptFile = EXT:mymap/Resources/Public/JavaScript/mymap.js
+		javascriptFile = fileadmin/ext/mymap/Resources/Public/JavaScript/mymap.js
 
 
 
