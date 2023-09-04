@@ -750,7 +750,7 @@ if ($result->hasErrors()) {
     		$latLon = new \stdClass();
 			$latLon->status = json_decode($addressData)->status;
 
-            if ($latLon->status != 'ZERO_RESULTS') {
+            if ($latLon->status == 'OK') {
                 $coordinates[1] = json_decode($addressData)->results[0]->geometry->location->lat;
                 $coordinates[0] = json_decode($addressData)->results[0]->geometry->location->lng;
     			$latLon->lat = $coordinates[1];
