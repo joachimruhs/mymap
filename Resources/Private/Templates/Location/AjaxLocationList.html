@@ -30,7 +30,9 @@
 			<li><f:image src="{image.originalResource.originalFile.publicUrl}"  width="50" alt=""/></li>			
 		</f:for>
 
-        <li><a href="?id={settings.detailsPageId}&tx_mymap_singleview[action]=singleView&tx_mymap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a></li>
+        <li>
+            <f:link.page pageUid="{settings.detailsPageId}" additionalParams="{tx_mymap_singleview: {action: 'singleView', locationUid: '{location.uid}'}}" >{location.name}</f:link.page>
+        </li>
 
 		<f:if condition="{location.additionalname} > '' ">
 			<li>{location.additionalname}</li>

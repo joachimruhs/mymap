@@ -2,6 +2,7 @@
 namespace WSR\Mymap\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\Connection;
 
 /***
  *
@@ -58,19 +59,19 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		->where(
 			$queryBuilder->expr()->eq(
 				'pid',
-				$queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
+				$queryBuilder->createNamedParameter($pid, Connection::PARAM_INT)
 			)
 		)			
-		->andWhere($queryBuilder->expr()->andX(
-				$queryBuilder->expr()->andX(
-					$queryBuilder->expr()->eq('hidden', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+		->andWhere($queryBuilder->expr()->and(
+				$queryBuilder->expr()->and(
+					$queryBuilder->expr()->eq('hidden', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT))
 				),
-				$queryBuilder->expr()->andX(
-					$queryBuilder->expr()->gte('deleted', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+				$queryBuilder->expr()->and(
+					$queryBuilder->expr()->gte('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT))
 				)
 			)
 		);
-		$result = $queryBuilder->execute()->fetchAll();
+		$result = $queryBuilder->executeQuery()->fetchAllAssociative();
 		return $result;		
 	}
 

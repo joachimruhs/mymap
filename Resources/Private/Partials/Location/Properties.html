@@ -168,6 +168,13 @@
 		</td>
 		<td>
 
+        <f:for each="{location.0.theImage}" as="theImage">
+            <img src="{theImage.originalResource.originalFile.publicUrl}" width="70" alt=""/>
+        </f:for>
+
+		</td>
+		<td>
+
 		<f:for each="{location.image}" as="image">
 			<f:image src="{image.originalResource.uid}" treatIdAsReference="1" />
 		</f:for>

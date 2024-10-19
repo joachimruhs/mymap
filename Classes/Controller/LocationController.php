@@ -126,7 +126,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function createAction(\WSR\Mymap\Domain\Model\Location $newLocation) {
-		$this->addFlashMessage('This function is deactivated for security reasons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		$this->addFlashMessage('This function is deactivated for security reasons!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 //		$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See <a href="http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain" target="_blank">Wiki</a>', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
 //		$this->locationRepository->add($newLocation);
 		$this->redirect('searchForm');
@@ -149,7 +149,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function updateAction(\WSR\Mymap\Domain\Model\Location $location) {
-		$this->addFlashMessage('This function is deactivated for security reasons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		$this->addFlashMessage('This function is deactivated for security reasons!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 //		$this->locationRepository->update($location);
 		$this->redirect('searchForm');
 	}
@@ -161,7 +161,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	public function deleteAction(\WSR\Mymap\Domain\Model\Location $location) {
-		$this->addFlashMessage('This function is deactivated for security reasons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+		$this->addFlashMessage('This function is deactivated for security reasons!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 //		$this->locationRepository->remove($location);
 		$this->redirect('searchForm');
 	}
@@ -276,7 +276,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 $sourceDir = Environment::getPublicPath() .'/typo3conf/ext/mymap/Resources/Public/';
             }
             $fileSystem->mirror($sourceDir, 'fileadmin/ext/mymap/Resources/Public/');
-			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+			$this->addFlashMessage('Directory ' . $iconPath . ' created for use with own mapIcons!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
         }
 	}
 
@@ -288,13 +288,17 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function searchFormAction() : ResponseInterface
         {
-//		$this->_GP = $request->getParsedBody()['tx_mymap_search'] ?? [];
+		$this->_GP = $this->request->getArguments('tx_mymap_search' ?? []);
+	    $this->view->assign('GP', $_POST['tx_mymap_searchresult'] ?? []);
+	    $this->view->assign('radius', intval($_POST['tx_mymap_searchresult']['radius'] ?? 0));
+		$this->_GP['categories'] = $_POST['tx_mymap_searchresult']['categories'] ?? [];		
+
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
 		$this->populateMapIconDirectory();
 
-	    $this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
+//	    $this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
 	    $this->view->assign('_GP', $this->_GP['tx_mymap_search'] ?? '');
 
 		$categories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
@@ -306,7 +310,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 	
 		if (!count($arr)) {
-			$this->addFlashMessage('No location categories found, please insert some first!', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->addFlashMessage('No location categories found, please insert some first!', '', \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 		} else {
 			$categories = $this->categoryRepository->buildTree($arr);
 		}
@@ -331,8 +335,9 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
 	
-		$this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
-		$this->view->assign('_GP', $this->_GP['tx_mymap_search']);
+//		$this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
+		
+        $this->view->assign('_GP', $this->_GP['tx_mymap_search']);
 		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
 		
 	}
@@ -346,7 +351,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: mymap', 'No storage pid defined! Please define some in the constant
 								editor for the plugin.',
-								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+								\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 //			return;
 		}
 		$this->updateLatLon();
@@ -418,13 +423,13 @@ if ($result->hasErrors()) {
 		if ($latLon->status == 'ZERO_RESULTS') {
 			$this->flashMessage('Extension: mymap',
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noStartingPointCoordinatesFound', 'mymap'),
-				\TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+				\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
           return (new ForwardResponse('searchForm'));
 		}
 
 		if ($latLon->status != 'OK') {
 			$this->flashMessage('Extension: mymap',
-				$latLon->status, \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+				$latLon->status, \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
             return (new ForwardResponse('searchForm'));
 		}
 
@@ -434,7 +439,7 @@ if ($result->hasErrors()) {
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: mymap', 'No storage pid defined! Please define some in the constant
 								editor or in the tab behavior (Record Storage Page)	of the plugin.',
-								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+								\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 //			return;
 		}
 
@@ -446,7 +451,7 @@ if ($result->hasErrors()) {
 		// sanitizing categories
         $this->_GP['categories'] = $this->_GP['categories'] ?? '';
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
-			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'mymap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'mymap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return (new ForwardResponse('searchForm'));
 		}						
 
@@ -505,7 +510,7 @@ if ($result->hasErrors()) {
 */
 						
 		if (count($locations) == 0) {
-			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noLocationsFound', 'mymap'), \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO);
+			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noLocationsFound', 'mymap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
            return (new ForwardResponse('searchForm'));
 		}
 
@@ -567,11 +572,6 @@ if ($result->hasErrors()) {
 //		return $children;
 	}
 
-
-
-
-
-
 	/**
 	 * action ajaxSearch
 	 * 
@@ -581,30 +581,30 @@ if ($result->hasErrors()) {
 		if (!$this->conf['storagePid']) {
 			$this->flashMessage('Extension: mymap', 'No storage pid defined! Please define some in the constant
 								editor for the plugin.',
-								\TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+								\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
 //			return;
 		}
 		$this->populateMapIconDirectory();
 		
 		$this->updateLatLon();
-		$this->view->assign('id', $GLOBALS['TSFE']->id);
-		$categories = $this->categoryRepository->findAll();
+        
+        $pageArguments = $this->request->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
+        
+        
+		$this->view->assign('id', $pageId);
 
+		$categories = $this->categoryRepository->findAll();
 
 		$categories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 
-	/* used for number of locations shown after category name like Internet(8)
-	*/
+        /* used for number of locations shown after category name like Internet(8) 	*/
 
 		for ($i =0; $i < count($categories); $i++) {
 			$categoriesCount[$i] = $this->locationRepository->findCountsByCategory($categories[$i]['uid']);
 		}
-
-
 	
 		$this->view->assign('categoriesCount', $categoriesCount ?? 0);
-
-
 
 		for($i = 0; $i < count($categories); $i++) {
 			$arr[$i]['uid']= $categories[$i]['uid'];	
@@ -612,7 +612,6 @@ if ($result->hasErrors()) {
 			$arr[$i]['name'] = $categories[$i]['name'];	
 			$arr[$i]['counts'] = $categoriesCount[$i];	
 		}	
-
 
 		$categories = $this->categoryRepository->buildTree($arr);
 
@@ -787,7 +786,7 @@ if ($result->hasErrors()) {
 	 * 
 	 * @return void
 	 */
-	private function flashMessage($title, $message, $severity = \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING) {
+	private function flashMessage($title, $message, $severity = \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING) {
 		$this->addFlashMessage(
 			$message,
 			$title,

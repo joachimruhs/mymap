@@ -189,12 +189,21 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$frontend = $GLOBALS['TSFE'];
 	
 		/** @var TypoScriptService $typoScriptService */
+/*
 		$typoScriptService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TypoScriptService');
 		$this->configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($frontend->tmpl->setup['plugin.']['tx_mymap.']);
 
 		$this->settings = $this->configuration['settings'];
 		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
+*/
+        $fullTypoScript = $request->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_mymap.'] ;
+	    $this->configuration = $request->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_mymap.'];
 
+		$this->settings = $this->configuration['settings.'];
+		$this->conf['storagePid'] = $this->configuration['persistence.']['storagePid'];
+        
+        
+        
 		$this->request1 = $request;
 		$out = $this->ajaxEidAction();
 		return $out;	
@@ -234,8 +243,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
 	 */
 	protected function getView() {
-	//    $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-		$templateService = GeneralUtility::makeInstance(TemplateService::class);
+//		$templateService = GeneralUtility::makeInstance(TemplateService::class);
 		// get the rootline
 	//    $rootLine = $pageRepository->getRootLine($pageRepository->getDomainStartPage(GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY')));
 		$rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, 0);
@@ -382,7 +390,6 @@ if ($requestArguments['page'] == -1) {
 		}
 			
 		$out .= $this->getMarkerJS($locations, $categories ?? '', $latLon, $this->_GP['radius']);
-		
 		// get  the loctions list
 		
 		if ($requestArguments['page'] != -1)  // do not show the list for page loading 
@@ -529,13 +536,16 @@ if ($requestArguments['page'] == -1) {
 	 * @return string
 	 */
 	public function renderFluidTemplate($template, Array $assign = array()) {
-		$templateRootPath = $this->configuration['view']['templateRootPaths'][1];
+		$templateRootPath = $this->configuration['view.']['templateRootPaths.'][1];
 		
 		
 		$templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateRootPath . 'Location/' . $template);
 		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		$view->setTemplatePathAndFilename($templatePath);
 		$view->assignMultiple($assign);
+
+
+        $view->setRequest($this->request1);
 		return $view->render();
 	}
 

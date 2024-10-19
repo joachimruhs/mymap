@@ -281,149 +281,77 @@ return array (
 		'icon' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mymap/Resources/Private/Language/locallang_db.xlf:tx_mymap_domain_model_location.icon',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'icon',
-                [
-                    'maxitems' => 1,
-                    'minitems' => 0,
-                    'appearance' => [
-                        'collapseAll' => true,
-                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
-                    ],
-                ],
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'minitems' => 0,
+//                'appearance' => [
+//                        'collapseAll' => true,
+//                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+//                    ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-            )
-
-
-			
+            ]
 		),
 		'image' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mymap/Resources/Private/Language/locallang_db.xlf:tx_mymap_domain_model_location.image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'image',
-                [
-                    'maxitems' => 1,
-                    'minitems' => 0,
-                    'appearance' => [
-                        'collapseAll' => true,
-                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
-                    ],
-/*                    
-					['overrideChildTca']['types'] => [
-						'0' => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						]
-					],					
-*/					
-					
-                ],
-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-            )
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'minitems' => 0,
 
+//                'appearance' => [
+//                        'collapseAll' => true,
+//                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+//                    ],
+					
+            ],
+            $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 		),
-		'media' => array(
+		'media' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:mymap/Resources/Private/Language/locallang_db.xlf:tx_mymap_domain_model_location.media',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'media',
-                [
-                    'maxitems' => 1,
-                    'minitems' => 0,
-                    'appearance' => [
-                        'collapseAll' => true,
-                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
-                    ],
-/*
-					['overrideChildTca']['types'] => [					
-						'0' => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						],
-						\TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-							'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-						]
-					],
-*/                    
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'minitems' => 0,
+//                    'appearance' => [
+//                        'collapseAll' => true,
+//                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+//                    ],
 
-                ],
-                $GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext']
-            )
+            ],
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['mediafile_ext']
+		],
 
-		),
-
-        'images' => array(
-                'exclude' => 1,
-                'label' => 'Images',
-                'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', array(
-                        'appearance' => array(
-                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                        ),
+        'images' => [
+            'exclude' => 1,
+            'label' => 'Images',
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'minitems' => 0,
+//                        'appearance' => array(
+//                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+//                        ),
                         'minitems' => 0,
                         'maxitems' => 20,
-                ), $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
-        ),
-        'files' => array(
+            ],
+            $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+        ],
+        'files' => [
                 'exclude' => 1,
                 'label' => 'Files',
-                'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', array(
-                        'appearance' => array(
-                                'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                        ),
-					),
-				''),
+                'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'minitems' => 0,
+                'appearance' => array(
+                            'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
+                 ),
+                ]
 //			  $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
-        ),
+        ],
 
 
 		'category' => array(

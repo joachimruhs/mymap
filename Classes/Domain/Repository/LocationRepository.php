@@ -4,7 +4,7 @@ namespace WSR\Mymap\Domain\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
-
+use TYPO3\CMS\Core\Database\Connection;
 /***
  *
  * This file is part of the "Mymap" Extension for TYPO3 CMS.
@@ -41,19 +41,19 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		->where(
 			$queryBuilder->expr()->eq(
 				'pid',
-				$queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
+				$queryBuilder->createNamedParameter($pid, Connection::PARAM_INT)
 			)
 		)			
-		->andWhere($queryBuilder->expr()->andX(
-				$queryBuilder->expr()->andX(
-					$queryBuilder->expr()->eq('lat', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
+		->andWhere($queryBuilder->expr()->and(
+				$queryBuilder->expr()->and(
+					$queryBuilder->expr()->eq('lat', $queryBuilder->createNamedParameter('', Connection::PARAM_STR))
 				),
-				$queryBuilder->expr()->andX(
-					$queryBuilder->expr()->gte('lon', $queryBuilder->createNamedParameter('', \PDO::PARAM_STR))
+				$queryBuilder->expr()->and(
+					$queryBuilder->expr()->gte('lon', $queryBuilder->createNamedParameter('', Connection::PARAM_STR))
 				)
 			)
 		);
-		$result = $queryBuilder->execute()->fetchAll();
+		$result = $queryBuilder->executeQuery()->fetchAllAssociative();
 		return $result;		
 	}
 
@@ -67,11 +67,11 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			->getQueryBuilderForTable('tx_mymap_domain_model_location');
 		$queryBuilder->update('tx_mymap_domain_model_location')
 	   ->where(
-		$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+		$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT))
 		)
 		->set('lat', $lat)
 		->set('lon', $lon)
-		->execute();		
+		->executeQuery();		
 	}
 	
 	/**
@@ -93,9 +93,9 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$queryBuilder->select('*')
 		->from('tx_mymap_domain_model_location')
 	   ->where(
-			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT))
 		);
-		$result = $queryBuilder->execute()->fetchAll();
+		$result = $queryBuilder->executeQuery()->fetchAllAssociative();
 		return $result;		
 
 	}
