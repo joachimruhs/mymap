@@ -398,10 +398,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	
 		// now get the startingpoint coordinates 
 		$theAddress = array (
-			'address' => $this->_GP['address'],
-			'zipcode' => $this->_GP['zipcode'],
-			'city' => $this->_GP['city'],
-			'country' => $this->_GP['country'],
+			'address' => $this->_GP['address'] ?? '',
+			'zipcode' => $this->_GP['zipcode'] ?? '',
+			'city' => $this->_GP['city'] ?? '',
+			'country' => $this->_GP['country'] ?? '',
 		);
 		$latLon = $this->geocode($theAddress);
 
