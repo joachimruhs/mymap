@@ -120,8 +120,6 @@ class LocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$lon =  $latLon->lon;
 		$query = $this->createQuery();
 
-
-
 		if ($categories)
 			$categories = GeneralUtility::intExplode(',', $categories, true);		
 

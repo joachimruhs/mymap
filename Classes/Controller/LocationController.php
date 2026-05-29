@@ -96,7 +96,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	public function listAction() {
 		$locations = $this->locationRepository->findAll();
 		$this->view->assign('locations', $locations);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
 	}
 
 	/**
@@ -167,22 +170,17 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
-
 	 * action singleView
-
 	 * 
-
 	 * @return void
-
 	 */
 	public function singleViewAction() {
-		$this->_GP = $this->request->getArguments();
+        $this->GP = $this->request->getArguments();
+        $this->GP['locationUid'] = $this->GP['locationUid'] ?? 0;
 
-        $this->_GP['locationUid'] = $this->_GP['locationUid'] ?? 0;
-
-		if ($this->_GP['locationUid']) {// called from list link
-			$location = $this->locationRepository->findLocationUidOverride(intval($this->_GP['locationUid']));
-			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->_GP['locationUid'])));
+		if ($this->GP['locationUid']) {// called from list link
+			$location = $this->locationRepository->findLocationUidOverride(intval($this->GP['locationUid']));
+			$this->view->assign('category', $this->categoryRepository->findCategoriesByLocation(intval($this->GP['locationUid'])));
 		}
 		else {
 			$location = $this->locationRepository->findByUid(intval($this->settings['singleViewUid']));
@@ -201,8 +199,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
 
 		$this->view->assign('location', $location);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
-
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
         return $this->responseFactory->createResponse()
             ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
             ->withBody($this->streamFactory->createStream($this->view->render()));
@@ -231,7 +231,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$ret =$signalSlotDispatcher->dispatch(__CLASS__, 'beforeRandomRenderView', array(&$location, &$this));
 */
 		$this->view->assign('location', $location);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
 
         return $this->responseFactory->createResponse()
             ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
@@ -288,10 +291,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function searchFormAction() : ResponseInterface
         {
-		$this->_GP = $this->request->getArguments('tx_mymap_search' ?? []);
+		$this->GP = $this->request->getArguments('tx_mymap_search' ?? []);
 	    $this->view->assign('GP', $_POST['tx_mymap_searchresult'] ?? []);
 	    $this->view->assign('radius', intval($_POST['tx_mymap_searchresult']['radius'] ?? 0));
-		$this->_GP['categories'] = $_POST['tx_mymap_searchresult']['categories'] ?? [];		
+		$this->GP['categories'] = $_POST['tx_mymap_searchresult']['categories'] ?? [];		
 
 
 	   	$configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -299,7 +302,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$this->populateMapIconDirectory();
 
 //	    $this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
-	    $this->view->assign('_GP', $this->_GP['tx_mymap_search'] ?? '');
+	    $this->view->assign('GP', $this->_GP['tx_mymap_search'] ?? '');
 
 		$categories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		for($i = 0; $i < count($categories); $i++) {
@@ -338,7 +341,10 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 //		$this->_GP = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST();
 		
         $this->view->assign('_GP', $this->_GP['tx_mymap_search']);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid']);
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
 		
 	}
 
@@ -394,14 +400,14 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	public function searchAction() : ResponseInterface {
 		$this->updateLatLon();
 		
-		$this->_GP = $this->request->getArguments();
-	
+		$this->GP = $this->request->getArguments();
+
 		// now get the startingpoint coordinates 
 		$theAddress = array (
-			'address' => $this->_GP['address'] ?? '',
-			'zipcode' => $this->_GP['zipcode'] ?? '',
-			'city' => $this->_GP['city'] ?? '',
-			'country' => $this->_GP['country'] ?? '',
+			'address' => $this->GP['address'] ?? '',
+			'zipcode' => $this->GP['zipcode'] ?? '',
+			'city' => $this->GP['city'] ?? '',
+			'country' => $this->GP['country'] ?? '',
 		);
 		$latLon = $this->geocode($theAddress);
 
@@ -424,7 +430,7 @@ if ($result->hasErrors()) {
 			$this->flashMessage('Extension: mymap',
 				\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noStartingPointCoordinatesFound', 'mymap'),
 				\TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO);
-          return (new ForwardResponse('searchForm'));
+                return (new ForwardResponse('searchForm'));
 		}
 
 		if ($latLon->status != 'OK') {
@@ -449,14 +455,14 @@ if ($result->hasErrors()) {
 		$allCategories = $this->categoryRepository->findAllOverwrite($this->conf['storagePid']);
 		
 		// sanitizing categories
-        $this->_GP['categories'] = $this->_GP['categories'] ?? '';
-		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->_GP['categories'])) != 1) {
+        $this->GP['categories'] = $this->GP['categories'] ?? '';
+		if ($this->GP['categories'] && preg_match('/^[0-9,]*$/', implode(',', $this->GP['categories'])) != 1) {
 			$this->flashMessage('Extension: mymap', \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('errorInCategories', 'mymap'), \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR);
             return (new ForwardResponse('searchForm'));
 		}						
 
 
-		$cats = $this->_GP['categories'];
+		$cats = $this->GP['categories'];
 //		$cats = array();
         $children = '';
 //		if ($this->_GP['categories']) $cats = explode(',', $this->_GP['categories']);
@@ -468,13 +474,13 @@ if ($result->hasErrors()) {
 				$children = $this->getChildren($allCategories, $cats[$i], $children);
 			}
 		}
-		if ($children) $this->_GP['categories'] = $children;
+		if ($children) $this->GP['categories'] = $children;
 
 
 
 		$page = 0;
 //		$locations = $this->locationRepository->findLocationsInRadius($latLon, $this->_GP['radius'], implode(',', $this->_GP['categories']),
-		$locations = $this->locationRepository->findLocationsInRadius($latLon, $this->_GP['radius'], $this->_GP['categories'],
+		$locations = $this->locationRepository->findLocationsInRadius($latLon, $this->GP['radius'], $this->GP['categories'],
 						$this->conf['storagePid'], $this->settings['resultLimit'], $page);
 
 
@@ -533,9 +539,6 @@ if ($result->hasErrors()) {
 		$this->eventDispatcher = GeneralUtility::getContainer()->get(EventDispatcherInterface::class);		
 		$this->eventDispatcher->dispatch($event);
 		$locations = $event->getLocations();
-		
-//Krexx($locations);
-
 
 		$this->view->assign('settings', $this->settings);
 		
@@ -543,12 +546,14 @@ if ($result->hasErrors()) {
 		$this->view->assign('categories', $categories);
 		$this->view->assign('locations', $locations);
 
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
-		
-		
-        $this->view->assign('_GP', $this->_GP);
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
+
+        $this->view->assign('GP', $this->GP);
 //        if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['lat'] && $this->_GP['lon'] )) // from autocompleter ($this->_GP['lat'] && $this->_GP['lon'] )
-        if ( ($this->_GP['city'] || $this->_GP['zipcode'] ) || ($this->_GP['autocompleter'] )) // from autocompleter ($this->_GP['autocomplter'])
+        if ( ($this->GP['city'] || $this->GP['zipcode'] ) || ($this->GP['autocompleter'] )) // from autocompleter ($this->_GP['autocomplter'])
             $this->view->assign('showMap', 1);
 
         return $this->responseFactory->createResponse()
@@ -556,8 +561,6 @@ if ($result->hasErrors()) {
             ->withBody($this->streamFactory->createStream($this->view->render()));
 
 	}
-
-
 
 
 	function getChildren($arr, $id, $children) {
@@ -677,7 +680,10 @@ if ($result->hasErrors()) {
 			'city' => $this->_GP['targetCity'] ?? '',
 		);
 		$this->view->assign('target', $target);
-		$this->view->assign('Lvar', $GLOBALS['TSFE']->config['config']['sys_language_uid'] ?? 0);
+		// fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+		$this->view->assign('Lvar', $sys_language_uid);
 		
         return $this->responseFactory->createResponse()
             ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')

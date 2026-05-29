@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array (
   'title' => 'MyMap',
   'description' => 'Google maps with radial search and hierarchic categories (category tree). Show the results in responsive Google maps, traffic- and bicycling layer included and can be activated via constant editor.',
   'category' => 'plugin',
-  'version' => '2.0.1',
+  'version' => '2.3.3',
   'state' => 'beta',
   'uploadfolder' => true,
   'clearcacheonload' => false,
@@ -25,7 +25,7 @@ $EM_CONF[$_EXTKEY] = array (
   array (
     'depends' => 
     array (
-      'typo3' => '12.4.0-13.4.99',
+      'typo3' => '13.4.0-14.0.99',
     ),
     'conflicts' => 
     array (

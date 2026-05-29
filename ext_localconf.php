@@ -1,6 +1,8 @@
 <?php
 defined('TYPO3') or die();
 
+use \TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 $_EXTKEY = 'Mymap';
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -13,7 +15,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 		\WSR\Mymap\Controller\LocationController::class => 'searchForm',
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 
@@ -29,7 +32,9 @@ $_EXTKEY = 'Mymap';
 		\WSR\Mymap\Controller\LocationController::class => 'autocompleterForm',
 		'Category' => '',
 		
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
+
 );
 
 
@@ -42,7 +47,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 				\WSR\Mymap\Controller\LocationController::class => 'search, route',
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -54,7 +60,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 		\WSR\Mymap\Controller\LocationController::class => 'mapAll',
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -66,7 +73,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -78,7 +86,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 		\WSR\Mymap\Controller\LocationController::class => 'singleView',
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -90,7 +99,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 		\WSR\Mymap\Controller\LocationController::class => 'randomView',
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -102,7 +112,8 @@ $_EXTKEY = 'Mymap';
 	// non-cacheable actions
 	[
 		\WSR\Mymap\Controller\LocationController::class => 'ajaxSearch',
-	]
+	],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 // Plugin for AJAX-calls
@@ -115,7 +126,8 @@ $_EXTKEY = 'Mymap';
 		// non-cacheable actions
 		[
 			\WSR\Mymap\Controller\AjaxController::class => 'ajaxEid'
-		]
+		],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 

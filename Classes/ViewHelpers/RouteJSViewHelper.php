@@ -19,7 +19,7 @@ class RouteJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('startingPoint', 'array', 'The starting point', TRUE);
 		$this->registerArgument('destination', 'array', 'The destination', TRUE);
 	}
@@ -28,13 +28,10 @@ class RouteJSViewHelper extends AbstractViewHelper {
      /**
 	 * Returns the map javascript
 	 *
-	 * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
 	 * @return string
 	 */
-	public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
-		$out = self::getMapJavascript($arguments['startingPoint'], $arguments['destination']);
+	public function render() {
+		$out = self::getMapJavascript($this->arguments['startingPoint'], $this->arguments['destination']);
 		$out .= '<script type="text/javascript">function getMarkers() {';
 		$out .= '}</script>';
 		return $out;

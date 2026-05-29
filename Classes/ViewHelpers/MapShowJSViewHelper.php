@@ -21,7 +21,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('location', 'mixed', 'The location for the map', TRUE);
 		$this->registerArgument('city', 'string', 'The city for the map', TRUE);
 	}
@@ -31,13 +31,11 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 	 * Returns the map javascript
 	 *
 	 * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
 	 * @return string
 	 */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
-		$location = $arguments['location'];
-		$city = $arguments['city'];
+    public function render() {
+		$location = $this->arguments['location'];
+		$city = $this->arguments['city'];
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
 		$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $location[0]['uid']);
         $locationIcon = '';

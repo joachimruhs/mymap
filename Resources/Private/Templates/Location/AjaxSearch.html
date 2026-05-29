@@ -30,7 +30,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:if condition="{settings.googleBrowserApiKey} > ''">
 	<f:then>
-		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places&key={settings.googleBrowserApiKey}"></script>
+		<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3&libraries=places,marker,maps&key={settings.googleBrowserApiKey}"></script>
 	</f:then>
 	<f:else>
 		<div class="typo3-message message-warning">Please insert a Google maps browser API key with the constant editor first!</div>
@@ -204,7 +204,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			categories.push($(this).val());
 		});		
 
-		requestParameter.tx_mymap_ajax.categories = categories;
+        requestParameter.tx_mymap_ajax.categories = categories;
 
 	
 		

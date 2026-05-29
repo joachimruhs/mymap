@@ -31,7 +31,11 @@
 		</f:for>
 
         <li>
+			<a href="/index.php?id={settings.detailsPageId}&tx_mymap_singleview[action]=singleView&tx_mymap_singleview[locationUid]={location.uid}"><strong>{location.name}</strong></a>
+
+            <f:comment>
             <f:link.page pageUid="{settings.detailsPageId}" additionalParams="{tx_mymap_singleview: {action: 'singleView', locationUid: '{location.uid}'}}" >{location.name}</f:link.page>
+</f:comment>            
         </li>
 
 		<f:if condition="{location.additionalname} > '' ">

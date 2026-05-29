@@ -25,13 +25,12 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  */
 
 
-//class GetCategoriesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 class GetCategoriesViewHelper extends AbstractViewHelper {
 
 	/**
 	* Arguments Initialization
 	*/
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('categories', 'array', 'The categories', TRUE);
 		$this->registerArgument('index', 'int', 'The index', TRUE);
 	}
@@ -43,9 +42,9 @@ class GetCategoriesViewHelper extends AbstractViewHelper {
     * @param RenderingContextInterface $renderingContext
 	* @return string categories comma separated
 	*/
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
-		$index = $arguments['index'];
-		return $arguments['categories'][$index];
+    public function render() {
+		$index = $this->arguments['index'];
+		return $this->arguments['categories'][$index];
 	}
 }
 ?>

@@ -27,18 +27,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			</f:else>
 		</f:if>	
 		<table><tr>
-			<td class="address"><f:translate key="address" />:</td><td><input name="tx_mymap_search[address]" value ="{_GP.address}"/></td>
+			<td class="address"><f:translate key="address" />:</td><td><input name="tx_mymap_search[address]" value ="{GP.address}"/></td>
 			</tr><tr>
-			<td class="zipcode"><f:translate key="zipcode" />:</td><td><input name="tx_mymap_search[zipcode]" value ="{_GP.zipcode}" /></td>
+			<td class="zipcode"><f:translate key="zipcode" />:</td><td><input name="tx_mymap_search[zipcode]" value ="{GP.zipcode}" /></td>
 			</tr><tr>
-			<td class="city"><f:translate key="city" />:</td><td><input name="tx_mymap_search[city]" value ="{_GP.city}" /></td>
+			<td class="city"><f:translate key="city" />:</td><td><input name="tx_mymap_search[city]" value ="{GP.city}" /></td>
 			</tr><tr>
 			<td class="country">
 			<f:translate key="country" />:</td>
 			<td>
 
 				<select name="tx_mymap_search[country]">
-					<f:if condition="{_GP.country} == 'DE'">
+					<f:if condition="{GP.country} == 'DE'">
 					<f:then>
 						<option value="DE" selected="selected">Deutschland</option>
 					</f:then>
@@ -47,7 +47,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 					</f:else>
 					</f:if>
 					
-					<f:if condition="{_GP.country} == 'AT'">
+					<f:if condition="{GP.country} == 'AT'">
 					<f:then>
 						<option value="AT" selected="selected">Österreich</option>
 					</f:then>
@@ -56,7 +56,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 					</f:else>
 					</f:if>
 					
-					<f:if condition="{_GP.country} == 'FR'">
+					<f:if condition="{GP.country} == 'FR'">
 					<f:then>
 						<option value="FR" selected="selected">Frankreich</option>
 					</f:then>
@@ -65,7 +65,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 					</f:else>
 					</f:if>
 		
-					<f:if condition="{_GP.country} == 'CH'">
+					<f:if condition="{GP.country} == 'CH'">
 					<f:then>
 						<option value="CH" selected="selected">Schweiz</option>
 					</f:then>

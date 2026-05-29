@@ -12,6 +12,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\Response;
 
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+
+use TYPO3\CMS\Core\Http\JsonResponse;
+
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -23,7 +32,7 @@ use TYPO3\CMS\Core\Utility\RootlineUtility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 - 2023 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2021 - 2026 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -35,6 +44,15 @@ use TYPO3\CMS\Core\Utility\RootlineUtility;
  * 
  */
 class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
+/**
+	 * CustomerServerAssignment constructor.
+	 */
+	public function __construct(
+//        private ViewFactoryInterface $viewFactory
+    ) {
+		$this->languageServiceFactory = GeneralUtility::makeInstance(LanguageServiceFactory::class);
+    }
 
 	/**
 	 * locationRepository
@@ -168,7 +186,7 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @param \Psr\Http\Message\ResponseInterface      $response
 	 */
 	protected function processGetRequest(ServerRequestInterface $request, Response $response) {
-		$view = $this->getView();
+//		$view = $this->getView();
 	
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
 		$response->getBody()->write($view->render());
@@ -181,35 +199,41 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	protected function processPostRequest(ServerRequestInterface $request, Response $response)
 	{
-		$queryParams = $request->getQueryParams();
+
+		$this->categoryRepository = GeneralUtility::makeInstance("WSR\Mymap\Domain\Repository\CategoryRepository");
+		$this->locationRepository = GeneralUtility::makeInstance("WSR\Mymap\Domain\Repository\LocationRepository");
+		$this->viewFactory = GeneralUtility::makeInstance("TYPO3\CMS\Core\View\ViewFactoryInterface");
+
+        $queryParams = $request->getQueryParams();
 	
-	//	$queryParameters = $request->getParsedBody();
+        //	$queryParameters = $request->getParsedBody();
 	//	$pid = (int)$queryParameters['pid'];
 	//	$queryParams = $queryParameters;
-		$frontend = $GLOBALS['TSFE'];
+	//	$frontend = $GLOBALS['TSFE'];
 	
 		/** @var TypoScriptService $typoScriptService */
-/*
-		$typoScriptService = GeneralUtility::makeInstance('TYPO3\CMS\Core\TypoScript\TypoScriptService');
-		$this->configuration = $typoScriptService->convertTypoScriptArrayToPlainArray($frontend->tmpl->setup['plugin.']['tx_mymap.']);
-
-		$this->settings = $this->configuration['settings'];
-		$this->conf['storagePid'] = $this->configuration['persistence']['storagePid'];
-*/
         $fullTypoScript = $request->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_mymap.'] ;
 	    $this->configuration = $request->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_mymap.'];
 
 		$this->settings = $this->configuration['settings.'];
 		$this->conf['storagePid'] = $this->configuration['persistence.']['storagePid'];
         
-        
-        
 		$this->request1 = $request;
-		$out = $this->ajaxEidAction();
+
+        // fetching correct language for locallang labels
+ 		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+		$sys_language_uid = $languageAspect->getId();
+
+
+        $siteLanguage = $this->request1->getAttribute('language');
+        $this->language = $siteLanguage->getTypo3Language();        
+        $language = $this->request1->getAttribute('language') ?? $this->request1->getAttribute('site')->getDefaultLanguage();
+        $this->translator = $this->languageServiceFactory->createFromSiteLanguage($language);
+
+
+        $out = $this->ajaxEidAction();
 		return $out;	
 
-//		echo $out;
-	
 		//    $response->getBody()->write(json_encode($queryParams));
 		//    $response->getBody()->write($out);
 		
@@ -217,25 +241,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		//		$response = GeneralUtility::makeInstance(Response::class);
 		//		$response->getBody()->write($out);
 		
-/*		
-		return $response;
-	
-		
-		
-		
-		$view = $this->getView();
-		$hasErrors = false;
-		// ... some logic
-	
-		if ($hasErrors) {
-			$response->withHeader('Content-type', ['text/html; charset=UTF-8']);
-			$response->getBody()->write($view->render());
-		} else {
-			$response->withHeader('Content-type', ['application/json; charset=UTF-8']);
-			$response->getBody()->write(json_encode(['success' => true]));
-		}
-*/
-
 	}
 
 
@@ -243,7 +248,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
 	 */
 	protected function getView() {
-//		$templateService = GeneralUtility::makeInstance(TemplateService::class);
+/*
+	//		$templateService = GeneralUtility::makeInstance(TemplateService::class);
 		// get the rootline
 	//    $rootLine = $pageRepository->getRootLine($pageRepository->getDomainStartPage(GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY')));
 		$rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, 0);
@@ -262,7 +268,8 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$fluidView->setTemplate('index');
 	
 		return $fluidView;
-	}
+*/
+		}
 
 
 	/**
@@ -286,9 +293,6 @@ class AjaxController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		if ($this->_GP['categories'] && preg_match('/^[0-9,]*$/', $this->_GP['categories']) != 1) {
 			$this->_GP['categories'] = '';
 		}		
-		
-		
-		
 		
 // NEW
 		// to minimize Google Server API requests
@@ -375,10 +379,8 @@ if ($requestArguments['page'] == -1) {
 		}
 
 
-
-
 		if (count($locations) == 0) {
-			$out = '<div class="ajaxMessage">' . \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('noLocationsFound', 'mymap') .'</div>';
+			$out = '<div class="ajaxMessage">' . $this->translator->label('LLL:EXT:mymap/Resources/Private/Language/locallang.xlf:noLocationsFound') .'</div>';
 			$out .= '<script	type="text/javascript">';
 			// remove marker from map
 			$out .= 'for (var i = 0; i < marker.length; i++) {
@@ -421,7 +423,6 @@ if ($requestArguments['page'] == -1) {
 
 		$out = '<script	type="text/javascript">';
 
-
 		// remove marker from map
 		$out .= 'for (i = 0; i < marker.length; i++) {
 			marker[i].setMap(null);
@@ -444,7 +445,7 @@ if ($requestArguments['page'] == -1) {
 			if ($fileObjects) {
 				$locationIcon = $fileObjects[0]->getOriginalFile()->getPublicUrl();
 			}
-			
+
 			$imageObjects = '';
 			$imageObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'image', $locations[$i]['uid']);
 
@@ -477,7 +478,7 @@ if ($requestArguments['page'] == -1) {
 									title: "' . $locations[$i]['name'] .'",
 									' . $animation . '
 //									animation: google.maps.Animation.DROP,
-									icon: "/typo3conf/ext/mymap/Resources/Public/Icons/pointerBlue.png"
+									icon: "/fileadmin/ext/mymap/Resources/Public/Icons/pointerBlue.png"
 									});
 									mapBounds.extend(myLatLng);
 
@@ -485,7 +486,7 @@ if ($requestArguments['page'] == -1) {
 			}
 		
 			// infoWindows
-			$out .= $this->renderFluidTemplate('AjaxLocationListInfoWindow.html', array('location' => $locations[$i], 'categories' => $categories, 'i' => $i,
+			$out .= $this->renderFluidTemplate('AjaxLocationListInfoWindow.html', array('location' => $locations[$i], 'categories' => $categories, 'locationIndex' => $i,
 																						'locationImage' => $locationImage, 'startingPoint' => $latLon, 'settings' => $this->settings));
 
 			
@@ -536,18 +537,22 @@ if ($requestArguments['page'] == -1) {
 	 * @return string
 	 */
 	public function renderFluidTemplate($template, Array $assign = array()) {
-		$templateRootPath = $this->configuration['view.']['templateRootPaths.'][1];
+//		$templateRootPath = $this->configuration['view.']['templateRootPaths.'][1];
 		
-		
-		$templatePath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateRootPath . 'Location/' . $template);
-		$view = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
-		$view->setTemplatePathAndFilename($templatePath);
+		$viewFactoryData = new ViewFactoryData(
+		    templateRootPaths: $this->configuration['view.']['templateRootPaths.'],
+       	    partialRootPaths: ['EXT:mymap/Resources/Private/Partials'],
+       	    layoutRootPaths: ['EXT:mymap/Resources/Private/Layouts'],
+        );
+        $view = $this->viewFactory->create($viewFactoryData);
+
+
+//        $view->setRequest($this->request1);
+//		return $view->render();
 		$view->assignMultiple($assign);
+		return $view->render('Location/' . $template);
 
-
-        $view->setRequest($this->request1);
-		return $view->render();
-	}
+		}
 
 	
 }

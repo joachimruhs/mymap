@@ -24,7 +24,7 @@ class MapJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
-	public function initializeArguments() {
+	public function initializeArguments(): void {
 		$this->registerArgument('locations', 'mixed', 'The locations for the map', TRUE);
 		$this->registerArgument('city', 'string', 'The city for the map', TRUE);
 		$this->registerArgument('settings', 'mixed', 'The settings', TRUE);
@@ -35,20 +35,19 @@ class MapJSViewHelper extends AbstractViewHelper {
     * Returns the map javascript
     * 
     * @param array $arguments 
-    * @param \Closure $renderChildrenClosure
-    * @param RenderingContextInterface $renderingContext
     * @return string
     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render()
     {
-		$locations = $arguments['locations'];
-		$city = $arguments['city'];
+		$locations = $this->arguments['locations'];
+		$city = $this->arguments['city'];
+		$settings = $this->arguments['settings'];
 
-		if ($arguments['settings']['enableMarkerAnimation']) 
+		if ($this->arguments['settings']['enableMarkerAnimation']) 
 			$animation = 'animation: google.maps.Animation.DROP,';
 		else $animation = '';
 
-		$out = self::getMapJavascript($locations, $arguments['settings']);
+		$out = self::getMapJavascript($locations, $this->arguments['settings']);
 		
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
 
@@ -95,16 +94,29 @@ class MapJSViewHelper extends AbstractViewHelper {
 		
 											';
 					}
-		
-		
-				}
 			}
+
+				if ($settings['enableMarkerClusterer']) {                
+					$out .= '
+					markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
+				';
+                }
+
+
+            }
+
+
             $out .= '}</script>';
 		return $out;
 	 }
 	 
 	 public static function getMapJavascript($locations, $settings) {
-        $out = '<script type="text/javascript">
+        $out = '';
+        if ($settings['enableMarkerClusterer']) {
+            $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
+		}
+
+        $out .= '<script type="text/javascript">
         var myOptions;
         var marker = [];
         var infoWindow = [];

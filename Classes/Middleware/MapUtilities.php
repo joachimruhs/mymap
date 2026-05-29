@@ -46,7 +46,7 @@ class MapUtilities implements MiddlewareInterface {
 //		print_r($requestArguments);
 //		print_r($GLOBALS['TSFE']);
 
-		$ajaxController = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('WSR\Mymap\Controller\AjaxController');
+		$ajaxController = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('WSR\Mymap\Controller\AjaxController', 11, $request);
 
 		$response = GeneralUtility::makeInstance(Response::class);
 		$response->withHeader('Content-type', ['text/html; charset=UTF-8']);

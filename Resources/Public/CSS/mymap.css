@@ -3,8 +3,6 @@
 
 }
 
-
-
 .tx-mymap #flashMessages, .tx-mymap .typo3-messages {
 	font-size: 1.1em;
 	display: none;
@@ -20,13 +18,13 @@
 	border-radius: 10px;
 }
 .tx-mymap .message-error, .tx-mymap .alert {
-	background-color: #000;
+	background-color: #5810df;
 }
 .tx-mymap .message-warning {
 	background-color: #080;
 }
-.tx-mymap .message-information, .tx-mymap .alert-info  {
-	background-color: #33b;
+.tx-mymap .message-information, .tx-mymap .alert .alert-info, .tx-mymap .alert-message {
+    color: white !important;
 }
 
 .tx-mymap #flashMessages ul {
