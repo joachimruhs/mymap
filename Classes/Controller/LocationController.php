@@ -742,7 +742,7 @@ if ($result->hasErrors()) {
 		$country = $theAddress['country'];
 		$zipcode = $theAddress['zipcode'];
 
-		######################################Main Geocoders#####################################
+		//######################################Main Geocoders#####################################
 
 			// for geocoding we need a server API key not a browser key
 			if ($this->settings['googleServerApiKey']) {
@@ -787,8 +787,8 @@ if ($result->hasErrors()) {
 	/**
 	 * Flash a message
 	 *
-	 * @param string title 
-	 * @param string message
+	 * @param string $title 
+	 * @param string $message
 	 * 
 	 * @return void
 	 */
