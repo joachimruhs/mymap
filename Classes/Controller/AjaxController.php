@@ -421,7 +421,10 @@ if ($requestArguments['page'] == -1) {
 			$animation = 'animation: google.maps.Animation.DROP,';
 		else $animation = '';
 
-		$out = '<script	type="text/javascript">';
+    	$out = '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
+
+
+		$out .= '<script	type="text/javascript">';
 
 		// remove marker from map
 		$out .= 'for (i = 0; i < marker.length; i++) {
@@ -514,8 +517,10 @@ if ($requestArguments['page'] == -1) {
 		';
 
 		}
-
-		$out .= 'map.fitBounds(mapBounds);';		
+        if ($this->settings['enableMarkerClusterer']) {
+    		$out .= 'markerClusterer = new markerClusterer.MarkerClusterer({map: window.map, markers: marker});';
+        }
+        $out .= 'map.fitBounds(mapBounds);';		
 
 		
 		

@@ -42,7 +42,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 
 <f:if condition="{settings.enableMarkerClusterer}" >
-	<script type="text/javascript" src="/fileadmin/ext/mymap/Resources/Public/JavaScript/markerclusterer.js"></script>
+<!--	<script type="text/javascript" src="/fileadmin/ext/mymap/Resources/Public/JavaScript/markerclusterer.js"></script> -->
 </f:if>
 
 <h1>Ajax Search</h1>
@@ -205,13 +205,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		});		
 
         requestParameter.tx_mymap_ajax.categories = categories;
-
-	
 		
-<f:if condition="{settings.enableMarkerClusterer}" >
-		if (marker.length > 0) markerClusterer.clearMarkers();
-</f:if>
-
 		// new for automatic zooming of the map when categories are changed
 		mapBounds = new google.maps.LatLngBounds();
 		//map.setZoom(4);
@@ -219,14 +213,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 		$.post(ajaxRequestUrl, requestParameter, function (data) {
 			$('#ajaxResult').html(data);
-
-			
 			
 			// only used with clusterer
-			<f:if condition="{settings.enableMarkerClusterer}" >
-					markerClusterer = new MarkerClusterer(map, marker, {imagePath: '/typo3conf/ext/mymap/Resources/Public/Icons/Clusterer/m'});
-			</f:if>
-			
 			$('#tx_mymap_more').css('display', 'none');
 
 			var page = parseInt($('#tx_mymap_page').val());
