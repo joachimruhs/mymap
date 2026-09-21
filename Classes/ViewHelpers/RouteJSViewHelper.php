@@ -22,6 +22,7 @@ class RouteJSViewHelper extends AbstractViewHelper {
 	public function initializeArguments(): void {
 		$this->registerArgument('startingPoint', 'array', 'The starting point', TRUE);
 		$this->registerArgument('destination', 'array', 'The destination', TRUE);
+		$this->registerArgument('settings', 'mixed', 'The settings', TRUE);
 	}
 
 
@@ -31,13 +32,14 @@ class RouteJSViewHelper extends AbstractViewHelper {
 	 * @return string
 	 */
 	public function render() {
-		$out = self::getMapJavascript($this->arguments['startingPoint'], $this->arguments['destination']);
+        $mapId = $this->arguments['settings']['mapId'];
+		$out = self::getMapJavascript($this->arguments['startingPoint'], $this->arguments['destination'], $mapId);
 		$out .= '<script type="text/javascript">function getMarkers() {';
 		$out .= '}</script>';
 		return $out;
 	 }
 	 
-	 public static function getMapJavascript($startingPoint, $destination) {
+	 public static function getMapJavascript($startingPoint, $destination, $mapId) {
 		$outJS = '<script type="text/javascript">
 
 
@@ -62,8 +64,11 @@ function load(){
     var center = new google.maps.LatLng(48,8);
     var myOptions = {
       zoom: 17 - 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-//  	  streetViewControl: $enableStreetViewOverlay,
+//      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapId: "' . ($mapId ?? null ?: 'DEMO_MAP_ID') . '",
+
+
+      //  	  streetViewControl: $enableStreetViewOverlay,
       center: center,
       scaleControl: 1
     }

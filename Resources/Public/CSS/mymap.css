@@ -39,6 +39,10 @@
 	display: none;
 }
 
+.tx-mymap ul li {
+    margin: 0;
+    padding: 10px;
+}
 
 .tx-mymap .infoWindow .storename {
 	font-weight: bold;

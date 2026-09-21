@@ -71,6 +71,9 @@ plugin.tx_mymap {
 		# cat=plugin.tx_mymap/googlemaps; type=boolean; label=Enable marker animation: Show animated markers
 		enableMarkerAnimation = 0
 
+		# cat=plugin.tx_mymap/googlemaps; type=string; label=Google map ID: Map ID of a predefined map in the Google Cloud Console
+		mapId =
+
 		# cat=plugin.tx_mymap/googlemaps; type=string; label=Initial map coordinates: Initial map coordinates
 		initialMapCoordinates = 48,8
 	}

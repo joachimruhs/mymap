@@ -13,7 +13,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2021 - 2026 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
@@ -24,6 +24,8 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 	public function initializeArguments(): void {
 		$this->registerArgument('location', 'mixed', 'The location for the map', TRUE);
 		$this->registerArgument('city', 'string', 'The city for the map', TRUE);
+		$this->registerArgument('settings', 'mixed', 'The settings', TRUE);
+
 	}
 
 
@@ -36,6 +38,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
     public function render() {
 		$location = $this->arguments['location'];
 		$city = $this->arguments['city'];
+        $mapId = $this->arguments['settings']['mapId'];
 		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
 		$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $location[0]['uid']);
         $locationIcon = '';
@@ -44,7 +47,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		}
 
 		
-		$out = self::getMapJavascript($location);
+		$out = self::getMapJavascript($location, $mapId);
 		$out .= '<script type="text/javascript">function getMarkers() {';
 			$lat = $location[0]['lat'];
 			$lon = $location[0]['lon'];
@@ -94,7 +97,7 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		return $out;
 	 }
 	 
-	 public static function getMapJavascript($location) {
+	 public static function getMapJavascript($location, $mapId) {
 		$out = '<script type="text/javascript">
 		var myOptions;
 		var marker = [];
@@ -115,8 +118,8 @@ class MapShowJSViewHelper extends AbstractViewHelper {
 		     myOptions = {
 		      zoom: zoom1,
 		      center: latlng,
-		      mapTypeId: google.maps.MapTypeId.ROADMAP,
-		      scaleControl: 1,
+	          mapId: "' . ($mapId ?? null ?: 'DEMO_MAP_ID') . '",
+              scaleControl: 1,
 			  zoomControl: 1,
 			  gestureHandling: "cooperative",
 

@@ -1,0 +1,132 @@
+categories:
+  Mymap:
+    label: 'Mymap'
+  Mymap.templates:
+    label: 'Templates'
+    parent: Mymap
+  Mymap.layout:
+    label: 'Layout'
+    parent: Mymap
+  Mymap.pages:
+    label: 'Pages'
+    parent: Mymap
+  Mymap.keys:
+    label: 'Keys'
+    parent: Mymap
+  Mymap.options:
+    label: 'Options'
+    parent: Mymap
+
+settings:
+#  plugin.tx_mymap.view.templateRootPath:
+#  Mymap.templateRootPath:
+  plugin.tx_mymap.view.templateRootPath:
+    label: 'Page template path'
+    category: Mymap.templates
+    description: 'Path to templates root'
+    type: string
+    default: 'EXT:Mymap/Resources/Private/Templates/'
+
+#  Mymap.partialRootPath:
+  plugin.tx_mymap.view.partialRootPath:
+    label: 'Partials'
+    category: Mymap.templates
+    description: 'Path to partial root'
+    type: string
+    default: 'EXT:Mymap/Resources/Private/Partials/'
+#  Mymap.layoutRootPath:
+  plugin.tx_mymap.view.layoutRootPath:
+    label: 'Layouts'
+    category: Mymap.templates
+    description: 'Path to layout root'
+    type: string
+    default: 'EXT:Mymap/Resources/Private/Layouts/'
+
+#  Mymap.storagePid:
+  plugin.tx_mymap.persistence.storagePid:
+    label: 'Default storage PID'
+    category: Mymap.pages
+    description: 'Folder that stores all data'
+    type: page
+    default: 0
+#  Mymap.googleBrowserApiKey:
+  plugin.tx_mymap.settings.googleBrowserApiKey:
+    label: 'googleBrowserApiKey'
+    category: Mymap.keys
+    description: 'Google browser API key'
+    type: string
+    default: ''
+#  Mymap.googleServerApiKey:
+  plugin.tx_mymap.settings.googleServerApiKey:
+    label: 'googleServerApiKey'
+    category: Mymap.keys
+    description: 'Google server API key'
+    type: string
+    default: ''
+  plugin.tx_mymap.settings.resultPageId:
+    label: 'result page id'
+    category: Mymap.pages
+    description: 'The result page Id'
+    type: page
+    default: 0
+  plugin.tx_mymap.settings.detailsPageId:
+    label: 'details page id'
+    category: Mymap.pages
+    description: 'The details page Id'
+    type: page
+    default: 0
+  plugin.tx_mymap.settings.singleViewUid:
+    label: 'single view uid'
+    category: Mymap.options
+    description: 'The address uid of the single view'
+    type: int
+    default: 0
+  plugin.tx_mymap.settings.resultLimit:
+    label: 'result limit'
+    category: Mymap.options
+    description: 'The limit of results'
+    type: int
+    default: 300
+  plugin.tx_mymap.settings.initialMapCoordinates:
+    label: 'initial map coordinates'
+    category: Mymap.options
+    description: 'The initial coordinates of the map'
+    type: string
+    default: 48,8
+  plugin.tx_mymap.settings.enableMarkerClusterer:
+    label: 'enable marker clusterer'
+    category: Mymap.options
+    description: 'Enable the marker clusterer'
+    type: bool
+    default: 0
+  plugin.tx_mymap.settings.enableTrafficLayer:
+    label: 'enable traffic layer'
+    category: Mymap.options
+    description: 'Enable the traffic layer'
+    type: bool
+    default: 0
+  plugin.tx_mymap.settings.enableBicyclingLayer:
+    label: 'enable bicycling layer'
+    category: Mymap.options
+    description: 'Enable the bicycling layer'
+    type: bool
+    default: 0
+  plugin.tx_mymap.settings.mapId:
+    label: 'mapId'
+    category: Mymap.options
+    description: 'mapId'
+    type: string
+    default: ''
+  plugin.tx_mymap.settings.defaultIcon:
+    label: 'default icon'
+    category: Mymap.options
+    description: 'default marker icon'
+    type: string
+    default: ''
+#  plugin.tx_mymap.settings.defaultLanguageUid:
+#    label: 'default language uid'
+#    category: Mymap.options
+#    description: 'Default language Uid'
+#    type: int
+#    default: 0
+

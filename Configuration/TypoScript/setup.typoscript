@@ -48,6 +48,7 @@ plugin.tx_mymap {
 		enableMarkerClusterer = {$plugin.tx_mymap.settings.enableMarkerClusterer}
 		enableMarkerAnimation = {$plugin.tx_mymap.settings.enableMarkerAnimation}
 		initialMapCoordinates = {$plugin.tx_mymap.settings.initialMapCoordinates}
+		mapId = {$plugin.tx_mymap.settings.mapId}
 	}
 }
 

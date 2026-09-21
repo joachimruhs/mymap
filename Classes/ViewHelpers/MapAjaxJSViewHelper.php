@@ -7,116 +7,54 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /***
  *
- * This file is part of the "Mymap" Extension for TYPO3 CMS.
+ * This file is part of the "Myttaddressmap" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2021 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
+ *  (c) 2018 - 2026 Joachim Ruhs <postmaster@joachim-ruhs.de>, Web Services Ruhs
  *
  ***/
 
-use \TYPO3\CMS\Core\Core\Environment;
 
-
-class MapJSViewHelper extends AbstractViewHelper {
-
+class MapAjaxJSViewHelper extends AbstractViewHelper {
 	/**
 	* Arguments Initialization
 	*/
 	public function initializeArguments(): void {
-		$this->registerArgument('locations', 'mixed', 'The locations for the map', TRUE);
+		$this->registerArgument('locations', 'array', 'The locations for the map', TRUE);
 		$this->registerArgument('city', 'string', 'The city for the map', TRUE);
 		$this->registerArgument('settings', 'mixed', 'The settings', TRUE);
 	}
 
-
     /**
     * Returns the map javascript
     * 
-    * @param array $arguments 
     * @return string
     */
-    public function render()
+    public function render(): string
     {
-		$locations = $this->arguments['locations'];
-		$city = $this->arguments['city'];
+		$locations = $this->arguments['locations'] ?? '';
+		$city = $this->arguments['city'] ?? '';
 		$settings = $this->arguments['settings'];
 
-		if ($this->arguments['settings']['enableMarkerAnimation']) 
-			$animation = 'animation: google.maps.Animation.DROP,';
-		else $animation = '';
-
-		$out = self::getMapJavascript($locations, $this->arguments['settings']);
+		$animation = '';
 		
-		$fileRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
+		$out = self::getMapJavascript($locations, $settings);
 
-		$out .= '<script type="text/javascript">
-            function getMarkers() {';
+		// no more code needed 
 
-			if (is_array($locations)) {
-				for ($i = 0; $i < count($locations); $i++) {
-					$lat = $locations[$i]['lat'];
-					$lon = $locations[$i]['lon'];
-					
-					$out .= 'var myLatLng = new google.maps.LatLng(' . $lat. ',' . $lon .');';
-
-					$fileObjects = $fileRepository->findByRelation('tx_mymap_domain_model_location', 'icon', $locations[$i]['uid']);
-					$locationIcon = '';
-					if ($fileObjects) {
-						$locationIcon = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $fileObjects[0]->getOriginalFile()->getPublicUrl();
-					}
-					
-					if ($locationIcon) {
-						$out .= 'marker[' . $i . '] = new google.maps.Marker({
-											position: myLatLng,
-											map: map,
-											title: "' . $locations[$i]['name'] .'",
-											icon: "' . $locationIcon .'",
-											' . $animation . '
-											map: map
-											});
-											mapBounds.extend(myLatLng);
-		
-											';
-					
-					
-					} else {
-		
-						$out .= 'marker[' . $i . '] = new google.maps.Marker({
-											position: myLatLng,
-											title: "' . $locations[$i]['name'] .'",
-											icon: "/typo3conf/ext/mymap/Resources/Public/Icons/pointerBlue.png",
-										' . $animation . '
-											map: map
-											});
-											mapBounds.extend(myLatLng);
-		
-											';
-					}
-			}
-
-				if ($settings['enableMarkerClusterer']) {                
-					$out .= '
-					markerClusterer = new markerClusterer.MarkerClusterer({map: map, markers: marker, algorithmOptions: { grid: 100 } });
-				';
-                }
-
-
-            }
-
-
-            $out .= '}</script>';
 		return $out;
-	 }
+	}
+
 	 
-	 public static function getMapJavascript($locations, $settings) {
+    public function getMapJavascript($locations, $settings) {
         $out = '';
         if ($settings['enableMarkerClusterer']) {
             $out .= '<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>';
 		}
-
-        $out .= '<script type="text/javascript">
+	 
+	 $out .= '<script type="text/javascript">
         var myOptions;
         var marker = [];
         var infoWindow = [];
@@ -129,32 +67,32 @@ class MapJSViewHelper extends AbstractViewHelper {
             var lon;
             var lat;
         
-            var zoom1 = 17 - 8;
+            var zoom1 = 9;
         
             var latlng = new google.maps.LatLng(' . $settings['initialMapCoordinates'] . ');
         
              myOptions = {
+              mapId: "' . ($settings['mapId'] ?? null ?: 'DEMO_MAP_ID') . '",
               zoom: zoom1,
               center: latlng,
-        	  mapId: "' . ($settings['mapId'] ?? null ?: 'DEMO_MAP_ID') . '",
+        //		      mapTypeId: google.maps.MapTypeId.ROADMAP,
               scaleControl: true,
 			  gestureHandling: "cooperative",
-              zoomControl: true,
+			  zoomControl: true,
               zoomControlOptions: {
                     position: google.maps.ControlPosition.LEFT_TOP
                 },
         
-//              panControl: true,
+              panControl: true,
 			  draggable: 1,			  
               rotateControl: true,
 //              rotateControlOptions: {
 //                                position: google.maps.ControlPosition.LEFT_TOP
 //                            },
               disableDoubleClickZoom: 1,
+			  ';
 
-                ';
-        
-            if ($settings['enableStreetViewLayer']) {                
+            if ($settings['enableStreetViewLayer'] ?? '') {                
                 $out .= '  streetViewControl: 1,
                             streetViewControlOptions: {
                                 position: google.maps.ControlPosition.LEFT_TOP
@@ -171,7 +109,6 @@ class MapJSViewHelper extends AbstractViewHelper {
 
 			// 45 degree images of cities		
 			map.setTilt(45);
-					
             ';
             
             if ($settings['enableBicyclingLayer']) {                
@@ -180,7 +117,7 @@ class MapJSViewHelper extends AbstractViewHelper {
                 bikeLayer.setMap(map);
                 ';
             }
-      
+
             if ($settings['enableTrafficLayer']) {                
                 $out .= '
                 var trafficLayer = new google.maps.TrafficLayer();
@@ -191,7 +128,7 @@ class MapJSViewHelper extends AbstractViewHelper {
             $out .= '
 
 				function addMarker(location) {
-				  marker = new google.maps.Marker({
+				  marker = new google.maps.marker.AdvancedMarkerElement({
 					position: location,
 					
 					map: map
@@ -207,42 +144,32 @@ class MapJSViewHelper extends AbstractViewHelper {
 					 marker.setMap(map);
 				}
 				
-					getMarkers();
+//					getMarkers();
 		
 				// panning for mobile devices
 				google.maps.event.addListener(map, "click",function(event) {
 				   //map.setZoom(9);
 //				   map.setCenter(event.latLng);
 			   });
-		
+			';
 
-				} // load
-				
-/*
-				var circle = null;
-				function drawCircle(radius, lat, lon) {
-					var center = new google.maps.LatLng(lat, lon);
-					circle = new google.maps.Circle({
-						center: center,
-						radius: radius * 1000,
-						strokeColor: "#FF0000",
-						strokeOpacity: 0.8,
-						strokeWeight: 2,
-						fillColor: "#FF0000",
-						fillOpacity: 0,
-			//			editable: true,
-						map: map
-					});
-		
-				}
-*/				
-				
-				
-				
+// ********************************************************************
+// markerClusterer did not work in Ajax mode!
+//markerClusterer = new markerClusterer.MarkerClusterer({map, marker});
+
+//            if ($settings['enableMarkerClusterer']) {                
+//			}
+
+
+		$out .= '
+
+			} // load
         </script>';
-        return $out;
+				
+		return $out;
 	 }
 	 
+
 	 
 }
 

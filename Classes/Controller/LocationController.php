@@ -198,6 +198,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$this->eventDispatcher->dispatch($event);
 
 
+		$this->view->assign('settings', $this->settings);
 		$this->view->assign('location', $location);
 		// fetching correct language for locallang labels
  		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
@@ -594,7 +595,6 @@ if ($result->hasErrors()) {
         $pageArguments = $this->request->getAttribute('routing');
         $pageId = $pageArguments->getPageId();
         
-        
 		$this->view->assign('id', $pageId);
 
 		$categories = $this->categoryRepository->findAll();
@@ -680,11 +680,13 @@ if ($result->hasErrors()) {
 			'city' => $this->_GP['targetCity'] ?? '',
 		);
 		$this->view->assign('target', $target);
-		// fetching correct language for locallang labels
+		$this->view->assign('settings', $this->settings);
+
+        // fetching correct language for locallang labels
  		$languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
 		$sys_language_uid = $languageAspect->getId();
 		$this->view->assign('Lvar', $sys_language_uid);
-		
+
         return $this->responseFactory->createResponse()
             ->withAddedHeader('Content-Type', 'text/html; charset=utf-8')
             ->withBody($this->streamFactory->createStream($this->view->render()));

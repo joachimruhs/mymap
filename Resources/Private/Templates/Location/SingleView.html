@@ -25,7 +25,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:flashMessages />
 
 
-
 <f:for each="{location.images}" as="image">
 	<f:image src="fileadmin/{image.originalResource.originalFile.identifier}"
 		 title="{image.originalResource.title}" 
@@ -67,7 +66,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 
 <f:format.raw>
-	<map:mapShowJS location="{location}" city="{location.storename}" />
+	<map:mapShowJS location="{location}" city="{location.storename}" settings="{settings}"/>
 </f:format.raw>
 
 
