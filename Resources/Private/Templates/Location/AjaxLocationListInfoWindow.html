@@ -8,11 +8,11 @@ info = 'AjaxLocationListInfoWindow<br />';
 info += '<form action="?id={settings.routePageId}" name="mymapForm{iter.index}" method="post">';
 info += '<input type="hidden" name="id" value="{settings.routePageId}" />';
 info += '<input type="hidden" name="L" value="{Lvar}" />';
-info += '<input type="hidden" name="tx_mymap_search[action]" value="route" />';
-info += '<input type="hidden" name="tx_mymap_search[startingPointLat]" value="{startingPoint.lat}" />';
-info += '<input type="hidden" name="tx_mymap_search[startingPointLon]" value="{startingPoint.lon}" />';
-info += '<input type="hidden" name="tx_mymap_search[destinationLat]" value="{location.lat}" />';
-info += '<input type="hidden" name="tx_mymap_search[destinationLon]" value="{location.lon}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[action]" value="route" />';
+info += '<input type="hidden" name="tx_mymap_singleview[startingPointLat]" value="{startingPoint.lat}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[startingPointLon]" value="{startingPoint.lon}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[destinationLat]" value="{location.lat}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[destinationLon]" value="{location.lon}" />';
 info += '<button id="mymapRouteButton" onclick="submit()">Route</button>';
 info += '</form>';
 

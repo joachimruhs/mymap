@@ -62,15 +62,18 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</f:if>
 
 		<li>
+
 		<form action="<f:uri.page pageUid="{settings.routePageId}" />" name="{iter.index}" method="post">
 		<input type="hidden" name="L" value="{Lvar}" />
-		<input type="hidden" name="tx_mymap_search[action]" value="route" />
-		<input type="hidden" name="tx_mymap_search[startingPointLat]" value="{startingPoint.lat}" />
-		<input type="hidden" name="tx_mymap_search[startingPointLon]" value="{startingPoint.lon}" />
-		<input type="hidden" name="tx_mymap_search[destinationLat]" value="{location.lat}" />
-		<input type="hidden" name="tx_mymap_search[destinationLon]" value="{location.lon}" />
+                <input type="hidden" name="tx_mymap_singleview[locationUid]" value="{location.uid}" />
+		<input type="hidden" name="tx_mymap_singleview[action]" value="route" />
+		<input type="hidden" name="tx_mymap_singleview[startingPointLat]" value="{startingPoint.lat}" />
+		<input type="hidden" name="tx_mymap_singleview[startingPointLon]" value="{startingPoint.lon}" />
+		<input type="hidden" name="tx_mymap_singleview[destinationLat]" value="{location.lat}" />
+		<input type="hidden" name="tx_mymap_singleview[destinationLon]" value="{location.lon}" />
 		<button onclick="submit()"><f:translate key="route" /></button>
 		</form>
+
 		</li>
 
 
@@ -174,11 +177,11 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 info += '<form action="<f:uri.page pageUid="{settings.routePageId}" />" name="mymapForm{iter.index}" method="post">';
 info += '<input type="hidden" name="L" value="{Lvar}" />';
-info += '<input type="hidden" name="tx_mymap_search[action]" value="route" />';
-info += '<input type="hidden" name="tx_mymap_search[startingPointLat]" value="{startingPoint.lat}" />';
-info += '<input type="hidden" name="tx_mymap_search[startingPointLon]" value="{startingPoint.lon}" />';
-info += '<input type="hidden" name="tx_mymap_search[destinationLat]" value="{location.lat}" />';
-info += '<input type="hidden" name="tx_mymap_search[destinationLon]" value="{location.lon}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[action]" value="route" />';
+info += '<input type="hidden" name="tx_mymap_singleview[startingPointLat]" value="{startingPoint.lat}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[startingPointLon]" value="{startingPoint.lon}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[destinationLat]" value="{location.lat}" />';
+info += '<input type="hidden" name="tx_mymap_singleview[destinationLon]" value="{location.lon}" />';
 info += '<button id="mymapRouteButton" onclick="submit()"><f:translate key="route" /></button>';
 info += '</form>';
 

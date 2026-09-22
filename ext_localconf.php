@@ -81,11 +81,11 @@ $_EXTKEY = 'Mymap';
 	$_EXTKEY,
 	'SingleView',
 	[
-		\WSR\Mymap\Controller\LocationController::class => 'singleView',
+		\WSR\Mymap\Controller\LocationController::class => 'singleView, route',
 	],
 	// non-cacheable actions
 	[
-		\WSR\Mymap\Controller\LocationController::class => 'singleView',
+		\WSR\Mymap\Controller\LocationController::class => 'singleView, route',
 	],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );

@@ -75,6 +75,12 @@ settings:
     description: 'The details page Id'
     type: page
     default: 0
+  plugin.tx_mymap.settings.routePageId:
+    label: 'route page uid'
+    category: Mymap.pages
+    description: 'The uid of the route page'
+    type: page
+    default: 0
   plugin.tx_mymap.settings.singleViewUid:
     label: 'single view uid'
     category: Mymap.options

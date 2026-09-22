@@ -176,7 +176,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 */
 	public function singleViewAction() {
         $this->GP = $this->request->getArguments();
-        $this->GP['locationUid'] = $this->GP['locationUid'] ?? 0;
+//        $this->GP['locationUid'] = $this->GP['locationUid'] ?? 0;
 
 		if ($this->GP['locationUid']) {// called from list link
 			$location = $this->locationRepository->findLocationUidOverride(intval($this->GP['locationUid']));
@@ -188,7 +188,7 @@ class LocationController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		}
 
 		$image = $this->locationRepository->findByUid($location[0]['uid']) -> getImage();
-		$location[0]['theImage'] =	$image;				
+		$location[0]['theImage'] = $image;				
 
 
 		// event dispatch
